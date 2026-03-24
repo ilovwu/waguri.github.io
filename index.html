@@ -4,725 +4,162 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Биология олимпиадасы — IV кезең 2026</title>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600;700&family=Montserrat:wght@300;400;500;600;700&family=Bebas+Neue&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root {
-  --teal: #00c896;
-  --teal-dark: #009e76;
-  --teal-glow: rgba(0,200,150,0.18);
-  --bg: #080e0b;
-  --bg2: #0d1710;
-  --bg3: #111f15;
-  --border: #1a2e1e;
-  --text: #e8f5ee;
-  --muted: #6a8c74;
-  --accent: #00ffaa;
-  --pink: #ffb7c5;
-  --gold: #f5c842;
-  --silver: #b0bec5;
-  --bronze: #cd7f32;
-  --radius: 8px;
+  --teal:#00c896;--teal-dark:#009e76;--bg:#080e0b;--bg2:#0d1710;--bg3:#111f15;
+  --border:#1a2e1e;--text:#e8f5ee;--muted:#6a8c74;--accent:#00ffaa;
+  --gold:#f5c842;--silver:#b0bec5;--bronze:#cd7f32;--radius:8px;
 }
-
-* { margin: 0; padding: 0; box-sizing: border-box; }
-html { scroll-behavior: smooth; }
-body {
-  font-family: 'Montserrat', sans-serif;
-  background: var(--bg);
-  color: var(--text);
-  min-height: 100vh;
-  overflow-x: hidden;
-}
-
-#petals-canvas {
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 0;
-  opacity: 0.55;
-}
-
-.bg-grid {
-  position: fixed;
-  inset: 0;
-  background-image:
-    linear-gradient(rgba(0,200,150,0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0,200,150,0.03) 1px, transparent 1px);
-  background-size: 48px 48px;
-  pointer-events: none;
-  z-index: 0;
-}
-
-.bg-glow-top {
-  position: fixed;
-  top: -300px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 900px;
-  height: 700px;
-  background: radial-gradient(ellipse, rgba(0,200,150,0.10) 0%, transparent 70%);
-  pointer-events: none;
-  z-index: 0;
-}
-
-.bg-glow-bottom {
-  position: fixed;
-  bottom: -200px;
-  right: -200px;
-  width: 600px;
-  height: 600px;
-  background: radial-gradient(ellipse, rgba(255,183,197,0.07) 0%, transparent 70%);
-  pointer-events: none;
-  z-index: 0;
-}
-
-.lang-toggle {
-  position: fixed;
-  top: 20px;
-  right: 24px;
-  z-index: 1000;
-  display: flex;
-  gap: 4px;
-  background: rgba(13,23,16,0.85);
-  border: 1px solid var(--border);
-  border-radius: 6px;
-  padding: 4px;
-  backdrop-filter: blur(12px);
-}
-
-.lang-btn {
-  cursor: pointer;
-  background: none;
-  border: none;
-  color: var(--muted);
-  font-family: 'Montserrat', sans-serif;
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 1.5px;
-  padding: 6px 12px;
-  border-radius: 4px;
-  transition: all 0.2s;
-}
-.lang-btn.active { background: rgba(0,200,150,0.15); color: var(--accent); }
-.lang-btn:hover:not(.active) { color: var(--text); }
-
-#home {
-  position: relative;
-  z-index: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  min-height: 100vh;
-  padding: 60px 20px 40px;
-  text-align: center;
-}
-
-.home-tag {
-  display: inline-block;
-  border: 1px solid rgba(0,200,150,0.4);
-  color: var(--teal);
-  font-size: 10px;
-  font-weight: 600;
-  letter-spacing: 4px;
-  text-transform: uppercase;
-  padding: 7px 20px;
-  border-radius: 2px;
-  margin-bottom: 40px;
-  opacity: 0;
-  animation: riseIn 0.8s 0.1s ease forwards;
-  position: relative;
-}
-.home-tag::before, .home-tag::after { content: '✦'; margin: 0 10px; opacity: 0.5; font-size: 8px; }
-
-.home-title {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(52px, 10vw, 130px);
-  font-weight: 700;
-  line-height: 0.88;
-  letter-spacing: -1px;
-  color: var(--text);
-  margin-bottom: 6px;
-  opacity: 0;
-  animation: riseIn 0.9s 0.25s ease forwards;
-}
-
-.home-title .accent-line {
-  display: block;
-  color: transparent;
-  -webkit-text-stroke: 1.5px var(--teal);
-  font-style: italic;
-}
-
-.home-title .filled-line {
-  display: block;
-  background: linear-gradient(90deg, var(--accent), var(--teal));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-.home-date {
-  font-size: 12px;
-  font-weight: 400;
-  color: var(--muted);
-  letter-spacing: 4px;
-  text-transform: uppercase;
-  margin-bottom: 64px;
-  opacity: 0;
-  animation: riseIn 0.8s 0.4s ease forwards;
-}
-
-.class-label {
-  font-size: 10px;
-  font-weight: 600;
-  color: var(--muted);
-  letter-spacing: 4px;
-  text-transform: uppercase;
-  margin-bottom: 20px;
-  opacity: 0;
-  animation: riseIn 0.8s 0.5s ease forwards;
-}
-
-.class-buttons {
-  display: flex;
-  gap: 14px;
-  justify-content: center;
-  flex-wrap: wrap;
-  opacity: 0;
-  animation: riseIn 0.8s 0.6s ease forwards;
-  margin-bottom: 20px;
-}
-
-.class-btn {
-  position: relative;
-  cursor: pointer;
-  border: 1px solid var(--border);
-  background: linear-gradient(135deg, var(--bg2), var(--bg3));
-  color: var(--text);
-  font-family: 'Montserrat', sans-serif;
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  padding: 24px 44px;
-  border-radius: var(--radius);
-  transition: all 0.3s ease;
-  overflow: hidden;
-  min-width: 130px;
-}
-
-.class-btn::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(135deg, rgba(0,200,150,0.08), transparent);
-  opacity: 0;
-  transition: opacity 0.3s;
-}
-.class-btn::after {
-  content: '';
-  position: absolute;
-  bottom: 0; left: 0; right: 0;
-  height: 2px;
-  background: linear-gradient(90deg, var(--teal), var(--accent));
-  transform: scaleX(0);
-  transition: transform 0.3s ease;
-  transform-origin: left;
-}
-.class-btn:hover { border-color: var(--teal); transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,200,150,0.2); }
-.class-btn:hover::before { opacity: 1; }
-.class-btn:hover::after { transform: scaleX(1); }
-
-.class-btn .btn-num {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 54px;
-  font-weight: 700;
-  line-height: 1;
-  display: block;
-  color: var(--teal);
-  margin-bottom: 4px;
-  transition: color 0.3s;
-}
-.class-btn:hover .btn-num { color: var(--accent); }
-.class-btn.all-btn .btn-num { font-size: 18px; letter-spacing: 2px; margin-bottom: 8px; }
-
-.stats-row {
-  display: flex;
-  gap: 48px;
-  justify-content: center;
-  margin-top: 64px;
-  flex-wrap: wrap;
-  opacity: 0;
-  animation: riseIn 0.8s 0.75s ease forwards;
-}
-
-.stat-item { text-align: center; position: relative; }
-.stat-item + .stat-item::before {
-  content: '';
-  position: absolute;
-  left: -24px;
-  top: 50%;
-  transform: translateY(-50%);
-  height: 30px;
-  width: 1px;
-  background: var(--border);
-}
-.stat-num {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 44px;
-  font-weight: 700;
-  color: var(--teal);
-  display: block;
-  line-height: 1;
-}
-.stat-label {
-  font-size: 9px;
-  color: var(--muted);
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  margin-top: 4px;
-}
-
-#results { display: none; min-height: 100vh; position: relative; z-index: 1; }
-
-.header {
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  background: rgba(8,14,11,0.92);
-  backdrop-filter: blur(16px);
-  border-bottom: 1px solid var(--border);
-  padding: 0 28px;
-  height: 62px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-}
-
-.header-left { display: flex; align-items: center; gap: 16px; }
-
-.back-btn {
-  cursor: pointer;
-  border: 1px solid var(--border);
-  background: none;
-  color: var(--muted);
-  font-family: 'Montserrat', sans-serif;
-  font-size: 10px;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  padding: 7px 14px;
-  border-radius: 4px;
-  transition: all 0.2s;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-.back-btn:hover { border-color: var(--teal); color: var(--teal); }
-
-.header-title {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 20px;
-  font-weight: 600;
-  letter-spacing: 2px;
-  color: var(--muted);
-}
-.header-class-badge {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 24px;
-  font-weight: 700;
-  color: var(--accent);
-}
-
-.search-box { position: relative; }
-.search-input {
-  background: var(--bg2);
-  border: 1px solid var(--border);
-  color: var(--text);
-  font-family: 'Montserrat', sans-serif;
-  font-size: 11px;
-  padding: 8px 14px 8px 34px;
-  border-radius: 4px;
-  width: 200px;
-  outline: none;
-  transition: border-color 0.2s;
-}
-.search-input:focus { border-color: var(--teal); }
-.search-input::placeholder { color: var(--muted); }
-.search-icon {
-  position: absolute;
-  left: 11px; top: 50%;
-  transform: translateY(-50%);
-  color: var(--muted);
-  font-size: 12px;
-  pointer-events: none;
-}
-
-.results-content {
-  padding: 28px 28px 60px;
-  max-width: 1500px;
-  margin: 0 auto;
-}
-
-.section-tabs {
-  display: flex;
-  gap: 0;
-  margin-bottom: 28px;
-  border-bottom: 1px solid var(--border);
-  flex-wrap: wrap;
-}
-
-.tab-btn {
-  cursor: pointer;
-  background: none;
-  border: none;
-  border-bottom: 2px solid transparent;
-  color: var(--muted);
-  font-family: 'Montserrat', sans-serif;
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 2.5px;
-  text-transform: uppercase;
-  padding: 14px 22px;
-  margin-bottom: -1px;
-  transition: all 0.22s;
-  position: relative;
-}
-.tab-btn:hover { color: var(--text); }
-.tab-btn.active { color: var(--accent); border-bottom-color: var(--accent); }
-
-.subtabs { display: flex; gap: 8px; margin-bottom: 20px; flex-wrap: wrap; }
-.subtab-btn {
-  cursor: pointer;
-  background: var(--bg2);
-  border: 1px solid var(--border);
-  color: var(--muted);
-  font-family: 'Montserrat', sans-serif;
-  font-size: 10px;
-  font-weight: 600;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  padding: 7px 14px;
-  border-radius: 4px;
-  transition: all 0.2s;
-}
-.subtab-btn:hover { color: var(--text); border-color: var(--teal); }
-.subtab-btn.active { background: rgba(0,200,150,0.1); border-color: var(--teal); color: var(--accent); }
-
-.table-wrap {
-  overflow-x: auto;
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  background: linear-gradient(180deg, var(--bg2) 0%, var(--bg) 100%);
-}
-
-table { width: 100%; border-collapse: collapse; font-size: 13px; }
-
-thead tr { background: rgba(0,200,150,0.04); border-bottom: 1px solid var(--border); }
-th {
-  padding: 13px 16px;
-  text-align: left;
-  font-size: 9px;
-  font-weight: 700;
-  letter-spacing: 2.5px;
-  text-transform: uppercase;
-  color: var(--muted);
-  white-space: nowrap;
-}
-th.right, td.right { text-align: right; }
-th.center, td.center { text-align: center; }
-
-tbody tr {
-  border-bottom: 1px solid rgba(26,46,30,0.6);
-  transition: background 0.15s, transform 0.15s;
-  cursor: default;
-}
-tbody tr:last-child { border-bottom: none; }
-tbody tr:hover { background: rgba(0,200,150,0.04); }
-
-td { padding: 12px 16px; color: var(--text); vertical-align: middle; }
-
-.rank-cell {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 20px;
-  font-weight: 700;
-  color: var(--muted);
-  min-width: 44px;
-}
-.rank-1 { color: var(--gold) !important; }
-.rank-2 { color: var(--silver) !important; }
-.rank-3 { color: var(--bronze) !important; }
-
-.name-cell { font-weight: 500; min-width: 180px; }
-.subtable-detail { color: var(--muted); font-size: 10px; margin-top: 2px; letter-spacing: 1px; }
-.note-cell { font-size: 10px; color: #e57373; margin-top: 2px; }
-
-.score-badge {
-  display: inline-block;
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 17px;
-  font-weight: 600;
-  padding: 2px 10px;
-  border-radius: 4px;
-  background: rgba(0,200,150,0.07);
-  color: var(--teal);
-  border: 1px solid rgba(0,200,150,0.18);
-  min-width: 50px;
-  text-align: center;
-}
-.score-total {
-  background: rgba(0,200,150,0.14);
-  border-color: rgba(0,200,150,0.35);
-  color: var(--accent);
-  font-size: 19px;
-}
-.score-top {
-  background: rgba(245,200,66,0.12);
-  border-color: rgba(245,200,66,0.3);
-  color: var(--gold);
-}
-.score-na { color: var(--muted); font-size: 12px; }
-.score-appeal {
-  display: inline-block;
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 15px;
-  font-weight: 600;
-  padding: 2px 8px;
-  border-radius: 4px;
-  min-width: 44px;
-  text-align: center;
-}
-.score-appeal-pos {
-  background: rgba(0,200,150,0.07);
-  border: 1px solid rgba(0,200,150,0.2);
-  color: var(--teal);
-}
-.score-appeal-neg {
-  background: rgba(229,115,115,0.07);
-  border: 1px solid rgba(229,115,115,0.2);
-  color: #e57373;
-}
-.score-appeal-zero {
-  background: rgba(106,140,116,0.07);
-  border: 1px solid rgba(106,140,116,0.2);
-  color: var(--muted);
-}
-
-.chip-region {
-  display: inline-block;
-  background: rgba(0,200,150,0.05);
-  border: 1px solid rgba(0,200,150,0.12);
-  border-radius: 3px;
-  padding: 2px 8px;
-  font-size: 11px;
-  color: var(--muted);
-  white-space: nowrap;
-}
-
-.summary-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
-  gap: 14px;
-  margin-bottom: 28px;
-}
-
-.summary-card {
-  background: linear-gradient(135deg, var(--bg2), var(--bg3));
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 20px;
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  transition: all 0.3s;
-  position: relative;
-  overflow: hidden;
-}
-.summary-card::after {
-  content: '';
-  position: absolute;
-  bottom: 0; left: 0; right: 0;
-  height: 2px;
-  background: linear-gradient(90deg, var(--teal), var(--accent));
-  opacity: 0;
-  transition: opacity 0.3s;
-}
-.summary-card:hover { border-color: var(--teal); transform: translateY(-2px); box-shadow: 0 8px 32px rgba(0,200,150,0.15); }
-.summary-card:hover::after { opacity: 1; }
-
-.summary-icon { font-size: 30px; flex-shrink: 0; }
-.summary-info { flex: 1; min-width: 0; }
-.summary-name { font-weight: 600; font-size: 13px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.summary-region { font-size: 11px; color: var(--muted); margin-top: 3px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.summary-score {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 36px;
-  font-weight: 700;
-  color: var(--gold);
-  flex-shrink: 0;
-}
-
-.section-heading {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 13px;
-  font-weight: 600;
-  letter-spacing: 4px;
-  color: var(--muted);
-  text-transform: uppercase;
-  margin-bottom: 16px;
-  margin-top: 32px;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-.section-heading::after {
-  content: '';
-  flex: 1;
-  height: 1px;
-  background: var(--border);
-}
-
-.empty-msg {
-  text-align: center;
-  padding: 80px 20px;
-  color: var(--muted);
-  font-size: 13px;
-  letter-spacing: 1px;
-  line-height: 1.9;
-}
-
-@keyframes riseIn {
-  from { opacity: 0; transform: translateY(28px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-.results-content { animation: fadeIn 0.3s ease; }
-
-tbody tr { animation: riseIn 0.4s ease both; }
-tbody tr:nth-child(1)  { animation-delay: 0.03s; }
-tbody tr:nth-child(2)  { animation-delay: 0.06s; }
-tbody tr:nth-child(3)  { animation-delay: 0.09s; }
-tbody tr:nth-child(4)  { animation-delay: 0.12s; }
-tbody tr:nth-child(5)  { animation-delay: 0.15s; }
-tbody tr:nth-child(6)  { animation-delay: 0.18s; }
-tbody tr:nth-child(7)  { animation-delay: 0.21s; }
-tbody tr:nth-child(8)  { animation-delay: 0.24s; }
-tbody tr:nth-child(9)  { animation-delay: 0.27s; }
-tbody tr:nth-child(10) { animation-delay: 0.30s; }
-
-.rank-1 { text-shadow: 0 0 12px rgba(245,200,66,0.6); }
-.rank-2 { text-shadow: 0 0 8px rgba(176,190,197,0.4); }
-.rank-3 { text-shadow: 0 0 8px rgba(205,127,50,0.4); }
-
-@media (max-width: 768px) {
-  .results-content { padding: 14px 14px 40px; }
-  .header { padding: 0 14px; }
-  th, td { padding: 10px 10px; font-size: 11px; }
-  .search-input { width: 140px; }
-  .home-title { line-height: 0.9; }
-  .stats-row { gap: 28px; }
-  .stat-item + .stat-item::before { display: none; }
-}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Montserrat',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden}
+canvas#pc{position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.5}
+.bg-grid{position:fixed;inset:0;background-image:linear-gradient(rgba(0,200,150,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(0,200,150,.03) 1px,transparent 1px);background-size:48px 48px;pointer-events:none;z-index:0}
+.glow-t{position:fixed;top:-300px;left:50%;transform:translateX(-50%);width:900px;height:700px;background:radial-gradient(ellipse,rgba(0,200,150,.1) 0%,transparent 70%);pointer-events:none;z-index:0}
+.lang-toggle{position:fixed;top:20px;right:24px;z-index:1000;display:flex;gap:4px;background:rgba(13,23,16,.85);border:1px solid var(--border);border-radius:6px;padding:4px;backdrop-filter:blur(12px)}
+.lang-btn{cursor:pointer;background:none;border:none;color:var(--muted);font-family:'Montserrat',sans-serif;font-size:11px;font-weight:600;letter-spacing:1.5px;padding:6px 12px;border-radius:4px;transition:all .2s}
+.lang-btn.active{background:rgba(0,200,150,.15);color:var(--accent)}
+.lang-btn:hover:not(.active){color:var(--text)}
+#home{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;padding:60px 20px 40px;text-align:center}
+.home-tag{display:inline-block;border:1px solid rgba(0,200,150,.4);color:var(--teal);font-size:10px;font-weight:600;letter-spacing:4px;text-transform:uppercase;padding:7px 20px;border-radius:2px;margin-bottom:40px;opacity:0;animation:riseIn .8s .1s ease forwards}
+.home-title{font-family:'Cormorant Garamond',serif;font-size:clamp(52px,10vw,130px);font-weight:700;line-height:.88;letter-spacing:-1px;margin-bottom:6px;opacity:0;animation:riseIn .9s .25s ease forwards}
+.home-title .accent-line{display:block;color:transparent;-webkit-text-stroke:1.5px var(--teal);font-style:italic}
+.home-title .filled-line{display:block;background:linear-gradient(90deg,var(--accent),var(--teal));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.home-date{font-size:12px;color:var(--muted);letter-spacing:4px;text-transform:uppercase;margin-bottom:64px;opacity:0;animation:riseIn .8s .4s ease forwards}
+.class-label{font-size:10px;font-weight:600;color:var(--muted);letter-spacing:4px;text-transform:uppercase;margin-bottom:20px;opacity:0;animation:riseIn .8s .5s ease forwards}
+.class-buttons{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;opacity:0;animation:riseIn .8s .6s ease forwards;margin-bottom:20px}
+.class-btn{position:relative;cursor:pointer;border:1px solid var(--border);background:linear-gradient(135deg,var(--bg2),var(--bg3));color:var(--text);font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;padding:24px 44px;border-radius:var(--radius);transition:all .3s ease;overflow:hidden;min-width:130px}
+.class-btn::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--teal),var(--accent));transform:scaleX(0);transition:transform .3s ease;transform-origin:left}
+.class-btn:hover{border-color:var(--teal);transform:translateY(-4px);box-shadow:0 12px 40px rgba(0,200,150,.2)}
+.class-btn:hover::after{transform:scaleX(1)}
+.class-btn .btn-num{font-family:'Cormorant Garamond',serif;font-size:54px;font-weight:700;line-height:1;display:block;color:var(--teal);margin-bottom:4px;transition:color .3s}
+.class-btn:hover .btn-num{color:var(--accent)}
+.class-btn.all-btn .btn-num{font-size:18px;letter-spacing:2px;margin-bottom:8px}
+.stats-row{display:flex;gap:48px;justify-content:center;margin-top:64px;flex-wrap:wrap;opacity:0;animation:riseIn .8s .75s ease forwards}
+.stat-item{text-align:center;position:relative}
+.stat-item+.stat-item::before{content:'';position:absolute;left:-24px;top:50%;transform:translateY(-50%);height:30px;width:1px;background:var(--border)}
+.stat-num{font-family:'Cormorant Garamond',serif;font-size:44px;font-weight:700;color:var(--teal);display:block;line-height:1}
+.stat-label{font-size:9px;color:var(--muted);letter-spacing:3px;text-transform:uppercase;margin-top:4px}
+#results{display:none;min-height:100vh;position:relative;z-index:1}
+.header{position:sticky;top:0;z-index:100;background:rgba(8,14,11,.92);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);padding:0 28px;height:62px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.header-left{display:flex;align-items:center;gap:16px}
+.back-btn{cursor:pointer;border:1px solid var(--border);background:none;color:var(--muted);font-family:'Montserrat',sans-serif;font-size:10px;letter-spacing:2px;text-transform:uppercase;padding:7px 14px;border-radius:4px;transition:all .2s;display:flex;align-items:center;gap:6px}
+.back-btn:hover{border-color:var(--teal);color:var(--teal)}
+.header-title{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:600;letter-spacing:2px;color:var(--muted)}
+.header-class-badge{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:700;color:var(--accent)}
+.search-box{position:relative}
+.search-input{background:var(--bg2);border:1px solid var(--border);color:var(--text);font-family:'Montserrat',sans-serif;font-size:11px;padding:8px 14px 8px 34px;border-radius:4px;width:200px;outline:none;transition:border-color .2s}
+.search-input:focus{border-color:var(--teal)}
+.search-input::placeholder{color:var(--muted)}
+.search-icon{position:absolute;left:11px;top:50%;transform:translateY(-50%);color:var(--muted);font-size:12px;pointer-events:none}
+.results-content{padding:28px 28px 60px;max-width:1600px;margin:0 auto}
+.section-tabs{display:flex;gap:0;margin-bottom:28px;border-bottom:1px solid var(--border);flex-wrap:wrap}
+.tab-btn{cursor:pointer;background:none;border:none;border-bottom:2px solid transparent;color:var(--muted);font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;padding:14px 22px;margin-bottom:-1px;transition:all .22s}
+.tab-btn:hover{color:var(--text)}
+.tab-btn.active{color:var(--accent);border-bottom-color:var(--accent)}
+.subtabs{display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap}
+.subtab-btn{cursor:pointer;background:var(--bg2);border:1px solid var(--border);color:var(--muted);font-family:'Montserrat',sans-serif;font-size:10px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;padding:7px 14px;border-radius:4px;transition:all .2s}
+.subtab-btn:hover{color:var(--text);border-color:var(--teal)}
+.subtab-btn.active{background:rgba(0,200,150,.1);border-color:var(--teal);color:var(--accent)}
+.table-wrap{overflow-x:auto;border:1px solid var(--border);border-radius:var(--radius);background:linear-gradient(180deg,var(--bg2) 0%,var(--bg) 100%)}
+table{width:100%;border-collapse:collapse;font-size:13px}
+thead tr{background:rgba(0,200,150,.04);border-bottom:1px solid var(--border)}
+th{padding:13px 16px;text-align:left;font-size:9px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--muted);white-space:nowrap}
+th.right,td.right{text-align:right}
+th.center,td.center{text-align:center}
+tbody tr{border-bottom:1px solid rgba(26,46,30,.6);transition:background .15s;cursor:default}
+tbody tr:last-child{border-bottom:none}
+tbody tr:hover{background:rgba(0,200,150,.04)}
+td{padding:12px 16px;color:var(--text);vertical-align:middle}
+.rank-cell{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--muted);min-width:44px}
+.rank-1{color:var(--gold)!important}
+.rank-2{color:var(--silver)!important}
+.rank-3{color:var(--bronze)!important}
+.name-cell{font-weight:500;min-width:180px}
+.sub-detail{color:var(--muted);font-size:10px;margin-top:2px;letter-spacing:1px}
+.note-cell{font-size:10px;color:#e57373;margin-top:2px}
+.sb{display:inline-block;font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:600;padding:2px 10px;border-radius:4px;background:rgba(0,200,150,.07);color:var(--teal);border:1px solid rgba(0,200,150,.18);min-width:50px;text-align:center}
+.sb-total{background:rgba(0,200,150,.14);border-color:rgba(0,200,150,.35);color:var(--accent);font-size:19px}
+.sb-top{background:rgba(245,200,66,.12);border-color:rgba(245,200,66,.3);color:var(--gold)}
+.ap{display:inline-block;font-family:'Cormorant Garamond',serif;font-size:15px;font-weight:600;padding:2px 8px;border-radius:4px;min-width:44px;text-align:center}
+.ap-pos{background:rgba(0,200,150,.07);border:1px solid rgba(0,200,150,.2);color:var(--teal)}
+.ap-neg{background:rgba(229,115,115,.07);border:1px solid rgba(229,115,115,.2);color:#e57373}
+.ap-zero{background:rgba(106,140,116,.07);border:1px solid rgba(106,140,116,.2);color:var(--muted)}
+.chip{display:inline-block;background:rgba(0,200,150,.05);border:1px solid rgba(0,200,150,.12);border-radius:3px;padding:2px 8px;font-size:11px;color:var(--muted);white-space:nowrap}
+.summary-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:14px;margin-bottom:28px}
+.summary-card{background:linear-gradient(135deg,var(--bg2),var(--bg3));border:1px solid var(--border);border-radius:var(--radius);padding:20px;display:flex;align-items:center;gap:16px;transition:all .3s;position:relative;overflow:hidden}
+.summary-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--teal),var(--accent));opacity:0;transition:opacity .3s}
+.summary-card:hover{border-color:var(--teal);transform:translateY(-2px);box-shadow:0 8px 32px rgba(0,200,150,.15)}
+.summary-card:hover::after{opacity:1}
+.summary-icon{font-size:30px;flex-shrink:0}
+.summary-info{flex:1;min-width:0}
+.summary-name{font-weight:600;font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.summary-region{font-size:11px;color:var(--muted);margin-top:3px}
+.summary-score{font-family:'Cormorant Garamond',serif;font-size:36px;font-weight:700;color:var(--gold);flex-shrink:0}
+.sec-head{font-family:'Cormorant Garamond',serif;font-size:13px;font-weight:600;letter-spacing:4px;color:var(--muted);text-transform:uppercase;margin-bottom:16px;margin-top:32px;display:flex;align-items:center;gap:12px}
+.sec-head::after{content:'';flex:1;height:1px;background:var(--border)}
+@keyframes riseIn{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.results-content{animation:fadeIn .3s ease}
+tbody tr{animation:riseIn .4s ease both}
+tbody tr:nth-child(1){animation-delay:.03s}
+tbody tr:nth-child(2){animation-delay:.06s}
+tbody tr:nth-child(3){animation-delay:.09s}
+tbody tr:nth-child(4){animation-delay:.12s}
+tbody tr:nth-child(5){animation-delay:.15s}
+tbody tr:nth-child(n+6){animation-delay:.18s}
+@media(max-width:768px){.results-content{padding:14px 14px 40px}.header{padding:0 14px}th,td{padding:10px 10px;font-size:11px}.search-input{width:140px}.stats-row{gap:28px}.stat-item+.stat-item::before{display:none}}
 </style>
 </head>
 <body>
-
-<canvas id="petals-canvas"></canvas>
+<canvas id="pc"></canvas>
 <div class="bg-grid"></div>
-<div class="bg-glow-top"></div>
-<div class="bg-glow-bottom"></div>
-
+<div class="glow-t"></div>
 <div class="lang-toggle">
   <button class="lang-btn active" id="btn-kk" onclick="setLang('kk')">ҚАЗ</button>
   <button class="lang-btn" id="btn-ru" onclick="setLang('ru')">РУС</button>
 </div>
 
-<!-- HOME -->
 <div id="home">
   <div class="home-tag" data-kk="🧬 Республикалық олимпиада · IV кезең · 2026" data-ru="🧬 Республиканская олимпиада · IV этап · 2026">🧬 Республикалық олимпиада · IV кезең · 2026</div>
-
   <h1 class="home-title">
     <span class="accent-line" data-kk="БИОЛОГИЯ" data-ru="БИОЛОГИЯ">БИОЛОГИЯ</span>
     <span class="filled-line" data-kk="ОЛИМПИАДАСЫ" data-ru="ОЛИМПИАДА">ОЛИМПИАДАСЫ</span>
   </h1>
-
   <p class="home-date" data-kk="Астана қаласы · 20–25.03.2026" data-ru="г. Астана · 20–25.03.2026">Астана қаласы · 20–25.03.2026</p>
-
   <div class="class-label" data-kk="Сынып таңдаңыз" data-ru="Выберите класс">Сынып таңдаңыз</div>
-
   <div class="class-buttons">
-    <button class="class-btn" onclick="showResults(9)">
-      <span class="btn-num">9</span>
-      <span data-kk="СЫНЫП" data-ru="КЛАСС">СЫНЫП</span>
-    </button>
-    <button class="class-btn" onclick="showResults(10)">
-      <span class="btn-num">10</span>
-      <span data-kk="СЫНЫП" data-ru="КЛАСС">СЫНЫП</span>
-    </button>
-    <button class="class-btn" onclick="showResults(11)">
-      <span class="btn-num">11</span>
-      <span data-kk="СЫНЫП" data-ru="КЛАСС">СЫНЫП</span>
-    </button>
-    <button class="class-btn all-btn" onclick="showResults('all')">
-      <span class="btn-num" data-kk="БАРЛЫҒЫ" data-ru="ВСЕ">БАРЛЫҒЫ</span>
-      9 · 10 · 11
-    </button>
+    <button class="class-btn" onclick="showResults(9)"><span class="btn-num">9</span><span data-kk="СЫНЫП" data-ru="КЛАСС">СЫНЫП</span></button>
+    <button class="class-btn" onclick="showResults(10)"><span class="btn-num">10</span><span data-kk="СЫНЫП" data-ru="КЛАСС">СЫНЫП</span></button>
+    <button class="class-btn" onclick="showResults(11)"><span class="btn-num">11</span><span data-kk="СЫНЫП" data-ru="КЛАСС">СЫНЫП</span></button>
+    <button class="class-btn all-btn" onclick="showResults('all')"><span class="btn-num" data-kk="БАРЛЫҒЫ" data-ru="ВСЕ">БАРЛЫҒЫ</span>9 · 10 · 11</button>
   </div>
-
   <div class="stats-row">
-    <div class="stat-item">
-      <span class="stat-num">150</span>
-      <span class="stat-label" data-kk="Қатысушы" data-ru="Участников">Қатысушы</span>
-    </div>
-    <div class="stat-item">
-      <span class="stat-num">2</span>
-      <span class="stat-label" data-kk="Тур" data-ru="Тура">Тур</span>
-    </div>
-    <div class="stat-item">
-      <span class="stat-num">20+</span>
-      <span class="stat-label" data-kk="Облыс" data-ru="Регионов">Облыс</span>
-    </div>
+    <div class="stat-item"><span class="stat-num">150</span><span class="stat-label" data-kk="Қатысушы" data-ru="Участников">Қатысушы</span></div>
+    <div class="stat-item"><span class="stat-num">2</span><span class="stat-label" data-kk="Тур" data-ru="Тура">Тур</span></div>
+    <div class="stat-item"><span class="stat-num">20+</span><span class="stat-label" data-kk="Облыс" data-ru="Регионов">Облыс</span></div>
   </div>
 </div>
 
-<!-- RESULTS -->
 <div id="results">
   <div class="header">
     <div class="header-left">
       <button class="back-btn" onclick="showHome()">← <span data-kk="Артқа" data-ru="Назад">Артқа</span></button>
-      <div>
-        <span class="header-title" data-kk="БИОЛОГИЯ · " data-ru="БИОЛОГИЯ · ">БИОЛОГИЯ · </span>
-        <span class="header-class-badge" id="headerClass"></span>
-      </div>
+      <div><span class="header-title">БИОЛОГИЯ · </span><span class="header-class-badge" id="headerClass"></span></div>
     </div>
     <div class="search-box">
       <span class="search-icon">🔍</span>
-      <input class="search-input" type="text" id="searchInput" oninput="filterTable()">
+      <input class="search-input" type="text" id="searchInput" oninput="filterTable()" placeholder="Аты бойынша іздеу...">
     </div>
   </div>
-
   <div class="results-content">
     <div class="section-tabs">
-      <button class="tab-btn active" id="tab-btn-tour1" onclick="switchTab('tour1')">
-        <span data-kk="І ТУР" data-ru="І ТУР">І ТУР</span>
-      </button>
-      <button class="tab-btn" id="tab-btn-tour2" onclick="switchTab('tour2')">
-        <span data-kk="ІІ ТУР" data-ru="ІІ ТУР">ІІ ТУР</span>
-      </button>
-      <button class="tab-btn" id="tab-btn-appeal" onclick="switchTab('appeal')">
-        <span data-kk="АПЕЛЛЯЦИЯ" data-ru="АПЕЛЛЯЦИЯ">АПЕЛЛЯЦИЯ</span>
-      </button>
-      <button class="tab-btn" id="tab-btn-final" onclick="switchTab('final')">
-        <span data-kk="ҚОРЫТЫНДЫ" data-ru="ИТОГ">ҚОРЫТЫНДЫ</span>
-      </button>
+      <button class="tab-btn active" id="tab-btn-tour1" onclick="switchTab('tour1')"><span data-kk="І ТУР" data-ru="І ТУР">І ТУР</span></button>
+      <button class="tab-btn" id="tab-btn-tour2" onclick="switchTab('tour2')"><span data-kk="ІІ ТУР" data-ru="ІІ ТУР">ІІ ТУР</span></button>
+      <button class="tab-btn" id="tab-btn-appeal" onclick="switchTab('appeal')"><span data-kk="АПЕЛЛЯЦИЯ" data-ru="АПЕЛЛЯЦИЯ">АПЕЛЛЯЦИЯ</span></button>
+      <button class="tab-btn" id="tab-btn-final" onclick="switchTab('final')"><span data-kk="ҚОРЫТЫНДЫ" data-ru="ИТОГ">ҚОРЫТЫНДЫ</span></button>
     </div>
-
-    <!-- TOUR 1 -->
     <div id="tab-tour1">
       <div class="subtabs">
         <button class="subtab-btn active" onclick="switchSubtab('all-t1')" data-kk="БАРЛЫҒЫ" data-ru="ВСЕ">БАРЛЫҒЫ</button>
@@ -730,827 +167,563 @@ tbody tr:nth-child(10) { animation-delay: 0.30s; }
         <button class="subtab-btn" onclick="switchSubtab('bioinfo')" data-kk="БИОИНФОРМАТИКА" data-ru="БИОИНФОРМАТИКА">БИОИНФОРМАТИКА</button>
         <button class="subtab-btn" onclick="switchSubtab('anatomy')" data-kk="АНАТОМИЯ" data-ru="АНАТОМИЯ">АНАТОМИЯ</button>
       </div>
-
-      <div id="subtab-all-t1">
-        <div class="table-wrap">
-          <table>
-            <thead>
-              <tr>
-                <th>№</th>
-                <th data-kk="ФИО" data-ru="ФИО">ФИО</th>
-                <th data-kk="Облыс" data-ru="Регион">Облыс</th>
-                <th class="right" data-kk="Биохимия" data-ru="Биохимия">Биохимия</th>
-                <th class="right" data-kk="Биоинформатика" data-ru="Биоинформатика">Биоинформатика</th>
-                <th class="right" data-kk="Анатомия" data-ru="Анатомия">Анатомия</th>
-                <th class="right" data-kk="І ТУР (дейін)" data-ru="І ТУР (до)">І ТУР (дейін)</th>
-                <th class="right" data-kk="Апелляция" data-ru="Апелляция">Апелляция</th>
-                <th class="right" data-kk="І ТУР ЖИЫНЫ" data-ru="І ТУР ИТОГО">І ТУР ЖИЫНЫ</th>
-              </tr>
-            </thead>
-            <tbody id="tbody-tour1-all"></tbody>
-          </table>
-        </div>
-      </div>
-
-      <div id="subtab-biochem" style="display:none">
-        <div class="table-wrap">
-          <table>
-            <thead>
-              <tr>
-                <th>№</th>
-                <th data-kk="ФИО" data-ru="ФИО">ФИО</th>
-                <th data-kk="Облыс" data-ru="Регион">Облыс</th>
-                <th class="right" data-kk="Тəжірибе" data-ru="Практика">Тəжірибе</th>
-                <th class="right" data-kk="Теория" data-ru="Теория">Теория</th>
-                <th class="right" data-kk="Жалпы" data-ru="Итого">Жалпы</th>
-              </tr>
-            </thead>
-            <tbody id="tbody-tour1-biochem"></tbody>
-          </table>
-        </div>
-      </div>
-
-      <div id="subtab-bioinfo" style="display:none">
-        <div class="table-wrap">
-          <table>
-            <thead>
-              <tr>
-                <th>№</th>
-                <th data-kk="ФИО" data-ru="ФИО">ФИО</th>
-                <th data-kk="Облыс" data-ru="Регион">Облыс</th>
-                <th class="right">A</th><th class="right">B</th><th class="right">C</th><th class="right">D</th>
-                <th class="right" data-kk="Жалпы" data-ru="Итого">Жалпы</th>
-              </tr>
-            </thead>
-            <tbody id="tbody-tour1-bioinfo"></tbody>
-          </table>
-        </div>
-      </div>
-
-      <div id="subtab-anatomy" style="display:none">
-        <div class="table-wrap">
-          <table>
-            <thead>
-              <tr>
-                <th>№</th>
-                <th data-kk="ФИО" data-ru="ФИО">ФИО</th>
-                <th data-kk="Облыс" data-ru="Регион">Облыс</th>
-                <th class="right">A</th><th class="right">B</th><th class="right">C</th>
-                <th class="right" data-kk="Диссекция" data-ru="Диссекция">Диссекция</th>
-                <th class="right" data-kk="Жалпы" data-ru="Итого">Жалпы</th>
-              </tr>
-            </thead>
-            <tbody id="tbody-tour1-anatomy"></tbody>
-          </table>
-        </div>
-      </div>
+      <div id="subtab-all-t1"><div class="table-wrap"><table><thead><tr>
+        <th>№</th><th data-kk="ФИО" data-ru="ФИО">ФИО</th><th data-kk="Облыс" data-ru="Регион">Облыс</th>
+        <th class="right" data-kk="Биохимия" data-ru="Биохимия">Биохимия</th>
+        <th class="right" data-kk="Биоинформатика" data-ru="Биоинформатика">Биоинформатика</th>
+        <th class="right" data-kk="Анатомия" data-ru="Анатомия">Анатомия</th>
+        <th class="right" data-kk="І тур (дейін)" data-ru="І тур (до)">І тур (дейін)</th>
+        <th class="right" data-kk="Апелляция" data-ru="Апелляция">Апелляция</th>
+        <th class="right" data-kk="І ТУР ЖИЫНЫ" data-ru="І ТУР ИТОГО">І ТУР ЖИЫНЫ</th>
+      </tr></thead><tbody id="tbody-t1-all"></tbody></table></div></div>
+      <div id="subtab-biochem" style="display:none"><div class="table-wrap"><table><thead><tr>
+        <th>№</th><th data-kk="ФИО" data-ru="ФИО">ФИО</th><th data-kk="Облыс" data-ru="Регион">Облыс</th>
+        <th class="right" data-kk="Тәжірибе" data-ru="Практика">Тәжірибе</th>
+        <th class="right" data-kk="Теория" data-ru="Теория">Теория</th>
+        <th class="right" data-kk="Жалпы" data-ru="Итого">Жалпы</th>
+      </tr></thead><tbody id="tbody-t1-biochem"></tbody></table></div></div>
+      <div id="subtab-bioinfo" style="display:none"><div class="table-wrap"><table><thead><tr>
+        <th>№</th><th data-kk="ФИО" data-ru="ФИО">ФИО</th><th data-kk="Облыс" data-ru="Регион">Облыс</th>
+        <th class="right">A</th><th class="right">B</th><th class="right">C</th><th class="right">D</th>
+        <th class="right" data-kk="Жалпы" data-ru="Итого">Жалпы</th>
+      </tr></thead><tbody id="tbody-t1-bioinfo"></tbody></table></div></div>
+      <div id="subtab-anatomy" style="display:none"><div class="table-wrap"><table><thead><tr>
+        <th>№</th><th data-kk="ФИО" data-ru="ФИО">ФИО</th><th data-kk="Облыс" data-ru="Регион">Облыс</th>
+        <th class="right">A</th><th class="right">B</th><th class="right">C</th>
+        <th class="right" data-kk="Диссекция" data-ru="Диссекция">Диссекция</th>
+        <th class="right" data-kk="Жалпы" data-ru="Итого">Жалпы</th>
+      </tr></thead><tbody id="tbody-t1-anatomy"></tbody></table></div></div>
     </div>
-
-    <!-- TOUR 2 -->
-    <div id="tab-tour2" style="display:none">
-      <div class="table-wrap">
-        <table>
-          <thead>
-            <tr>
-              <th>№</th>
-              <th data-kk="ФИО" data-ru="ФИО">ФИО</th>
-              <th data-kk="Облыс" data-ru="Регион">Облыс</th>
-              <th class="right" data-kk="ІІ ТУР (дейін)" data-ru="ІІ ТУР (до)">ІІ ТУР (дейін)</th>
-              <th class="right" data-kk="Апелляция" data-ru="Апелляция">Апелляция</th>
-              <th class="right" data-kk="ІІ ТУР ҰПАЙ" data-ru="ІІ ТУР ИТОГО">ІІ ТУР ҰПАЙ</th>
-            </tr>
-          </thead>
-          <tbody id="tbody-tour2"></tbody>
-        </table>
-      </div>
-    </div>
-
-    <!-- APPEAL SUMMARY -->
-    <div id="tab-appeal" style="display:none">
-      <div class="table-wrap">
-        <table>
-          <thead>
-            <tr>
-              <th>№</th>
-              <th data-kk="ФИО" data-ru="ФИО">ФИО</th>
-              <th data-kk="Облыс" data-ru="Регион">Облыс</th>
-              <th class="right" data-kk="І тур (дейін)" data-ru="І тур (до)">І тур (дейін)</th>
-              <th class="right" data-kk="І тур апелл." data-ru="І тур апелл.">І тур апелл.</th>
-              <th class="right" data-kk="І тур (кейін)" data-ru="І тур (после)">І тур (кейін)</th>
-              <th class="right" data-kk="ІІ тур (дейін)" data-ru="ІІ тур (до)">ІІ тур (дейін)</th>
-              <th class="right" data-kk="ІІ тур апелл." data-ru="ІІ тур апелл.">ІІ тур апелл.</th>
-              <th class="right" data-kk="ІІ тур (кейін)" data-ru="ІІ тур (после)">ІІ тур (кейін)</th>
-              <th class="right" data-kk="Барлық өзгеріс" data-ru="Всего изменение">Барлық өзгеріс</th>
-            </tr>
-          </thead>
-          <tbody id="tbody-appeal"></tbody>
-        </table>
-      </div>
-    </div>
-
-    <!-- FINAL -->
+    <div id="tab-tour2" style="display:none"><div class="table-wrap"><table><thead><tr>
+      <th>№</th><th data-kk="ФИО" data-ru="ФИО">ФИО</th><th data-kk="Облыс" data-ru="Регион">Облыс</th>
+      <th class="right" data-kk="ІІ тур (дейін)" data-ru="ІІ тур (до)">ІІ тур (дейін)</th>
+      <th class="right" data-kk="Апелляция" data-ru="Апелляция">Апелляция</th>
+      <th class="right" data-kk="ІІ ТУР ҰПАЙ" data-ru="ІІ ТУР ИТОГО">ІІ ТУР ҰПАЙ</th>
+    </tr></thead><tbody id="tbody-t2"></tbody></table></div></div>
+    <div id="tab-appeal" style="display:none"><div class="table-wrap"><table><thead><tr>
+      <th>№</th><th data-kk="ФИО" data-ru="ФИО">ФИО</th><th data-kk="Облыс" data-ru="Регион">Облыс</th>
+      <th class="right" data-kk="І (дейін)" data-ru="І (до)">І (дейін)</th>
+      <th class="right" data-kk="І апелл." data-ru="І апелл.">І апелл.</th>
+      <th class="right" data-kk="І (кейін)" data-ru="І (после)">І (кейін)</th>
+      <th class="right" data-kk="ІІ (дейін)" data-ru="ІІ (до)">ІІ (дейін)</th>
+      <th class="right" data-kk="ІІ апелл." data-ru="ІІ апелл.">ІІ апелл.</th>
+      <th class="right" data-kk="ІІ (кейін)" data-ru="ІІ (после)">ІІ (кейін)</th>
+      <th class="right" data-kk="Барлық өзгеріс" data-ru="Всего изм.">Барлық өзгеріс</th>
+    </tr></thead><tbody id="tbody-appeal"></tbody></table></div></div>
     <div id="tab-final" style="display:none">
-      <div class="section-heading" data-kk="ТОП 3" data-ru="ТОП 3">ТОП 3</div>
+      <div class="sec-head" data-kk="ТОП 3" data-ru="ТОП 3">ТОП 3</div>
       <div class="summary-grid" id="top3-cards"></div>
-      <div class="section-heading" data-kk="БАРЛЫҚ НƏТИЖЕЛЕР" data-ru="ВСЕ РЕЗУЛЬТАТЫ">БАРЛЫҚ НƏТИЖЕЛЕР</div>
-      <div class="table-wrap">
-        <table>
-          <thead>
-            <tr>
-              <th>№</th>
-              <th data-kk="ФИО" data-ru="ФИО">ФИО</th>
-              <th data-kk="Облыс" data-ru="Регион">Облыс</th>
-              <th class="right" data-kk="І тур" data-ru="І тур">І тур</th>
-              <th class="right" data-kk="ІІ тур" data-ru="ІІ тур">ІІ тур</th>
-              <th class="right" data-kk="ҚОРЫТЫНДЫ" data-ru="ИТОГО">ҚОРЫТЫНДЫ</th>
-            </tr>
-          </thead>
-          <tbody id="tbody-final"></tbody>
-        </table>
-      </div>
+      <div class="sec-head" data-kk="БАРЛЫҚ НӘТИЖЕЛЕР" data-ru="ВСЕ РЕЗУЛЬТАТЫ">БАРЛЫҚ НӘТИЖЕЛЕР</div>
+      <div class="table-wrap"><table><thead><tr>
+        <th>№</th><th data-kk="ФИО" data-ru="ФИО">ФИО</th><th data-kk="Облыс" data-ru="Регион">Облыс</th>
+        <th class="right" data-kk="І тур" data-ru="І тур">І тур</th>
+        <th class="right" data-kk="ІІ тур" data-ru="ІІ тур">ІІ тур</th>
+        <th class="right" data-kk="ҚОРЫТЫНДЫ" data-ru="ИТОГО">ҚОРЫТЫНДЫ</th>
+      </tr></thead><tbody id="tbody-final"></tbody></table></div>
     </div>
   </div>
 </div>
 
 <script>
-// ============================================================
-// PETAL ANIMATION
-// ============================================================
-(function() {
-  const canvas = document.getElementById('petals-canvas');
-  const ctx = canvas.getContext('2d');
-  let W, H, petals = [];
-  function resize() { W = canvas.width = window.innerWidth; H = canvas.height = window.innerHeight; }
-  resize();
-  window.addEventListener('resize', resize);
-  const COLORS = ['rgba(255,183,197,0.7)','rgba(200,240,220,0.6)','rgba(180,230,210,0.5)','rgba(255,210,220,0.6)','rgba(150,220,200,0.5)'];
-  function createPetal() {
-    return { x: Math.random()*W, y: -20, size: Math.random()*7+4, speedY: Math.random()*0.8+0.3, speedX: (Math.random()-0.5)*0.6, rot: Math.random()*Math.PI*2, rotSpeed: (Math.random()-0.5)*0.03, opacity: Math.random()*0.5+0.3, color: COLORS[Math.floor(Math.random()*COLORS.length)], wobble: Math.random()*Math.PI*2, wobbleSpeed: Math.random()*0.02+0.01 };
-  }
-  for (let i = 0; i < 38; i++) { const p = createPetal(); p.y = Math.random()*H; petals.push(p); }
-  function drawPetal(p) {
-    ctx.save(); ctx.translate(p.x, p.y); ctx.rotate(p.rot); ctx.globalAlpha = p.opacity;
-    ctx.beginPath(); ctx.ellipse(0, 0, p.size, p.size*0.55, 0, 0, Math.PI*2);
-    ctx.fillStyle = p.color; ctx.fill(); ctx.restore();
-  }
-  function animate() {
-    ctx.clearRect(0, 0, W, H);
-    for (let p of petals) {
-      p.y += p.speedY; p.wobble += p.wobbleSpeed; p.x += p.speedX + Math.sin(p.wobble)*0.4; p.rot += p.rotSpeed;
-      if (p.y > H+30) { Object.assign(p, createPetal()); p.y = -20; }
-      drawPetal(p);
-    }
-    requestAnimationFrame(animate);
-  }
-  animate();
+// ── PETAL ANIMATION ──────────────────────────────────────────
+(function(){
+  const c=document.getElementById('pc'),ctx=c.getContext('2d');
+  let W,H,ps=[];
+  function resize(){W=c.width=innerWidth;H=c.height=innerHeight}
+  resize();addEventListener('resize',resize);
+  const COLS=['rgba(255,183,197,.7)','rgba(200,240,220,.6)','rgba(180,230,210,.5)','rgba(255,210,220,.6)','rgba(150,220,200,.5)'];
+  function mk(){return{x:Math.random()*W,y:-20,sz:Math.random()*7+4,vy:Math.random()*.8+.3,vx:(Math.random()-.5)*.6,rot:Math.random()*Math.PI*2,rs:(Math.random()-.5)*.03,op:Math.random()*.5+.3,col:COLS[0|Math.random()*COLS.length],wb:Math.random()*Math.PI*2,ws:Math.random()*.02+.01}}
+  for(let i=0;i<38;i++){const p=mk();p.y=Math.random()*H;ps.push(p)}
+  function draw(p){ctx.save();ctx.translate(p.x,p.y);ctx.rotate(p.rot);ctx.globalAlpha=p.op;ctx.beginPath();ctx.ellipse(0,0,p.sz,p.sz*.55,0,0,Math.PI*2);ctx.fillStyle=p.col;ctx.fill();ctx.restore()}
+  function loop(){ctx.clearRect(0,0,W,H);for(const p of ps){p.y+=p.vy;p.wb+=p.ws;p.x+=p.vx+Math.sin(p.wb)*.4;p.rot+=p.rs;if(p.y>H+30)Object.assign(p,mk(),{y:-20});draw(p)}requestAnimationFrame(loop)}
+  loop();
 })();
 
-// ============================================================
-// LANGUAGE
-// ============================================================
-let currentLang = 'kk';
-
-function setLang(lang) {
-  currentLang = lang;
-  document.getElementById('btn-kk').classList.toggle('active', lang==='kk');
-  document.getElementById('btn-ru').classList.toggle('active', lang==='ru');
-  document.querySelectorAll('[data-kk]').forEach(el => {
-    const val = el.getAttribute('data-'+lang);
-    if (val !== null) { if (el.tagName==='INPUT') el.placeholder=val; else el.innerHTML=val; }
+// ── LANG ────────────────────────────────────────────────────
+let lang='kk';
+function setLang(l){
+  lang=l;
+  document.getElementById('btn-kk').classList.toggle('active',l==='kk');
+  document.getElementById('btn-ru').classList.toggle('active',l==='ru');
+  document.querySelectorAll('[data-kk]').forEach(el=>{
+    const v=el.getAttribute('data-'+l);
+    if(v!==null){if(el.tagName==='INPUT')el.placeholder=v;else el.innerHTML=v}
   });
-  const ph = {kk:'Аты бойынша іздеу...',ru:'Поиск по имени...'};
-  document.getElementById('searchInput').placeholder = ph[lang];
-  if (currentTab==='tour1') renderTour1();
-  if (currentTab==='tour2') renderTour2();
-  if (currentTab==='appeal') renderAppeal();
-  if (currentTab==='final') renderFinal();
+  document.getElementById('searchInput').placeholder=l==='kk'?'Аты бойынша іздеу...':'Поиск по имени...';
+  rerender();
 }
 
-// ============================================================
-// DATA
-// ============================================================
-// Appeal data: t1_app = tour1 appeal delta, t2_app = tour2 appeal delta
-// t1_final = tour1 score after appeal, t2_final = tour2 score after appeal
-
+// ── DATA (from official PDFs) ────────────────────────────────
+// Tour 1: bc=biochem total, bi=bioinfo total, an=anatomy total
+// t1_raw=score before appeal, t1_app=appeal delta, t1_f=final after appeal
+// Tour 2: t2_raw=score before appeal, t2_app=appeal delta, t2_f=final after appeal
 const DATA = {
-  9: {
-    tour1: [
-      {name:"Абдукадырова Балауса",region:"Шымкент",bc_exp:0,bc_th:0.4,bc:0.4,bi_a:1.8,bi_b:1,bi_c:0.25,bi_d:0.5,bi:3.55,an_a:0.5,an_b:0,an_c:1.55,an_dis:0.8,an:2.85,total:6.8,t1_app:0,t1_final:6.8},
-      {name:"Абдуллаев Ернур",region:"Ұлытау",bc_exp:0,bc_th:0.4,bc:0.4,bi_a:2.55,bi_b:0.75,bi_c:0,bi_d:1.5,bi:4.8,an_a:0.5,an_b:0,an_c:0.75,an_dis:1.6,an:2.85,total:8.05,t1_app:0,t1_final:8.05},
-      {name:"Адилов Шахнур",region:"Түркістан",bc_exp:2.5,bc_th:1,bc:3.5,bi_a:3.05,bi_b:3.75,bi_c:0.75,bi_d:2,bi:9.55,an_a:4.1,an_b:0,an_c:2.55,an_dis:2,an:8.65,total:21.7,t1_app:0,t1_final:21.7},
-      {name:"Айтбай Нұрəділ",region:"Маңғыстау",bc_exp:0,bc_th:0.2,bc:0.2,bi_a:3.05,bi_b:1,bi_c:0.75,bi_d:2,bi:6.8,an_a:2,an_b:0,an_c:0.6,an_dis:0,an:2.6,total:9.6,t1_app:0,t1_final:9.6},
-      {name:"Алдашбеков Ахмедияр",region:"Жамбыл",bc_exp:0.9,bc_th:0,bc:0.9,bi_a:0.65,bi_b:1.5,bi_c:0.75,bi_d:0.5,bi:3.4,an_a:4.3,an_b:0,an_c:2.3,an_dis:2,an:8.6,total:12.9,t1_app:0,t1_final:12.9},
-      {name:"Аманжол Несібе",region:"Атырау",bc_exp:4,bc_th:0,bc:4,bi_a:2.95,bi_b:3.25,bi_c:0.75,bi_d:0.5,bi:7.45,an_a:2,an_b:1,an_c:1.85,an_dis:0,an:4.85,total:16.3,t1_app:0.5,t1_final:16.8},
-      {name:"Антмухаметов Шадияр",region:"Павлодар",bc_exp:1.1,bc_th:0.6,bc:1.7,bi_a:0.95,bi_b:3,bi_c:0.25,bi_d:2,bi:6.2,an_a:4.35,an_b:0,an_c:0.95,an_dis:0,an:5.3,total:13.2,t1_app:0,t1_final:13.2},
-      {name:"Аширханов Алихан",region:"Алматы қ.",bc_exp:1.1,bc_th:1.4,bc:2.5,bi_a:4.4,bi_b:1.75,bi_c:0.75,bi_d:2,bi:8.9,an_a:3.3,an_b:0,an_c:2.95,an_dis:2,an:8.25,total:19.65,t1_app:0.25,t1_final:19.9},
-      {name:"Базарбек Нұрəлі",region:"Абай",bc_exp:0.9,bc_th:0.8,bc:1.7,bi_a:1.4,bi_b:2,bi_c:0.75,bi_d:0.5,bi:4.65,an_a:0,an_b:0,an_c:0.75,an_dis:0,an:0.75,total:7.1,t1_app:0.5,t1_final:7.6},
-      {name:"Батырғали Аянат",region:"Батыс Қазақстан",bc_exp:0,bc_th:0,bc:0,bi_a:2.65,bi_b:1,bi_c:0.75,bi_d:2,bi:6.4,an_a:1.2,an_b:0,an_c:1,an_dis:0,an:2.2,total:8.6,t1_app:-0.5,t1_final:8.1},
-      {name:"Берікқара Олжас",region:"Ұлытау",bc_exp:0,bc_th:0,bc:0,bi_a:3.65,bi_b:1,bi_c:1.25,bi_d:0,bi:5.9,an_a:0,an_b:0,an_c:1.65,an_dis:0.4,an:2.05,total:7.95,t1_app:0,t1_final:7.95},
-      {name:"Бородай Роман",region:"СҚО",bc_exp:0.4,bc_th:0.2,bc:0.6,bi_a:1.05,bi_b:1,bi_c:0.25,bi_d:3.5,bi:5.8,an_a:2.1,an_b:0.5,an_c:1.95,an_dis:2,an:6.55,total:12.95,t1_app:0,t1_final:12.95},
-      {name:"Ғабдулжағыпар Аңсар",region:"Павлодар",bc_exp:1.1,bc_th:0.8,bc:1.9,bi_a:2.65,bi_b:3,bi_c:1,bi_d:2,bi:8.65,an_a:0,an_b:1,an_c:1.9,an_dis:0.4,an:3.3,total:13.85,t1_app:0,t1_final:13.85},
-      {name:"Герасимова Валерия",region:"Ақмола",bc_exp:0.3,bc_th:0,bc:0.3,bi_a:0.8,bi_b:2.5,bi_c:0.25,bi_d:0.5,bi:4.05,an_a:5.5,an_b:0.5,an_c:1.4,an_dis:1.6,an:9,total:13.35,t1_app:0,t1_final:13.35},
-      {name:"Горохова Яна",region:"Ақмола",bc_exp:1.1,bc_th:1.2,bc:2.3,bi_a:2.75,bi_b:4.25,bi_c:0.75,bi_d:0.5,bi:8.25,an_a:0,an_b:1,an_c:1.8,an_dis:0.8,an:3.6,total:14.15,t1_app:-0.5,t1_final:13.65},
-      {name:"Дуйсен Жансая",region:"СҚО",bc_exp:1,bc_th:0.4,bc:1.4,bi_a:0.55,bi_b:0,bi_c:0,bi_d:0,bi:0.55,an_a:1.4,an_b:0.5,an_c:1.6,an_dis:1.6,an:5.1,total:7.05,t1_app:0,t1_final:7.05},
-      {name:"Дулат Алдияр",region:"РФММ Алматы",bc_exp:0.9,bc_th:0,bc:0.9,bi_a:3.45,bi_b:1.5,bi_c:0.75,bi_d:0,bi:5.7,an_a:0,an_b:0,an_c:1.35,an_dis:0,an:1.35,total:7.95,t1_app:0,t1_final:7.95},
-      {name:"Дүйсен Гүлімай",region:"Жамбыл",bc_exp:0,bc_th:0.4,bc:0.4,bi_a:3.5,bi_b:2,bi_c:0.5,bi_d:2,bi:8,an_a:0,an_b:0,an_c:0.3,an_dis:2,an:2.3,total:10.7,t1_app:0,t1_final:10.7},
-      {name:"Елубай Ерасыл",region:"Абай",bc_exp:0.8,bc_th:1.2,bc:2,bi_a:1.8,bi_b:2.5,bi_c:0.75,bi_d:0,bi:5.05,an_a:3.9,an_b:0,an_c:1.1,an_dis:0,an:5,total:12.05,t1_app:0.75,t1_final:12.8},
-      {name:"Əділғали Нұрасыл",region:"Маңғыстау",bc_exp:1.3,bc_th:0.4,bc:1.7,bi_a:4.3,bi_b:3.75,bi_c:1,bi_d:1.5,bi:10.55,an_a:2.7,an_b:0.5,an_c:1.65,an_dis:1.6,an:6.45,total:18.7,t1_app:0,t1_final:18.7},
-      {name:"Жаксыбаев Даниал",region:"Астана",bc_exp:1.9,bc_th:0.2,bc:2.1,bi_a:2.45,bi_b:2,bi_c:0.75,bi_d:2,bi:7.2,an_a:2.2,an_b:0,an_c:0.1,an_dis:0,an:2.3,total:11.6,t1_app:-0.5,t1_final:11.1},
-      {name:"Жұмағали Əлихан",region:"Қарағанды",bc_exp:0.8,bc_th:0.6,bc:1.4,bi_a:2.9,bi_b:2.25,bi_c:0.75,bi_d:0.5,bi:6.4,an_a:0.7,an_b:0,an_c:2.05,an_dis:0.8,an:3.55,total:11.35,t1_app:-0.2,t1_final:11.15},
-      {name:"Иса Хафиз",region:"Қызылорда",bc_exp:1,bc_th:0.6,bc:1.6,bi_a:2.8,bi_b:4.25,bi_c:0,bi_d:1.5,bi:8.55,an_a:6.5,an_b:0,an_c:1.4,an_dis:1.2,an:9.1,total:19.25,t1_app:0,t1_final:19.25},
-      {name:"Ислам Тілектес",region:"Қарағанды",bc_exp:1,bc_th:1,bc:2,bi_a:2.8,bi_b:2.25,bi_c:0.25,bi_d:0.5,bi:5.8,an_a:2,an_b:0,an_c:1.35,an_dis:0,an:3.35,total:11.15,t1_app:0,t1_final:11.15},
-      {name:"Кабышев Гафиз",region:"Батыс Қазақстан",bc_exp:1.1,bc_th:1.8,bc:2.9,bi_a:2.35,bi_b:4.25,bi_c:0.75,bi_d:4,bi:11.35,an_a:0,an_b:1.5,an_c:2.7,an_dis:0.8,an:5,total:19.25,t1_app:-2.5,t1_final:16.75},
-      {name:"Калкабеков Абитбек",region:"РФММ Алматы",bc_exp:0.8,bc_th:0.2,bc:1,bi_a:3.55,bi_b:2,bi_c:0.75,bi_d:1.5,bi:7.8,an_a:0,an_b:0,an_c:1.45,an_dis:0,an:1.45,total:10.25,t1_app:0,t1_final:10.25},
-      {name:"Каратаева Дария",region:"НЗМ ДББҰ",bc_exp:0.9,bc_th:0.6,bc:1.5,bi_a:2.8,bi_b:2.5,bi_c:0.75,bi_d:0.5,bi:6.55,an_a:1,an_b:0,an_c:1.75,an_dis:2,an:4.75,total:12.8,t1_app:-0.4,t1_final:12.4},
-      {name:"Кеңесқали Мирас",region:"Алматы қ.",bc_exp:0,bc_th:0.8,bc:0.8,bi_a:3.4,bi_b:5.25,bi_c:1.25,bi_d:3.5,bi:13.4,an_a:0.2,an_b:0,an_c:2.8,an_dis:0,an:3,total:17.2,t1_app:-1.8,t1_final:15.4},
-      {name:"Күненжан Самал",region:"Алматы обл.",bc_exp:0.8,bc_th:0,bc:0.8,bi_a:0.8,bi_b:0,bi_c:0.25,bi_d:2,bi:3.05,an_a:0,an_b:0,an_c:1.05,an_dis:1.2,an:2.25,total:6.1,t1_app:0,t1_final:6.1},
-      {name:"Құттыбек Айкөркем",region:"Жетісу",bc_exp:1,bc_th:0.4,bc:1.4,bi_a:0.7,bi_b:1.25,bi_c:0.25,bi_d:0.5,bi:2.7,an_a:2,an_b:0,an_c:1.6,an_dis:1.6,an:5.2,total:9.3,t1_app:0,t1_final:9.3},
-      {name:"Мақашев Ерсұлтан",region:"Жетісу",bc_exp:1.5,bc_th:0.6,bc:2.1,bi_a:2.95,bi_b:3,bi_c:0.75,bi_d:2,bi:8.7,an_a:2.6,an_b:0,an_c:0.8,an_dis:1.2,an:4.6,total:15.4,t1_app:0,t1_final:15.4},
-      {name:"Мусин Ануар",region:"Қостанай",bc_exp:0,bc_th:0,bc:0,bi_a:1.2,bi_b:0.75,bi_c:0.5,bi_d:0,bi:2.45,an_a:3.9,an_b:0,an_c:1.25,an_dis:0,an:5.15,total:7.6,t1_app:0,t1_final:7.6},
-      {name:"Назым Ескендір",region:"НЗМ ДББҰ",bc_exp:1.4,bc_th:0.8,bc:2.2,bi_a:2.95,bi_b:2,bi_c:0,bi_d:2,bi:6.95,an_a:0.5,an_b:0,an_c:1.85,an_dis:1.2,an:3.55,total:12.7,t1_app:0,t1_final:12.7},
-      {name:"Нариман Али Амир",region:"Алматы обл.",bc_exp:0.8,bc_th:0.8,bc:1.6,bi_a:1.9,bi_b:3.5,bi_c:0.75,bi_d:0,bi:6.15,an_a:2.5,an_b:0,an_c:1.45,an_dis:0,an:3.95,total:11.7,t1_app:0.5,t1_final:12.2},
-      {name:"Нурлыбек Ақерке",region:"Түркістан",bc_exp:0,bc_th:0.6,bc:0.6,bi_a:1.3,bi_b:0.5,bi_c:0.25,bi_d:0,bi:2.05,an_a:2.2,an_b:0,an_c:0.5,an_dis:0,an:2.7,total:5.35,t1_app:0,t1_final:5.35},
-      {name:"Нұрасыл Омар",region:"Ақтөбе",bc_exp:0.8,bc_th:0.2,bc:1,bi_a:3.9,bi_b:1.5,bi_c:0.75,bi_d:3.5,bi:9.65,an_a:2,an_b:0,an_c:1.95,an_dis:1.2,an:5.15,total:15.8,t1_app:-2.5,t1_final:13.3},
-      {name:"Олейников Давид",region:"Атырау",bc_exp:0.7,bc_th:0,bc:0.7,bi_a:4.15,bi_b:2,bi_c:1.25,bi_d:2,bi:9.4,an_a:5.3,an_b:0,an_c:0.4,an_dis:1.2,an:6.9,total:17,t1_app:0.75,t1_final:17.75},
-      {name:"Орынбасар Рамазан",region:"Алматы қ.",bc_exp:1.4,bc_th:0,bc:1.4,bi_a:3.3,bi_b:4.25,bi_c:0.75,bi_d:0,bi:8.3,an_a:4,an_b:0.5,an_c:2.5,an_dis:0.8,an:7.8,total:17.5,t1_app:-0.25,t1_final:17.25},
-      {name:"Өмірбек Аян",region:"Қызылорда",bc_exp:6.7,bc_th:0,bc:6.7,bi_a:3.05,bi_b:2.75,bi_c:1,bi_d:2,bi:8.8,an_a:4.1,an_b:1,an_c:2.55,an_dis:1.6,an:9.25,total:24.75,t1_app:0,t1_final:24.75},
-      {name:"Рахманов Даниал",region:"Ақтөбе",bc_exp:1.6,bc_th:0.6,bc:2.2,bi_a:4.05,bi_b:0.5,bi_c:0.75,bi_d:3,bi:8.3,an_a:1.7,an_b:0,an_c:1.2,an_dis:0,an:2.9,total:13.4,t1_app:-1.5,t1_final:11.9},
-      {name:"Рузыев Арслан",region:"Алматы қ.",bc_exp:0,bc_th:1.5,bc:1.5,bi_a:2.2,bi_b:0.75,bi_c:0.5,bi_d:0,bi:3.45,an_a:2.5,an_b:0.5,an_c:1.05,an_dis:2,an:6.05,total:11,t1_app:0.25,t1_final:11.25},
-      {name:"Сембаев Максат",region:"ШҚО",bc_exp:0,bc_th:0,bc:0,bi_a:3.15,bi_b:2.25,bi_c:0.75,bi_d:1.5,bi:7.65,an_a:1.4,an_b:0,an_c:0,an_dis:1.2,an:2.6,total:10.25,t1_app:0,t1_final:10.25},
-      {name:"Сембай Айдана",region:"НЗМ ДББҰ",bc_exp:1.5,bc_th:1,bc:2.5,bi_a:0.95,bi_b:2,bi_c:0.75,bi_d:0.5,bi:4.2,an_a:1.7,an_b:0,an_c:2.3,an_dis:1.6,an:5.6,total:12.3,t1_app:0.1,t1_final:12.4},
-      {name:"Серікұлы Нұрəли",region:"ШҚО",bc_exp:0.8,bc_th:0.2,bc:1,bi_a:3.4,bi_b:2.5,bi_c:0.25,bi_d:0,bi:6.15,an_a:0.5,an_b:0,an_c:1.55,an_dis:1.6,an:3.65,total:10.8,t1_app:0,t1_final:10.8},
-      {name:"Сыздыкова Томирис",region:"Шымкент",bc_exp:0.4,bc_th:1.2,bc:1.6,bi_a:1.4,bi_b:2,bi_c:0.25,bi_d:0,bi:3.65,an_a:0,an_b:0,an_c:1.55,an_dis:0,an:1.55,total:6.8,t1_app:0,t1_final:6.8},
-      {name:"Татаркина Мария",region:"Жетісу",bc_exp:0,bc_th:0,bc:0,bi_a:2.05,bi_b:0.75,bi_c:0.25,bi_d:0,bi:3.05,an_a:0,an_b:0,an_c:0.95,an_dis:0.8,an:1.75,total:4.8,t1_app:0,t1_final:4.8},
-      {name:"Тынысов Мадияр",region:"Қостанай",bc_exp:0,bc_th:1,bc:1,bi_a:2.4,bi_b:1.5,bi_c:1,bi_d:2,bi:6.9,an_a:0,an_b:0.5,an_c:1.15,an_dis:1.2,an:2.85,total:10.75,t1_app:0,t1_final:10.75},
-      {name:"Широких Дарья",region:"Астана",bc_exp:1.5,bc_th:0.6,bc:2.1,bi_a:1.2,bi_b:0.75,bi_c:0,bi_d:0.5,bi:2.45,an_a:3.8,an_b:0.5,an_c:2.25,an_dis:2,an:8.55,total:13.1,t1_app:0.5,t1_final:13.6},
-    ],
-    tour2: [
-      {name:"Базарбек Нұрəлі",region:"Абай",total2:14.8,t2_app:-1.2,t2_final:13.6},
-      {name:"Елубай Ерасыл",region:"Абай",total2:15.2,t2_app:-0.2,t2_final:15.0},
-      {name:"Герасимова Валерия",region:"Ақмола",total2:17.6,t2_app:-1.4,t2_final:16.2},
-      {name:"Горохова Яна",region:"Ақмола",total2:21.8,t2_app:-1.2,t2_final:20.6},
-      {name:"Нұрасыл Омар",region:"Ақтөбе",total2:22.6,t2_app:-0.4,t2_final:22.2},
-      {name:"Рахманов Даниал",region:"Ақтөбе",total2:18.6,t2_app:0.4,t2_final:19.0},
-      {name:"Аширханов Алихан",region:"Алматы қ.",total2:22.2,t2_app:0.6,t2_final:22.8},
-      {name:"Кеңесқали Мирас",region:"Алматы қ.",total2:18.6,t2_app:-0.6,t2_final:18.0},
-      {name:"Орынбасар Рамазан",region:"Алматы қ.",total2:19,t2_app:-0.8,t2_final:18.2},
-      {name:"Рузыев Арслан",region:"Алматы қ.",total2:16,t2_app:1.2,t2_final:17.2},
-      {name:"Күненжан Самал",region:"Алматы обл.",total2:11.4,t2_app:0.4,t2_final:11.8},
-      {name:"Нариман Али Амир",region:"Алматы обл.",total2:9.6,t2_app:-0.4,t2_final:9.2},
-      {name:"Жаксыбаев Даниал",region:"Астана",total2:17,t2_app:-0.8,t2_final:16.2},
-      {name:"Широких Дарья",region:"Астана",total2:17.2,t2_app:-0.4,t2_final:16.8},
-      {name:"Аманжол Несібе",region:"Атырау",total2:20.4,t2_app:0,t2_final:20.4},
-      {name:"Олейников Давид",region:"Атырау",total2:17.8,t2_app:-2.4,t2_final:15.4},
-      {name:"Батырғали Аянат",region:"Батыс Қазақстан",total2:14,t2_app:-0.8,t2_final:13.2},
-      {name:"Кабышев Гафиз",region:"Батыс Қазақстан",total2:16.6,t2_app:-0.4,t2_final:16.2},
-      {name:"Алдашбеков Ахмедияр",region:"Жамбыл",total2:16.2,t2_app:-0.6,t2_final:15.6},
-      {name:"Дүйсен Гүлімай",region:"Жамбыл",total2:14.2,t2_app:0.4,t2_final:14.6},
-      {name:"Құттыбек Айкөркем",region:"Жетісу",total2:14.4,t2_app:-0.6,t2_final:13.8},
-      {name:"Мақашев Ерсұлтан",region:"Жетісу",total2:19.6,t2_app:1.2,t2_final:20.8},
-      {name:"Татаркина Мария",region:"Жетісу",total2:15.6,t2_app:-1.0,t2_final:14.6},
-      {name:"Жұмағали Əлихан",region:"Қарағанды",total2:19.6,t2_app:-0.2,t2_final:19.4},
-      {name:"Ислам Тілектес",region:"Қарағанды",total2:14.2,t2_app:0.6,t2_final:14.8},
-      {name:"Мусин Ануар",region:"Қостанай",total2:17.6,t2_app:-1.4,t2_final:16.2},
-      {name:"Тынысов Мадияр",region:"Қостанай",total2:15,t2_app:-0.2,t2_final:14.8},
-      {name:"Иса Хафиз",region:"Қызылорда",total2:24,t2_app:0.4,t2_final:24.4},
-      {name:"Өмірбек Аян",region:"Қызылорда",total2:12.6,t2_app:0.4,t2_final:13.0},
-      {name:"Айтбай Нұрəділ",region:"Маңғыстау",total2:12.8,t2_app:-1.0,t2_final:11.8},
-      {name:"Əділғали Нұрасыл",region:"Маңғыстау",total2:23.4,t2_app:0.8,t2_final:24.2},
-      {name:"Каратаева Дария",region:"НЗМ ДББҰ",total2:14.2,t2_app:-0.4,t2_final:13.8},
-      {name:"Назым Ескендір",region:"НЗМ ДББҰ",total2:17.2,t2_app:-1.2,t2_final:16.0},
-      {name:"Сембай Айдана",region:"НЗМ ДББҰ",total2:16.2,t2_app:0.2,t2_final:16.4},
-      {name:"Антмухаметов Шадияр",region:"Павлодар",total2:17.8,t2_app:0.6,t2_final:18.4},
-      {name:"Ғабдулжағыпар Аңсар",region:"Павлодар",total2:22.6,t2_app:0.4,t2_final:23.0},
-      {name:"Дулат Алдияр",region:"РФММ Алматы",total2:13.2,t2_app:6.2,t2_final:19.4},
-      {name:"Калкабеков Абитбек",region:"РФММ Алматы",total2:12,t2_app:-0.6,t2_final:11.4},
-      {name:"Бородай Роман",region:"СҚО",total2:16,t2_app:-0.6,t2_final:15.4},
-      {name:"Дуйсен Жансая",region:"СҚО",total2:12.6,t2_app:0.2,t2_final:12.8},
-      {name:"Адилов Шахнур",region:"Түркістан",total2:17.4,t2_app:1.0,t2_final:18.4},
-      {name:"Нурлыбек Ақерке",region:"Түркістан",total2:16.2,t2_app:-1.2,t2_final:15.0},
-      {name:"Абдуллаев Ернур",region:"Ұлытау",total2:13.6,t2_app:-0.4,t2_final:13.2},
-      {name:"Берікқара Олжас",region:"Ұлытау",total2:18.6,t2_app:-0.8,t2_final:17.8},
-      {name:"Сембаев Максат",region:"ШҚО",total2:19.6,t2_app:-1.2,t2_final:18.4},
-      {name:"Серікұлы Нұрəли",region:"ШҚО",total2:15,t2_app:0,t2_final:15.0},
-      {name:"Абдукадырова Балауса",region:"Шымкент",total2:15.2,t2_app:-1.2,t2_final:14.0},
-      {name:"Сыздыкова Томирис",region:"Шымкент",total2:13.4,t2_app:0.6,t2_final:14.0},
-    ]
-  },
-  10: {
-    tour1: [
-      {name:"Абдужамал Бақберген",region:"Қызылорда",bc_exp:0.4,bc_th:0.8,bc:1.2,bi_a:1.65,bi_b:1.75,bi_c:0,bi_d:2,bi:5.4,an_a:1.5,an_b:0,an_c:2.95,an_dis:2,an:6.45,total:13.05,t1_app:0,t1_final:13.05},
-      {name:"Абдығали Адина",region:"Жамбыл",bc_exp:0,bc_th:0,bc:0,bi_a:1.4,bi_b:3.5,bi_c:0.75,bi_d:1.5,bi:7.15,an_a:0,an_b:2.1,an_c:1.5,an_dis:0,an:3.6,total:10.75,t1_app:-0.5,t1_final:10.25},
-      {name:"Алмасұлы Бекəлі",region:"Батыс Қазақстан",bc_exp:0.8,bc_th:1.2,bc:2,bi_a:2.35,bi_b:2.25,bi_c:0.75,bi_d:2,bi:7.35,an_a:2,an_b:0.5,an_c:2.35,an_dis:1.6,an:6.45,total:15.8,t1_app:0,t1_final:15.8},
-      {name:"Альмагамбетов Санжар",region:"Қостанай",bc_exp:2.7,bc_th:0.8,bc:3.5,bi_a:1.75,bi_b:2.5,bi_c:0.75,bi_d:2,bi:7,an_a:4.05,an_b:0.5,an_c:1.95,an_dis:2,an:8.5,total:19,t1_app:0,t1_final:19},
-      {name:"Амантай Нұрбақыт",region:"Астана",bc_exp:0,bc_th:0.4,bc:0.4,bi_a:4.2,bi_b:3.25,bi_c:0.75,bi_d:2,bi:10.2,an_a:3.2,an_b:0.5,an_c:2.05,an_dis:1.2,an:6.95,total:17.55,t1_app:-0.25,t1_final:17.3},
-      {name:"Арыстанов Амир",region:"Шымкент",bc_exp:0,bc_th:0,bc:0,bi_a:1.55,bi_b:1.5,bi_c:0.75,bi_d:1.5,bi:5.3,an_a:1.5,an_b:0.5,an_c:2.15,an_dis:2,an:6.15,total:11.45,t1_app:0,t1_final:11.45},
-      {name:"Ахметова Сабина",region:"Алматы обл.",bc_exp:1,bc_th:0,bc:1,bi_a:2.25,bi_b:1.5,bi_c:0.75,bi_d:1.5,bi:6,an_a:0,an_b:0.5,an_c:0.5,an_dis:1.2,an:2.2,total:9.2,t1_app:-0.5,t1_final:8.7},
-      {name:"Аюпов Расул",region:"Алматы обл.",bc_exp:0.1,bc_th:0.6,bc:0.7,bi_a:2.3,bi_b:0.75,bi_c:0.75,bi_d:0,bi:3.8,an_a:0,an_b:0,an_c:1.55,an_dis:1.2,an:2.75,total:7.25,t1_app:0,t1_final:7.25},
-      {name:"Байбаков Аңсар",region:"Түркістан",bc_exp:0.5,bc_th:0.8,bc:1.3,bi_a:2.4,bi_b:1.25,bi_c:0.75,bi_d:0.5,bi:4.9,an_a:1.5,an_b:0,an_c:1.6,an_dis:0.8,an:3.9,total:10.1,t1_app:0,t1_final:10.1},
-      {name:"Байкунакова Жанель",region:"Қарағанды",bc_exp:0.4,bc_th:0,bc:0.4,bi_a:2.3,bi_b:2.75,bi_c:1,bi_d:1.5,bi:7.55,an_a:1.7,an_b:0.5,an_c:1.95,an_dis:0,an:4.15,total:12.1,t1_app:0,t1_final:12.1},
-      {name:"Бахтбекова Алуа",region:"НЗМ ДББҰ",bc_exp:1.1,bc_th:0.8,bc:1.9,bi_a:4,bi_b:2.75,bi_c:0.75,bi_d:4,bi:11.5,an_a:4.2,an_b:0.5,an_c:3.3,an_dis:2,an:10,total:23.4,t1_app:0,t1_final:23.4},
-      {name:"Беремкулова Дайне",region:"РФММ Алматы",bc_exp:1.6,bc_th:0.4,bc:2,bi_a:3.3,bi_b:0.5,bi_c:0.75,bi_d:3,bi:7.55,an_a:1.95,an_b:0,an_c:1.6,an_dis:2,an:5.55,total:15.1,t1_app:0,t1_final:15.1},
-      {name:"Билялов Нурали",region:"Павлодар",bc_exp:1.8,bc_th:0.6,bc:2.4,bi_a:3.8,bi_b:2.5,bi_c:1.25,bi_d:3,bi:10.55,an_a:5.9,an_b:0,an_c:1.95,an_dis:0.8,an:8.65,total:21.6,t1_app:0,t1_final:21.6},
-      {name:"Боздақова Инабат",region:"Қызылорда",bc_exp:7.2,bc_th:0.6,bc:7.8,bi_a:1.35,bi_b:1.25,bi_c:0.75,bi_d:1.5,bi:4.85,an_a:0.5,an_b:0,an_c:1.2,an_dis:1.2,an:2.9,total:15.55,t1_app:0,t1_final:15.55},
-      {name:"Братаев Адильхан",region:"Ақмола",bc_exp:1.1,bc_th:0.6,bc:1.7,bi_a:3.55,bi_b:1.75,bi_c:0,bi_d:1.5,bi:6.8,an_a:3.6,an_b:0.5,an_c:1.8,an_dis:0.8,an:6.7,total:15.2,t1_app:1.5,t1_final:16.7},
-      {name:"Варин Марк",region:"Ақтөбе",bc_exp:1,bc_th:1,bc:2,bi_a:2,bi_b:0.5,bi_c:0.75,bi_d:2,bi:5.25,an_a:6.1,an_b:0,an_c:2.1,an_dis:1.2,an:9.4,total:16.65,t1_app:0.75,t1_final:17.4},
-      {name:"Волигов Владислав",region:"Жетісу",bc_exp:0,bc_th:0,bc:0,bi_a:1.95,bi_b:0.5,bi_c:0.75,bi_d:0,bi:3.2,an_a:1.1,an_b:0,an_c:0,an_dis:1.2,an:2.3,total:5.5,t1_app:0,t1_final:5.5},
-      {name:"Гурский Даниил",region:"Қостанай",bc_exp:2.2,bc_th:1.5,bc:3.7,bi_a:4.15,bi_b:3.75,bi_c:0.5,bi_d:2,bi:10.4,an_a:2,an_b:0,an_c:1.2,an_dis:1.6,an:4.8,total:18.9,t1_app:0,t1_final:18.9},
-      {name:"Джубаялиев Амир",region:"Атырау",bc_exp:2.4,bc_th:0.6,bc:3,bi_a:2.95,bi_b:1.5,bi_c:1,bi_d:1.5,bi:6.95,an_a:3.7,an_b:0,an_c:2.4,an_dis:0,an:6.1,total:16.05,t1_app:0.25,t1_final:16.3},
-      {name:"Джумашова Жазира",region:"Алматы обл.",bc_exp:6.38,bc_th:0.2,bc:6.58,bi_a:1.5,bi_b:1.5,bi_c:0,bi_d:0.5,bi:3.5,an_a:4.3,an_b:0,an_c:2.5,an_dis:2,an:8.8,total:18.88,t1_app:-0.5,t1_final:18.38},
-      {name:"Ермекбай Айбар",region:"Ақмола",bc_exp:0,bc_th:0.4,bc:0.4,bi_a:2.55,bi_b:1.25,bi_c:0.75,bi_d:2,bi:6.55,an_a:5,an_b:0,an_c:2.4,an_dis:2,an:9.4,total:16.35,t1_app:0.5,t1_final:16.85},
-      {name:"Ермекова Фатима",region:"Жетісу",bc_exp:0,bc_th:0.8,bc:0.8,bi_a:1.15,bi_b:1,bi_c:0.75,bi_d:2,bi:4.9,an_a:1.5,an_b:0,an_c:1.5,an_dis:0.4,an:3.4,total:9.1,t1_app:0,t1_final:9.1},
-      {name:"Əскер Қуаныш",region:"Атырау",bc_exp:0.6,bc_th:0,bc:0.6,bi_a:1.35,bi_b:2,bi_c:0,bi_d:0,bi:3.35,an_a:3,an_b:0,an_c:0,an_dis:0.8,an:3.8,total:7.75,t1_app:-1.0,t1_final:6.75},
-      {name:"Жақсылық Санжар",region:"НЗМ ДББҰ",bc_exp:1.4,bc_th:0.2,bc:1.6,bi_a:2.4,bi_b:2,bi_c:0.25,bi_d:2,bi:6.65,an_a:0.7,an_b:0,an_c:2.95,an_dis:2,an:5.65,total:13.9,t1_app:0,t1_final:13.9},
-      {name:"Забекова Сабина",region:"Батыс Қазақстан",bc_exp:0.8,bc_th:0.4,bc:1.2,bi_a:2.4,bi_b:2,bi_c:0.75,bi_d:2,bi:7.15,an_a:3,an_b:0,an_c:1.25,an_dis:0.8,an:5.05,total:13.4,t1_app:0,t1_final:13.4},
-      {name:"Ибадулла Алинұр",region:"Шымкент",bc_exp:0,bc_th:0.4,bc:0.4,bi_a:2.5,bi_b:1.5,bi_c:0.25,bi_d:1.5,bi:5.75,an_a:2.25,an_b:0,an_c:0.65,an_dis:1.2,an:4.1,total:10.25,t1_app:0,t1_final:10.25},
-      {name:"Инсебаева Фатима",region:"Павлодар",bc_exp:0,bc_th:0.4,bc:0.4,bi_a:1.8,bi_b:1.75,bi_c:0.5,bi_d:1.5,bi:5.55,an_a:1.5,an_b:0,an_c:2.65,an_dis:2,an:6.15,total:12.1,t1_app:0,t1_final:12.1},
-      {name:"Исмагулова Камалия",region:"СҚО",bc_exp:0.8,bc_th:0.2,bc:1,bi_a:2.8,bi_b:0.5,bi_c:0.75,bi_d:1.5,bi:5.55,an_a:1.4,an_b:0.5,an_c:0.95,an_dis:2,an:4.85,total:11.4,t1_app:0,t1_final:11.4},
-      {name:"Кириллов Артур",region:"РФММ Алматы",bc_exp:0,bc_th:1,bc:1,bi_a:2.9,bi_b:1.75,bi_c:0.75,bi_d:1.5,bi:6.9,an_a:4.6,an_b:0,an_c:2.2,an_dis:0.4,an:7.2,total:15.1,t1_app:0,t1_final:15.1},
-      {name:"Қабдыкəрім Əли",region:"ШҚО",bc_exp:1.8,bc_th:0,bc:1.8,bi_a:2.2,bi_b:1.5,bi_c:0.75,bi_d:2,bi:6.45,an_a:1.5,an_b:0,an_c:2.4,an_dis:2,an:5.9,total:14.15,t1_app:0,t1_final:14.15},
-      {name:"Қуанышбек Жібек",region:"Маңғыстау",bc_exp:1.8,bc_th:0,bc:1.8,bi_a:2.2,bi_b:0.5,bi_c:0.75,bi_d:1.5,bi:4.95,an_a:2.7,an_b:0,an_c:0.35,an_dis:0.4,an:3.45,total:10.2,t1_app:0,t1_final:10.2},
-      {name:"Мақсот Нұрхат",region:"Астана",bc_exp:0.9,bc_th:0.6,bc:1.5,bi_a:3.8,bi_b:2.25,bi_c:1,bi_d:3,bi:10.05,an_a:2.15,an_b:0,an_c:0.55,an_dis:0,an:2.7,total:14.25,t1_app:0.25,t1_final:14.5},
-      {name:"Маулет Арсен",region:"Алматы қ.",bc_exp:1.5,bc_th:1.7,bc:3.2,bi_a:4.05,bi_b:3.75,bi_c:0.75,bi_d:0,bi:8.55,an_a:1,an_b:0.5,an_c:2.1,an_dis:0.8,an:4.4,total:16.15,t1_app:-1.0,t1_final:15.15},
-      {name:"Меженина Евгения",region:"НЗМ ДББҰ",bc_exp:0.6,bc_th:0.8,bc:1.4,bi_a:2.55,bi_b:3.75,bi_c:0.75,bi_d:2,bi:9.05,an_a:2.7,an_b:0.5,an_c:3.5,an_dis:2,an:8.7,total:19.15,t1_app:0,t1_final:19.15},
-      {name:"Мыңбай Санжар",region:"Ақтөбе",bc_exp:0.8,bc_th:0.2,bc:1,bi_a:2.9,bi_b:1.75,bi_c:0.25,bi_d:2,bi:6.9,an_a:1.5,an_b:0.5,an_c:1.65,an_dis:1.6,an:5.25,total:13.15,t1_app:1.0,t1_final:14.15},
-      {name:"Нурланов Саян",region:"Ұлытау",bc_exp:0,bc_th:0.4,bc:0.4,bi_a:2.7,bi_b:0.5,bi_c:0.75,bi_d:1.5,bi:5.45,an_a:0,an_b:0.5,an_c:2.3,an_dis:1.6,an:4.4,total:10.25,t1_app:0,t1_final:10.25},
-      {name:"Оразалы Дильназ",region:"Ұлытау",bc_exp:1.4,bc_th:0.2,bc:1.6,bi_a:1.45,bi_b:0.75,bi_c:0.25,bi_d:1.5,bi:3.95,an_a:5.9,an_b:0,an_c:1.75,an_dis:1.2,an:8.85,total:14.4,t1_app:0,t1_final:14.4},
-      {name:"Оспанғали Ернұр",region:"Абай",bc_exp:1.4,bc_th:0.4,bc:1.8,bi_a:2.95,bi_b:0.75,bi_c:1,bi_d:2.5,bi:7.2,an_a:3.6,an_b:0,an_c:2.5,an_dis:2,an:8.1,total:17.1,t1_app:0.75,t1_final:17.85},
-      {name:"Сайлаубек Нурислам",region:"ШҚО",bc_exp:2.2,bc_th:1,bc:3.2,bi_a:4.3,bi_b:3,bi_c:1.25,bi_d:1.5,bi:10.05,an_a:3.2,an_b:0.5,an_c:2.8,an_dis:1.6,an:8.1,total:21.35,t1_app:0,t1_final:21.35},
-      {name:"Саматұлы Алимұхаммед",region:"Павлодар",bc_exp:1.4,bc_th:1.3,bc:2.7,bi_a:3.9,bi_b:3,bi_c:0.75,bi_d:1.5,bi:9.15,an_a:2.5,an_b:0.5,an_c:0.45,an_dis:1.6,an:5.05,total:16.9,t1_app:0,t1_final:16.9},
-      {name:"Слямов Арнұр",region:"Абай",bc_exp:1.2,bc_th:0.4,bc:1.6,bi_a:2.15,bi_b:0.5,bi_c:0.5,bi_d:1.5,bi:4.65,an_a:4.1,an_b:0,an_c:0.4,an_dis:1.2,an:5.7,total:11.95,t1_app:0,t1_final:11.95},
-      {name:"Советхан Еркежан",region:"Жамбыл",bc_exp:0.4,bc_th:1.2,bc:1.6,bi_a:1.05,bi_b:1.25,bi_c:0.75,bi_d:1.5,bi:4.55,an_a:0,an_b:0,an_c:0.65,an_dis:0,an:0.65,total:6.8,t1_app:0,t1_final:6.8},
-      {name:"Сүйеуберді Санжар",region:"Маңғыстау",bc_exp:1.8,bc_th:0.4,bc:2.2,bi_a:2,bi_b:2.75,bi_c:0.25,bi_d:1.5,bi:6.5,an_a:0,an_b:0,an_c:1.6,an_dis:1.2,an:2.8,total:11.5,t1_app:0,t1_final:11.5},
-      {name:"Тайрханов Сардорбек",region:"Түркістан",bc_exp:0.8,bc_th:0.6,bc:1.4,bi_a:4.3,bi_b:3.25,bi_c:0.75,bi_d:1.5,bi:9.8,an_a:3.6,an_b:0.5,an_c:2.6,an_dis:0,an:6.7,total:17.9,t1_app:0,t1_final:17.9},
-      {name:"Ташмаканов Салават",region:"СҚО",bc_exp:0.1,bc_th:0,bc:0.1,bi_a:3.5,bi_b:3.5,bi_c:0.75,bi_d:0,bi:7.75,an_a:2,an_b:0,an_c:0.75,an_dis:1.6,an:4.35,total:12.2,t1_app:0,t1_final:12.2},
-      {name:"Тремко Олег",region:"Алматы обл.",bc_exp:6.3,bc_th:1,bc:7.3,bi_a:3.55,bi_b:1.5,bi_c:0.75,bi_d:0.5,bi:6.3,an_a:1.6,an_b:0,an_c:2.15,an_dis:1.6,an:5.35,total:18.95,t1_app:0,t1_final:18.95},
-      {name:"Тулеубаева Мариям",region:"Қарағанды",bc_exp:1.8,bc_th:0.8,bc:2.6,bi_a:3.05,bi_b:4.5,bi_c:0.75,bi_d:1.5,bi:9.8,an_a:3.2,an_b:0,an_c:2.3,an_dis:0,an:5.5,total:17.9,t1_app:0,t1_final:17.9},
-      {name:"Тұрғанбай Ибраһим",region:"Атырау",bc_exp:1.8,bc_th:0,bc:1.8,bi_a:2.65,bi_b:1,bi_c:0.75,bi_d:2,bi:6.4,an_a:1.5,an_b:0,an_c:1.35,an_dis:2,an:4.85,total:13.05,t1_app:0,t1_final:13.05},
-      {name:"Хаби Ануар",region:"Алматы қ.",bc_exp:2.1,bc_th:0,bc:2.1,bi_a:3.15,bi_b:0.5,bi_c:0.75,bi_d:2.5,bi:6.9,an_a:0,an_b:0.5,an_c:3.2,an_dis:2,an:5.7,total:14.7,t1_app:1.15,t1_final:15.85},
-      {name:"Шуленбай Едіге",region:"Алматы қ.",bc_exp:1.8,bc_th:0.8,bc:2.6,bi_a:3.3,bi_b:2.5,bi_c:0.75,bi_d:0,bi:6.55,an_a:5.9,an_b:0,an_c:2.3,an_dis:0.8,an:9,total:18.15,t1_app:1.15,t1_final:19.3},
-    ],
-    tour2: [
-      {name:"Оспанғали Ернұр",region:"Абай",total2:18.2,t2_app:-1.0,t2_final:17.2},
-      {name:"Слямов Арнұр",region:"Абай",total2:14.4,t2_app:-0.4,t2_final:14.0},
-      {name:"Братаев Адильхан",region:"Ақмола",total2:13.4,t2_app:0.6,t2_final:14.0},
-      {name:"Ермекбай Айбар",region:"Ақмола",total2:17.2,t2_app:0.4,t2_final:17.6},
-      {name:"Варин Марк",region:"Ақтөбе",total2:21.4,t2_app:-1.0,t2_final:20.4},
-      {name:"Мыңбай Санжар",region:"Ақтөбе",total2:18.8,t2_app:-1.2,t2_final:17.6},
-      {name:"Маулет Арсен",region:"Алматы қ.",total2:21.8,t2_app:0,t2_final:21.8},
-      {name:"Хаби Ануар",region:"Алматы қ.",total2:21.4,t2_app:-1.0,t2_final:20.4},
-      {name:"Шуленбай Едіге",region:"Алматы қ.",total2:16.2,t2_app:-0.2,t2_final:16.0},
-      {name:"Ахметова Сабина",region:"Алматы обл.",total2:18.4,t2_app:0.2,t2_final:18.6},
-      {name:"Аюпов Расул",region:"Алматы обл.",total2:16.4,t2_app:1.2,t2_final:17.6},
-      {name:"Джумашова Жазира",region:"Алматы обл.",total2:14.6,t2_app:-2.2,t2_final:12.4},
-      {name:"Тремко Олег",region:"Алматы обл.",total2:17,t2_app:-0.4,t2_final:16.6},
-      {name:"Амантай Нұрбақыт",region:"Астана",total2:16,t2_app:0,t2_final:16.0},
-      {name:"Мақсот Нұрхат",region:"Астана",total2:20.8,t2_app:0.6,t2_final:21.4},
-      {name:"Джубаялиев Амир",region:"Атырау",total2:18.6,t2_app:-0.6,t2_final:18.0},
-      {name:"Əскер Қуаныш",region:"Атырау",total2:14.6,t2_app:-0.6,t2_final:14.0},
-      {name:"Тұрғанбай Ибраһим",region:"Атырау",total2:12.6,t2_app:1.0,t2_final:13.6},
-      {name:"Алмасұлы Бекəлі",region:"Батыс Қазақстан",total2:21.4,t2_app:-0.4,t2_final:21.0},
-      {name:"Забекова Сабина",region:"Батыс Қазақстан",total2:13.6,t2_app:-0.2,t2_final:13.4},
-      {name:"Абдығали Адина",region:"Жамбыл",total2:18.8,t2_app:-2.2,t2_final:16.6},
-      {name:"Советхан Еркежан",region:"Жамбыл",total2:14.8,t2_app:-1.2,t2_final:13.6},
-      {name:"Волигов Владислав",region:"Жетісу",total2:15.2,t2_app:-0.4,t2_final:14.8},
-      {name:"Ермекова Фатима",region:"Жетісу",total2:12.4,t2_app:0,t2_final:12.4},
-      {name:"Байкунакова Жанель",region:"Қарағанды",total2:10.2,t2_app:0.4,t2_final:10.6},
-      {name:"Тулеубаева Мариям",region:"Қарағанды",total2:16.4,t2_app:0.2,t2_final:16.6},
-      {name:"Альмагамбетов Санжар",region:"Қостанай",total2:20.6,t2_app:0.4,t2_final:21.0},
-      {name:"Гурский Даниил",region:"Қостанай",total2:20.2,t2_app:-0.2,t2_final:20.0},
-      {name:"Абдужамал Бақберген",region:"Қызылорда",total2:15.2,t2_app:0.8,t2_final:16.0},
-      {name:"Боздақова Инабат",region:"Қызылорда",total2:17,t2_app:-1.6,t2_final:15.4},
-      {name:"Қуанышбек Жібек",region:"Маңғыстау",total2:12.6,t2_app:0,t2_final:12.6},
-      {name:"Сүйеуберді Санжар",region:"Маңғыстау",total2:14.4,t2_app:-0.6,t2_final:13.8},
-      {name:"Бахтбекова Алуа",region:"НЗМ ДББҰ",total2:17.6,t2_app:-0.2,t2_final:17.4},
-      {name:"Жақсылық Санжар",region:"НЗМ ДББҰ",total2:22.2,t2_app:-0.8,t2_final:21.4},
-      {name:"Меженина Евгения",region:"НЗМ ДББҰ",total2:25,t2_app:-0.2,t2_final:23.4},  // Note: wait, PDF says 25 → -0.2 → 23.4? Let me recheck: line 88 says 25 / -0.20 / 23.40 — yes, wait that's -1.6. Actually from file: 25, -0.20, 23.40 — that would be 24.8 not 23.40. Let me re-read carefully: line 88: "35 НЗМ ДББҰ Меженина Евгения 192 25 -0,20 23,40" — likely OCR quirk, official final is 23.40. Using 23.4.
-      {name:"Билялов Нурали",region:"Павлодар",total2:22.4,t2_app:1.0,t2_final:23.4},
-      {name:"Инсебаева Фатима",region:"Павлодар",total2:16.4,t2_app:-1.4,t2_final:15.0},
-      {name:"Саматұлы Алимұхаммед",region:"Павлодар",total2:21.4,t2_app:0.2,t2_final:21.6},
-      {name:"Беремкулова Дайне",region:"РФММ Алматы",total2:14.8,t2_app:0.2,t2_final:15.0},
-      {name:"Кириллов Артур",region:"РФММ Алматы",total2:22,t2_app:-1.8,t2_final:20.2},
-      {name:"Исмагулова Камалия",region:"СҚО",total2:15.2,t2_app:0.6,t2_final:15.8},
-      {name:"Ташмаканов Салават",region:"СҚО",total2:17.4,t2_app:-0.8,t2_final:16.6},
-      {name:"Байбаков Аңсар",region:"Түркістан",total2:18.2,t2_app:0,t2_final:18.2},
-      {name:"Тайрханов Сардорбек",region:"Түркістан",total2:15.8,t2_app:-1.6,t2_final:14.2},
-      {name:"Нурланов Саян",region:"Ұлытау",total2:18,t2_app:-0.4,t2_final:17.6},
-      {name:"Оразалы Дильназ",region:"Ұлытау",total2:17,t2_app:-0.6,t2_final:16.4},
-      {name:"Қабдыкəрім Əли",region:"ШҚО",total2:17.8,t2_app:-0.2,t2_final:17.6},
-      {name:"Сайлаубек Нурислам",region:"ШҚО",total2:17,t2_app:-1.2,t2_final:15.8},
-      {name:"Арыстанов Амир",region:"Шымкент",total2:19,t2_app:-0.4,t2_final:18.6},
-      {name:"Ибадулла Алинұр",region:"Шымкент",total2:16.6,t2_app:0,t2_final:16.6},
-    ]
-  },
-  11: {
-    tour1: [
-      {name:"Азизов Тимур",region:"РФММ Алматы",bc_exp:1.5,bc_th:1.1,bc:2.6,bi_a:2.9,bi_b:1.75,bi_c:1,bi_d:1.5,bi:7.15,an_a:1.7,an_b:0,an_c:2.5,an_dis:1.2,an:5.4,total:15.15,t1_app:0.3,t1_final:16.45},
-      {name:"Алкабай Үсен",region:"Түркістан",bc_exp:1.2,bc_th:1,bc:2.2,bi_a:2.2,bi_b:2,bi_c:0.75,bi_d:0.5,bi:5.45,an_a:5.1,an_b:0,an_c:1.45,an_dis:0,an:6.55,total:14.2,t1_app:-0.25,t1_final:13.95},
-      {name:"Ахметова Диана",region:"Ақмола",bc_exp:0.7,bc_th:1,bc:1.7,bi_a:3.9,bi_b:1.5,bi_c:0.75,bi_d:1.5,bi:7.65,an_a:0,an_b:0.5,an_c:1.45,an_dis:2,an:3.95,total:13.3,t1_app:0,t1_final:13.3},
-      {name:"Беилов Алтынбек",region:"Қостанай",bc_exp:1.8,bc_th:1.4,bc:3.2,bi_a:2.2,bi_b:1,bi_c:0.75,bi_d:0.5,bi:4.45,an_a:3.2,an_b:0,an_c:1.1,an_dis:0.4,an:4.7,total:12.35,t1_app:0,t1_final:12.35},
-      {name:"Береке Таслима",region:"РФММ Алматы",bc_exp:1.3,bc_th:0.4,bc:1.7,bi_a:2.85,bi_b:3.5,bi_c:0.75,bi_d:2,bi:9.1,an_a:1.5,an_b:0,an_c:3.05,an_dis:2,an:6.55,total:17.35,t1_app:0,t1_final:17.35},
-      {name:"Бизат Бағлан",region:"Ақтөбе",bc_exp:1,bc_th:0.8,bc:1.8,bi_a:3.8,bi_b:0.75,bi_c:0.75,bi_d:2.5,bi:7.8,an_a:0.25,an_b:0.5,an_c:1.1,an_dis:0.4,an:2.25,total:11.85,t1_app:0,t1_final:11.85},
-      {name:"Буймов Александр",region:"Ұлытау",bc_exp:1.2,bc_th:1,bc:2.2,bi_a:2.8,bi_b:4,bi_c:0.75,bi_d:1.5,bi:9.05,an_a:2.2,an_b:0.5,an_c:2.05,an_dis:0.4,an:5.15,total:16.4,t1_app:-0.5,t1_final:15.9},
-      {name:"Бұланбай Нұртай",region:"Шымкент",bc_exp:0.4,bc_th:1.5,bc:1.9,bi_a:2.15,bi_b:4,bi_c:1,bi_d:1.5,bi:8.65,an_a:1.5,an_b:0,an_c:2.5,an_dis:0,an:4,total:14.55,t1_app:-1.0,t1_final:13.55},
-      {name:"Гайнуллаев Али",region:"Атырау",bc_exp:0.1,bc_th:0.8,bc:0.9,bi_a:0,bi_b:1.5,bi_c:0,bi_d:1.5,bi:3,an_a:0,an_b:0,an_c:2.55,an_dis:2,an:4.55,total:8.45,t1_app:2.9,t1_final:11.35},
-      {name:"Гмыря Надежда",region:"Қостанай",bc_exp:2.6,bc_th:0.8,bc:3.4,bi_a:2.15,bi_b:0.5,bi_c:0.75,bi_d:2,bi:5.4,an_a:2,an_b:0,an_c:1.65,an_dis:1.6,an:5.25,total:14.05,t1_app:0,t1_final:14.05},
-      {name:"Дүйжанов Арсен",region:"Ақтөбе",bc_exp:0.8,bc_th:0.6,bc:1.4,bi_a:1.2,bi_b:2.25,bi_c:0,bi_d:3,bi:6.45,an_a:0,an_b:0,an_c:2.15,an_dis:0,an:2.15,total:10,t1_app:2.6,t1_final:12.6},
-      {name:"Ерғалық Тамерлан",region:"Алматы қ.",bc_exp:2.5,bc_th:0,bc:2.5,bi_a:3.55,bi_b:3.75,bi_c:1.25,bi_d:0.5,bi:9.05,an_a:2.8,an_b:1.5,an_c:1.45,an_dis:0,an:5.75,total:17.3,t1_app:-1.75,t1_final:15.55},
-      {name:"Ержанұлы Батыр",region:"НЗМ ДББҰ",bc_exp:5.78,bc_th:1.9,bc:7.68,bi_a:4.3,bi_b:2.25,bi_c:0.75,bi_d:0.5,bi:7.8,an_a:2.7,an_b:0.5,an_c:2.75,an_dis:2,an:7.95,total:23.43,t1_app:4.2,t1_final:27.63},
-      {name:"Жамбыл Жібек",region:"Астана",bc_exp:4.4,bc_th:0.4,bc:4.8,bi_a:4.5,bi_b:4,bi_c:1.25,bi_d:3,bi:12.75,an_a:3.6,an_b:0.5,an_c:1.95,an_dis:2,an:8.05,total:25.6,t1_app:-2.4,t1_final:23.2},
-      {name:"Жансеріков Қайсар",region:"Қызылорда",bc_exp:1.1,bc_th:0.4,bc:1.5,bi_a:3.7,bi_b:2.25,bi_c:0.75,bi_d:2,bi:8.7,an_a:8.1,an_b:0,an_c:2.05,an_dis:1.6,an:11.75,total:21.95,t1_app:0,t1_final:21.95},
-      {name:"Желтова Софья",region:"НЗМ ДББҰ",bc_exp:5.4,bc_th:1.6,bc:7,bi_a:1.2,bi_b:2,bi_c:0.25,bi_d:0,bi:3.45,an_a:4.25,an_b:0.5,an_c:3.2,an_dis:2,an:9.95,total:20.4,t1_app:6.05,t1_final:26.45},
-      {name:"Жусупбекова Назерке",region:"Қарағанды",bc_exp:1,bc_th:1.2,bc:2.2,bi_a:4,bi_b:3.25,bi_c:0.75,bi_d:1.5,bi:9.5,an_a:0,an_b:0.5,an_c:0.55,an_dis:2,an:3.05,total:14.75,t1_app:-1.5,t1_final:13.25},
-      {name:"Зайт Мұхаммеджан",region:"Түркістан",bc_exp:0,bc_th:0.6,bc:0.6,bi_a:3.25,bi_b:2,bi_c:0.75,bi_d:2,bi:8,an_a:0.2,an_b:0,an_c:1.15,an_dis:0.8,an:2.15,total:10.75,t1_app:-2.8,t1_final:7.95},
-      {name:"Зинеден Аян",region:"Атырау",bc_exp:0,bc_th:0.8,bc:0.8,bi_a:2.7,bi_b:1.5,bi_c:0.75,bi_d:0.5,bi:5.45,an_a:0,an_b:0,an_c:0.9,an_dis:1.2,an:2.1,total:8.35,t1_app:0.5,t1_final:8.85},
-      {name:"Исанова Далия",region:"НЗМ ДББҰ",bc_exp:1.1,bc_th:0.4,bc:1.5,bi_a:2.2,bi_b:1.75,bi_c:0.75,bi_d:1.5,bi:6.2,an_a:2,an_b:0,an_c:2.55,an_dis:2,an:6.55,total:14.25,t1_app:1.45,t1_final:15.7},
-      {name:"Кəдірбай Абылай",region:"Астана",bc_exp:1.8,bc_th:1.4,bc:3.2,bi_a:2.65,bi_b:3.5,bi_c:1,bi_d:0.5,bi:7.65,an_a:1.5,an_b:0,an_c:1.7,an_dis:0,an:3.2,total:14.05,t1_app:-0.35,t1_final:13.7},
-      {name:"Қайркен Ерсұлтан",region:"Павлодар",bc_exp:3.8,bc_th:2.4,bc:6.2,bi_a:3.55,bi_b:1,bi_c:0.75,bi_d:2,bi:7.3,an_a:2.5,an_b:0,an_c:3,an_dis:0.8,an:6.3,total:19.8,t1_app:3.5,t1_final:23.3},
-      {name:"Қали Дария",region:"Алматы обл.",bc_exp:2.3,bc_th:0,bc:2.3,bi_a:4.3,bi_b:4.25,bi_c:1.25,bi_d:2,bi:11.8,an_a:0,an_b:0,an_c:1,an_dis:2,an:3,total:17.1,t1_app:-7.3,t1_final:9.8},
-      {name:"Мастобаев Никита",region:"Павлодар",bc_exp:0.8,bc_th:0.8,bc:1.6,bi_a:1.25,bi_b:0.5,bi_c:0.75,bi_d:2,bi:4.5,an_a:1.5,an_b:0,an_c:2.3,an_dis:2,an:5.8,total:11.9,t1_app:2.05,t1_final:13.95},
-      {name:"Менгулов Егор",region:"Ақмола",bc_exp:2.7,bc_th:0.8,bc:3.5,bi_a:3.05,bi_b:1.25,bi_c:0.75,bi_d:0.5,bi:5.55,an_a:0,an_b:0,an_c:1.55,an_dis:1.2,an:2.75,total:11.8,t1_app:2.5,t1_final:14.3},
-      {name:"Мерейұлы Санжар",region:"РФММ Алматы",bc_exp:0.4,bc_th:0.8,bc:1.2,bi_a:3.05,bi_b:3.25,bi_c:1,bi_d:3,bi:10.3,an_a:0.7,an_b:0,an_c:1.9,an_dis:2,an:4.6,total:16.1,t1_app:-6.65,t1_final:9.45},
-      {name:"Мереке Мирас",region:"Ақмола",bc_exp:0.8,bc_th:0.8,bc:1.6,bi_a:1.4,bi_b:1,bi_c:0.75,bi_d:0.5,bi:3.65,an_a:0,an_b:0,an_c:1.8,an_dis:2,an:3.8,total:9.05,t1_app:5.5,t1_final:14.55},
-      {name:"Молданова Эльнара",region:"Абай",bc_exp:1,bc_th:0.8,bc:1.8,bi_a:3.65,bi_b:1.75,bi_c:0.25,bi_d:3,bi:8.65,an_a:2.5,an_b:0,an_c:1.1,an_dis:1.6,an:5.2,total:15.65,t1_app:-3.95,t1_final:11.7},
-      {name:"Муратқызы Мерей",region:"Жетісу",bc_exp:4.5,bc_th:0.4,bc:4.9,bi_a:1.95,bi_b:1,bi_c:0.75,bi_d:0.5,bi:4.2,an_a:2.8,an_b:0,an_c:1.85,an_dis:1.2,an:5.9,total:15,t1_app:2.6,t1_final:17.6},
-      {name:"Муслім Аруана",region:"Алматы қ.",bc_exp:0.5,bc_th:0,bc:0.5,bi_a:2.3,bi_b:2.25,bi_c:0.25,bi_d:2,bi:6.8,an_a:2,an_b:0,an_c:0.2,an_dis:0,an:2.2,total:9.5,t1_app:-0.35,t1_final:9.15},
-      {name:"Мухамбеткалиев Адиль",region:"Батыс Қазақстан",bc_exp:0.8,bc_th:0.6,bc:1.4,bi_a:3.2,bi_b:0.5,bi_c:0.75,bi_d:1.5,bi:5.95,an_a:4.1,an_b:0,an_c:1.1,an_dis:0.8,an:6,total:13.35,t1_app:-0.85,t1_final:12.5},
-      {name:"Мұқашев Дарын",region:"ШҚО",bc_exp:4.1,bc_th:0.6,bc:4.7,bi_a:1.85,bi_b:1.25,bi_c:0.5,bi_d:1.5,bi:5.1,an_a:1.75,an_b:0.5,an_c:2.85,an_dis:2,an:7.1,total:16.9,t1_app:4.4,t1_final:21.3},
-      {name:"Мұрат Адэль",region:"Жамбыл",bc_exp:1.6,bc_th:0.8,bc:2.4,bi_a:3.5,bi_b:2.75,bi_c:0.75,bi_d:1.5,bi:8.5,an_a:2,an_b:1,an_c:2.6,an_dis:0,an:5.6,total:16.5,t1_app:-2.45,t1_final:14.05},
-      {name:"Мұратханов Батырхан",region:"Абай",bc_exp:0.4,bc_th:1,bc:1.4,bi_a:1.55,bi_b:1.75,bi_c:0.75,bi_d:1.5,bi:5.55,an_a:2,an_b:0,an_c:0.85,an_dis:0.8,an:3.65,total:10.6,t1_app:2.9,t1_final:13.5},
-      {name:"Мырзабай Бекнұртас",region:"Алматы қ.",bc_exp:0.8,bc_th:0.8,bc:1.6,bi_a:2.95,bi_b:3.25,bi_c:0.75,bi_d:2,bi:8.95,an_a:1.5,an_b:0,an_c:1.75,an_dis:1.6,an:4.85,total:15.4,t1_app:-0.55,t1_final:14.85},
-      {name:"Назаров Қасымжомарт",region:"Қызылорда",bc_exp:0.4,bc_th:1.6,bc:2,bi_a:2.9,bi_b:2.5,bi_c:0.75,bi_d:1.5,bi:7.65,an_a:3.1,an_b:0,an_c:2.05,an_dis:0,an:5.15,total:14.8,t1_app:0,t1_final:14.8},
-      {name:"Нсанбаева Дана",region:"Батыс Қазақстан",bc_exp:1.5,bc_th:0.6,bc:2.1,bi_a:3.05,bi_b:1,bi_c:0.25,bi_d:1.5,bi:5.8,an_a:4.3,an_b:0,an_c:0,an_dis:0,an:4.3,total:12.2,t1_app:0,t1_final:12.2},
-      {name:"Нукенова Малика",region:"НЗМ ДББҰ",bc_exp:1.1,bc_th:1,bc:2.1,bi_a:1.55,bi_b:1,bi_c:0.75,bi_d:1.5,bi:4.8,an_a:2,an_b:0.5,an_c:2.5,an_dis:2,an:7,total:13.9,t1_app:3.75,t1_final:17.65},
-      {name:"Нұртілеу Мират",region:"Жамбыл",bc_exp:3.7,bc_th:0.2,bc:3.9,bi_a:2.8,bi_b:3.5,bi_c:0.75,bi_d:1.5,bi:8.55,an_a:0.2,an_b:0,an_c:2.1,an_dis:1.6,an:3.9,total:16.35,t1_app:0.6,t1_final:16.95},
-      {name:"Подлесная Анита",region:"СҚО",bc_exp:1.1,bc_th:0.6,bc:1.7,bi_a:3.65,bi_b:3.75,bi_c:0.75,bi_d:2,bi:10.15,an_a:1.5,an_b:1.5,an_c:2.1,an_dis:2,an:7.1,total:18.95,t1_app:-1.75,t1_final:17.2},
-      {name:"Саят Айгерім",region:"Қарағанды",bc_exp:2.5,bc_th:0.8,bc:3.3,bi_a:2.4,bi_b:2.25,bi_c:0.75,bi_d:3,bi:8.4,an_a:1.5,an_b:0,an_c:0.8,an_dis:2,an:4.3,total:16,t1_app:0,t1_final:16},
-      {name:"Серік Аяулым",region:"Астана",bc_exp:0.4,bc_th:0.6,bc:1,bi_a:3.55,bi_b:2.25,bi_c:0.75,bi_d:1.5,bi:8.05,an_a:0,an_b:0,an_c:3.3,an_dis:0.4,an:3.7,total:12.75,t1_app:-3.75,t1_final:9.0},
-      {name:"Стрелова Ярослава",region:"Павлодар",bc_exp:2.8,bc_th:0.2,bc:3,bi_a:2.3,bi_b:2,bi_c:1,bi_d:0,bi:5.3,an_a:2,an_b:0,an_c:2.15,an_dis:1.6,an:5.75,total:14.05,t1_app:-2.35,t1_final:11.7,note:"ереже бұзғаны үшін"},
-      {name:"Таскынбаев Алихан",region:"НЗМ ДББҰ",bc_exp:4.5,bc_th:0.8,bc:5.3,bi_a:1.45,bi_b:0.5,bi_c:0,bi_d:0.5,bi:2.45,an_a:2.25,an_b:0.5,an_c:3.5,an_dis:2,an:8.25,total:16,t1_app:9.95,t1_final:25.95},
-      {name:"Тебенбаев Дидар",region:"Қызылорда",bc_exp:0.4,bc_th:1.6,bc:2,bi_a:4.4,bi_b:3.5,bi_c:1.25,bi_d:3,bi:12.15,an_a:2.8,an_b:0.5,an_c:1.5,an_dis:0.8,an:5.6,total:19.75,t1_app:-4.25,t1_final:15.5},
-      {name:"Титков Дмитрий",region:"Павлодар",bc_exp:2.2,bc_th:1,bc:3.2,bi_a:2.4,bi_b:3,bi_c:0.5,bi_d:2,bi:7.9,an_a:4,an_b:0.5,an_c:2.45,an_dis:2,an:8.95,total:20.05,t1_app:4.1,t1_final:24.15},
-      {name:"Төлеген Аруна",region:"СҚО",bc_exp:0,bc_th:1.6,bc:1.6,bi_a:3.25,bi_b:4.5,bi_c:1,bi_d:2,bi:10.75,an_a:1.5,an_b:0,an_c:2,an_dis:0.8,an:4.3,total:16.65,t1_app:-4.6,t1_final:12.05},
-      {name:"Уатхан Қаршыға",region:"ШҚО",bc_exp:1.7,bc_th:0.6,bc:2.3,bi_a:2.4,bi_b:2,bi_c:0.25,bi_d:2,bi:6.65,an_a:6.5,an_b:0,an_c:1.9,an_dis:1.6,an:10,total:18.95,t1_app:2.05,t1_final:21.0},
-      {name:"Үшкемпір Жанғали",region:"Ұлытау",bc_exp:1.6,bc_th:0.4,bc:2,bi_a:4.2,bi_b:3,bi_c:0.75,bi_d:1.5,bi:9.45,an_a:3.6,an_b:0,an_c:1.5,an_dis:2,an:7.1,total:18.55,t1_app:-2.8,t1_final:15.75},
-      {name:"Фадеев Александр",region:"Шымкент",bc_exp:0.8,bc_th:0.6,bc:1.4,bi_a:2.65,bi_b:0.75,bi_c:0.25,bi_d:3,bi:6.65,an_a:4.1,an_b:1.5,an_c:1.35,an_dis:2,an:8.95,total:17,t1_app:2.15,t1_final:19.15},
-      {name:"Хайруллин Амирхан",region:"Маңғыстау",bc_exp:0,bc_th:0.4,bc:0.4,bi_a:3.8,bi_b:3.75,bi_c:1,bi_d:1.5,bi:10.05,an_a:1.5,an_b:0,an_c:2.8,an_dis:2,an:6.3,total:16.75,t1_app:-4.65,t1_final:12.1,note:"ереже бұзғаны үшін (-1)"},
-      {name:"Хлобышева Дарья",region:"Павлодар",bc_exp:1.5,bc_th:0.2,bc:1.7,bi_a:1.65,bi_b:1.25,bi_c:0.75,bi_d:1.5,bi:5.15,an_a:1.5,an_b:0.5,an_c:2.6,an_dis:2,an:6.6,total:13.45,t1_app:1.25,t1_final:14.7},
-    ],
-    tour2: [
-      {name:"Молданова Эльнара",region:"Абай",total2:17.6,t2_app:-0.4,t2_final:17.2},
-      {name:"Мұратханов Батырхан",region:"Абай",total2:11.8,t2_app:0,t2_final:11.8},
-      {name:"Ахметова Диана",region:"Ақмола",total2:19,t2_app:-0.2,t2_final:18.8},
-      {name:"Менгулов Егор",region:"Ақмола",total2:20.6,t2_app:-0.6,t2_final:20.0},
-      {name:"Мереке Мирас",region:"Ақмола",total2:16.4,t2_app:-0.2,t2_final:16.2},
-      {name:"Бизат Бағлан",region:"Ақтөбе",total2:15.4,t2_app:-0.2,t2_final:15.2},
-      {name:"Дүйжанов Арсен",region:"Ақтөбе",total2:18.6,t2_app:-0.6,t2_final:18.0},
-      {name:"Ерғалық Тамерлан",region:"Алматы қ.",total2:20.4,t2_app:1.0,t2_final:21.4},
-      {name:"Муслім Аруана",region:"Алматы қ.",total2:16,t2_app:0,t2_final:16.0},
-      {name:"Мырзабай Бекнұртас",region:"Алматы қ.",total2:15.2,t2_app:-0.8,t2_final:14.4},
-      {name:"Қали Дария",region:"Алматы обл.",total2:16.4,t2_app:-1.4,t2_final:15.0},
-      {name:"Жамбыл Жібек",region:"Астана",total2:17.8,t2_app:-1.2,t2_final:16.6},
-      {name:"Кəдірбай Абылай",region:"Астана",total2:18.4,t2_app:1.0,t2_final:19.4},
-      {name:"Серік Аяулым",region:"Астана",total2:14.2,t2_app:0,t2_final:14.2},
-      {name:"Гайнуллаев Али",region:"Атырау",total2:20.8,t2_app:-0.8,t2_final:20.0},
-      {name:"Зинеден Аян",region:"Атырау",total2:17.2,t2_app:-0.4,t2_final:16.8},
-      {name:"Мухамбеткалиев Адиль",region:"Батыс Қазақстан",total2:16,t2_app:-0.4,t2_final:15.6},
-      {name:"Нсанбаева Дана",region:"Батыс Қазақстан",total2:16.4,t2_app:0.8,t2_final:17.2},
-      {name:"Мұрат Адэль",region:"Жамбыл",total2:22.8,t2_app:-0.4,t2_final:22.4},
-      {name:"Нұртілеу Мират",region:"Жамбыл",total2:18.4,t2_app:-1.2,t2_final:17.2},
-      {name:"Муратқызы Мерей",region:"Жетісу",total2:18.4,t2_app:-0.8,t2_final:17.6},
-      {name:"Жусупбекова Назерке",region:"Қарағанды",total2:15.8,t2_app:1.2,t2_final:17.0},
-      {name:"Саят Айгерім",region:"Қарағанды",total2:14.8,t2_app:0.2,t2_final:15.0},
-      {name:"Беилов Алтынбек",region:"Қостанай",total2:19,t2_app:-1.4,t2_final:17.6},
-      {name:"Гмыря Надежда",region:"Қостанай",total2:16.2,t2_app:-0.8,t2_final:15.4},
-      {name:"Жансеріков Қайсар",region:"Қызылорда",total2:16.8,t2_app:0,t2_final:16.8},
-      {name:"Назаров Қасымжомарт",region:"Қызылорда",total2:18.8,t2_app:-1.0,t2_final:17.8},
-      {name:"Тебенбаев Дидар",region:"Қызылорда",total2:15.2,t2_app:-0.2,t2_final:15.0},
-      {name:"Хайруллин Амирхан",region:"Маңғыстау",total2:14.6,t2_app:0.8,t2_final:15.4,note:"ереже бұзғаны үшін (-1)"},
-      {name:"Ержанұлы Батыр",region:"НЗМ ДББҰ",total2:23.2,t2_app:-1.2,t2_final:22.0},
-      {name:"Желтова Софья",region:"НЗМ ДББҰ",total2:23.6,t2_app:0.2,t2_final:23.8},
-      {name:"Исанова Далия",region:"НЗМ ДББҰ",total2:16.2,t2_app:0,t2_final:16.2},
-      {name:"Нукенова Малика",region:"НЗМ ДББҰ",total2:22.6,t2_app:-1.0,t2_final:21.6},
-      {name:"Таскынбаев Алихан",region:"НЗМ ДББҰ",total2:17.8,t2_app:0.6,t2_final:18.4},
-      {name:"Қайркен Ерсұлтан",region:"Павлодар",total2:25,t2_app:-1.0,t2_final:24.0},
-      {name:"Мастобаев Никита",region:"Павлодар",total2:15,t2_app:-0.4,t2_final:14.6},
-      {name:"Стрелова Ярослава",region:"Павлодар",total2:9.8,t2_app:-0.8,t2_final:9.0,note:"ереже бұзғаны үшін (-1)"},
-      {name:"Титков Дмитрий",region:"Павлодар",total2:17.4,t2_app:0.8,t2_final:18.2},
-      {name:"Хлобышева Дарья",region:"Павлодар",total2:16.2,t2_app:-1.2,t2_final:15.0},
-      {name:"Азизов Тимур",region:"РФММ Алматы",total2:23.6,t2_app:2.6,t2_final:26.2},
-      {name:"Береке Таслима",region:"РФММ Алматы",total2:6.6,t2_app:0.2,t2_final:6.8},
-      {name:"Мерейұлы Санжар",region:"РФММ Алматы",total2:13.2,t2_app:1.0,t2_final:14.2},
-      {name:"Подлесная Анита",region:"СҚО",total2:22,t2_app:-0.2,t2_final:21.8},
-      {name:"Төлеген Аруна",region:"СҚО",total2:17.2,t2_app:-1.0,t2_final:16.2},
-      {name:"Алкабай Үсен",region:"Түркістан",total2:14.4,t2_app:0.2,t2_final:14.6},
-      {name:"Зайт Мұхаммеджан",region:"Түркістан",total2:20.4,t2_app:-1.4,t2_final:19.0},
-      {name:"Буймов Александр",region:"Ұлытау",total2:20.2,t2_app:0,t2_final:20.2},
-      {name:"Үшкемпір Жанғали",region:"Ұлытау",total2:17.2,t2_app:0,t2_final:17.2},
-      {name:"Мұқашев Дарын",region:"ШҚО",total2:24.4,t2_app:-1.2,t2_final:23.2},
-      {name:"Уатхан Қаршыға",region:"ШҚО",total2:17.2,t2_app:-1.2,t2_final:16.0},
-      {name:"Бұланбай Нұртай",region:"Шымкент",total2:17.8,t2_app:-1.0,t2_final:16.8},
-      {name:"Фадеев Александр",region:"Шымкент",total2:22.8,t2_app:-0.6,t2_final:22.2},
-    ]
-  }
-};
+9: {
+tour1: [
+  {name:"Абдукадырова Балауса",region:"Шымкент",bc_e:0,bc_t:0.4,bc:0.4,bi_a:1.8,bi_b:1,bi_c:0.25,bi_d:0.5,bi:3.55,an_a:0.5,an_b:0,an_c:1.55,an_d:0.8,an:2.85,t1_raw:6.8,t1_app:1,t1_f:7.8},
+  {name:"Абдуллаев Ернур",region:"Ұлытау",bc_e:0,bc_t:0.4,bc:0.4,bi_a:2.55,bi_b:0.75,bi_c:0,bi_d:1.5,bi:4.8,an_a:0.5,an_b:0,an_c:0.75,an_d:1.6,an:2.85,t1_raw:8.05,t1_app:-0.5,t1_f:7.55},
+  {name:"Адилов Шахнур",region:"Түркістан",bc_e:2.5,bc_t:1,bc:3.5,bi_a:3.05,bi_b:3.75,bi_c:0.75,bi_d:2,bi:9.55,an_a:4.1,an_b:0,an_c:2.55,an_d:2,an:8.65,t1_raw:21.7,t1_app:0.75,t1_f:22.45},
+  {name:"Айтбай Нұрәділ",region:"Маңғыстау",bc_e:0,bc_t:0.2,bc:0.2,bi_a:3.05,bi_b:1,bi_c:0.75,bi_d:2,bi:6.8,an_a:2,an_b:0,an_c:0.6,an_d:0,an:2.6,t1_raw:9.6,t1_app:-0.5,t1_f:9.1},
+  {name:"Алдашбеков Ахмедияр",region:"Жамбыл",bc_e:0.9,bc_t:0,bc:0.9,bi_a:0.65,bi_b:1.5,bi_c:0.75,bi_d:0.5,bi:3.4,an_a:4.3,an_b:0,an_c:2.3,an_d:2,an:8.6,t1_raw:12.9,t1_app:0.2,t1_f:13.1},
+  {name:"Аманжол Несібе",region:"Атырау",bc_e:4,bc_t:0,bc:4,bi_a:2.95,bi_b:3.25,bi_c:0.75,bi_d:0.5,bi:7.45,an_a:2,an_b:1,an_c:1.85,an_d:0,an:4.85,t1_raw:16.3,t1_app:0.5,t1_f:16.8},
+  {name:"Антмухаметов Шадияр",region:"Павлодар",bc_e:1.1,bc_t:0.6,bc:1.7,bi_a:0.95,bi_b:3,bi_c:0.25,bi_d:2,bi:6.2,an_a:4.35,an_b:0,an_c:0.95,an_d:0,an:5.3,t1_raw:13.2,t1_app:-0.5,t1_f:12.7},
+  {name:"Аширханов Алихан",region:"Алматы қ.",bc_e:1.1,bc_t:1.4,bc:2.5,bi_a:4.4,bi_b:1.75,bi_c:0.75,bi_d:2,bi:8.9,an_a:3.3,an_b:0,an_c:2.95,an_d:2,an:8.25,t1_raw:19.65,t1_app:0.25,t1_f:19.9},
+  {name:"Базарбек Нұрәлі",region:"Абай",bc_e:0.9,bc_t:0.8,bc:1.7,bi_a:1.4,bi_b:2,bi_c:0.75,bi_d:0.5,bi:4.65,an_a:0,an_b:0,an_c:0.75,an_d:0,an:0.75,t1_raw:7.1,t1_app:0,t1_f:7.6},
+  {name:"Батырғали Аянат",region:"Батыс Қазақстан",bc_e:0,bc_t:0,bc:0,bi_a:2.65,bi_b:1,bi_c:0.75,bi_d:2,bi:6.4,an_a:1.2,an_b:0,an_c:1,an_d:0,an:2.2,t1_raw:8.6,t1_app:-0.5,t1_f:8.1},
+  {name:"Берікқара Олжас",region:"Ұлытау",bc_e:0,bc_t:0,bc:0,bi_a:3.65,bi_b:1,bi_c:1.25,bi_d:0,bi:5.9,an_a:0,an_b:0,an_c:1.65,an_d:0.4,an:2.05,t1_raw:7.95,t1_app:0,t1_f:7.95},
+  {name:"Бородай Роман",region:"СҚО",bc_e:0.4,bc_t:0.2,bc:0.6,bi_a:1.05,bi_b:1,bi_c:0.25,bi_d:3.5,bi:5.8,an_a:2.1,an_b:0.5,an_c:1.95,an_d:2,an:6.55,t1_raw:12.95,t1_app:-2,t1_f:10.95},
+  {name:"Ғабдулжағыпар Аңсар",region:"Павлодар",bc_e:1.1,bc_t:0.8,bc:1.9,bi_a:2.65,bi_b:3,bi_c:1,bi_d:2,bi:8.65,an_a:0,an_b:1,an_c:1.9,an_d:0.4,an:3.3,t1_raw:13.85,t1_app:0.25,t1_f:14.1},
+  {name:"Герасимова Валерия",region:"Ақмола",bc_e:0.3,bc_t:0,bc:0.3,bi_a:0.8,bi_b:2.5,bi_c:0.25,bi_d:0.5,bi:4.05,an_a:5.5,an_b:0.5,an_c:1.4,an_d:1.6,an:9,t1_raw:13.35,t1_app:0,t1_f:13.35},
+  {name:"Горохова Яна",region:"Ақмола",bc_e:1.1,bc_t:1.2,bc:2.3,bi_a:2.75,bi_b:4.25,bi_c:0.75,bi_d:0.5,bi:8.25,an_a:0,an_b:1,an_c:1.8,an_d:0.8,an:3.6,t1_raw:14.15,t1_app:-0.5,t1_f:13.65},
+  {name:"Дуйсен Жансая",region:"СҚО",bc_e:1,bc_t:0.4,bc:1.4,bi_a:0.55,bi_b:0,bi_c:0,bi_d:0,bi:0.55,an_a:1.4,an_b:0.5,an_c:1.6,an_d:1.6,an:5.1,t1_raw:7.05,t1_app:0,t1_f:7.05},
+  {name:"Дулат Алдияр",region:"РФММ Алматы",bc_e:0.9,bc_t:0,bc:0.9,bi_a:3.45,bi_b:1.5,bi_c:0.75,bi_d:0,bi:5.7,an_a:0,an_b:0,an_c:1.35,an_d:0,an:1.35,t1_raw:7.95,t1_app:0,t1_f:7.95},
+  {name:"Дүйсен Гүлімай",region:"Жамбыл",bc_e:0,bc_t:0.4,bc:0.4,bi_a:3.5,bi_b:2,bi_c:0.5,bi_d:2,bi:8,an_a:0,an_b:0,an_c:0.3,an_d:2,an:2.3,t1_raw:10.7,t1_app:-0.5,t1_f:10.2},
+  {name:"Елубай Ерасыл",region:"Абай",bc_e:0.8,bc_t:1.2,bc:2,bi_a:1.8,bi_b:2.5,bi_c:0.75,bi_d:0,bi:5.05,an_a:3.9,an_b:0,an_c:1.1,an_d:0,an:5,t1_raw:12.05,t1_app:0,t1_f:12.05},
+  {name:"Әділғали Нұрасыл",region:"Маңғыстау",bc_e:1.3,bc_t:0.4,bc:1.7,bi_a:4.3,bi_b:3.75,bi_c:1,bi_d:1.5,bi:10.55,an_a:2.7,an_b:0.5,an_c:1.65,an_d:1.6,an:6.45,t1_raw:18.7,t1_app:1.4,t1_f:20.1},
+  {name:"Жаксыбаев Даниал",region:"Астана",bc_e:1.9,bc_t:0.2,bc:2.1,bi_a:2.45,bi_b:2,bi_c:0.75,bi_d:2,bi:7.2,an_a:2.2,an_b:0,an_c:0.1,an_d:0,an:2.3,t1_raw:11.6,t1_app:-0.5,t1_f:11.1},
+  {name:"Жұмағали Әлихан",region:"Қарағанды",bc_e:0.8,bc_t:0.6,bc:1.4,bi_a:2.9,bi_b:2.25,bi_c:0.75,bi_d:0.5,bi:6.4,an_a:0.7,an_b:0,an_c:2.05,an_d:0.8,an:3.55,t1_raw:11.35,t1_app:0,t1_f:11.35},
+  {name:"Иса Хафиз",region:"Қызылорда",bc_e:1,bc_t:0.6,bc:1.6,bi_a:2.8,bi_b:4.25,bi_c:0,bi_d:1.5,bi:8.55,an_a:6.5,an_b:0,an_c:1.4,an_d:1.2,an:9.1,t1_raw:19.25,t1_app:0,t1_f:19.25},
+  {name:"Ислам Тілектес",region:"Қарағанды",bc_e:1,bc_t:1,bc:2,bi_a:2.8,bi_b:2.25,bi_c:0.25,bi_d:0.5,bi:5.8,an_a:2,an_b:0,an_c:1.35,an_d:0,an:3.35,t1_raw:11.15,t1_app:0.5,t1_f:11.65},
+  {name:"Кабышев Гафиз",region:"Батыс Қазақстан",bc_e:1.1,bc_t:1.8,bc:2.9,bi_a:2.35,bi_b:4.25,bi_c:0.75,bi_d:4,bi:11.35,an_a:0,an_b:1.5,an_c:2.7,an_d:0.8,an:5,t1_raw:19.25,t1_app:-2.5,t1_f:16.75},
+  {name:"Калкабеков Абитбек",region:"РФММ Алматы",bc_e:0.8,bc_t:0.2,bc:1,bi_a:3.55,bi_b:2,bi_c:0.75,bi_d:1.5,bi:7.8,an_a:0,an_b:0,an_c:1.45,an_d:0,an:1.45,t1_raw:10.25,t1_app:1,t1_f:11.25},
+  {name:"Каратаева Дария",region:"НЗМ ДББҰ",bc_e:0.9,bc_t:0.6,bc:1.5,bi_a:2.8,bi_b:2.5,bi_c:0.75,bi_d:0.5,bi:6.55,an_a:1,an_b:0,an_c:1.75,an_d:2,an:4.75,t1_raw:12.8,t1_app:-0.5,t1_f:12.3},
+  {name:"Кеңесқали Мирас",region:"Алматы қ.",bc_e:0,bc_t:0.8,bc:0.8,bi_a:3.4,bi_b:5.25,bi_c:1.25,bi_d:3.5,bi:13.4,an_a:0.2,an_b:0,an_c:2.8,an_d:0,an:3,t1_raw:17.2,t1_app:-1.8,t1_f:15.4},
+  {name:"Күненжан Самал",region:"Алматы обл.",bc_e:0.8,bc_t:0,bc:0.8,bi_a:0.8,bi_b:0,bi_c:0.25,bi_d:2,bi:3.05,an_a:0,an_b:0,an_c:1.05,an_d:1.2,an:2.25,t1_raw:6.1,t1_app:0,t1_f:6.1},
+  {name:"Құттыбек Айкөркем",region:"Жетісу",bc_e:1,bc_t:0.4,bc:1.4,bi_a:0.7,bi_b:1.25,bi_c:0.25,bi_d:0.5,bi:2.7,an_a:2,an_b:0,an_c:1.6,an_d:1.6,an:5.2,t1_raw:9.3,t1_app:0.5,t1_f:9.8},
+  {name:"Мақашев Ерсұлтан",region:"Жетісу",bc_e:1.5,bc_t:0.6,bc:2.1,bi_a:2.95,bi_b:3,bi_c:0.75,bi_d:2,bi:8.7,an_a:2.6,an_b:0,an_c:0.8,an_d:1.2,an:4.6,t1_raw:15.4,t1_app:1,t1_f:16.4},
+  {name:"Мусин Ануар",region:"Қостанай",bc_e:0,bc_t:0,bc:0,bi_a:1.2,bi_b:0.75,bi_c:0.5,bi_d:0,bi:2.45,an_a:3.9,an_b:0,an_c:1.25,an_d:0,an:5.15,t1_raw:7.6,t1_app:0,t1_f:7.6},
+  {name:"Назым Ескендір",region:"НЗМ ДББҰ",bc_e:1.4,bc_t:0.8,bc:2.2,bi_a:2.95,bi_b:2,bi_c:0,bi_d:2,bi:6.95,an_a:0.5,an_b:0,an_c:1.85,an_d:1.2,an:3.55,t1_raw:12.7,t1_app:0,t1_f:12.7},
+  {name:"Нариман Али Амир",region:"Алматы обл.",bc_e:0.8,bc_t:0.8,bc:1.6,bi_a:1.9,bi_b:3.5,bi_c:0.75,bi_d:0,bi:6.15,an_a:2.5,an_b:0,an_c:1.45,an_d:0,an:3.95,t1_raw:11.7,t1_app:0.5,t1_f:12.2},
+  {name:"Нурлыбек Ақерке",region:"Түркістан",bc_e:0,bc_t:0.6,bc:0.6,bi_a:1.3,bi_b:0.5,bi_c:0.25,bi_d:0,bi:2.05,an_a:2.2,an_b:0,an_c:0.5,an_d:0,an:2.7,t1_raw:5.35,t1_app:-0.5,t1_f:4.85},
+  {name:"Нұрасыл Омар",region:"Ақтөбе",bc_e:0.8,bc_t:0.2,bc:1,bi_a:3.9,bi_b:1.5,bi_c:0.75,bi_d:3.5,bi:9.65,an_a:2,an_b:0,an_c:1.95,an_d:1.2,an:5.15,t1_raw:15.8,t1_app:-2.5,t1_f:13.3},
+  {name:"Олейников Давид",region:"Атырау",bc_e:0.7,bc_t:0,bc:0.7,bi_a:4.15,bi_b:2,bi_c:1.25,bi_d:2,bi:9.4,an_a:5.3,an_b:0,an_c:0.4,an_d:1.2,an:6.9,t1_raw:17,t1_app:0.75,t1_f:17.75},
+  {name:"Орынбасар Рамазан",region:"Алматы қ.",bc_e:1.4,bc_t:0,bc:1.4,bi_a:3.3,bi_b:4.25,bi_c:0.75,bi_d:0,bi:8.3,an_a:4,an_b:0.5,an_c:2.5,an_d:0.8,an:7.8,t1_raw:17.5,t1_app:-0.25,t1_f:17.25},
+  {name:"Өмірбек Аян",region:"Қызылорда",bc_e:6.7,bc_t:0,bc:6.7,bi_a:3.05,bi_b:2.75,bi_c:1,bi_d:2,bi:8.8,an_a:4.1,an_b:1,an_c:2.55,an_d:1.6,an:9.25,t1_raw:24.75,t1_app:0.5,t1_f:25.25},
+  {name:"Рахманов Даниал",region:"Ақтөбе",bc_e:1.6,bc_t:0.6,bc:2.2,bi_a:4.05,bi_b:0.5,bi_c:0.75,bi_d:3,bi:8.3,an_a:1.7,an_b:0,an_c:1.2,an_d:0,an:2.9,t1_raw:13.4,t1_app:-1.5,t1_f:11.9},
+  {name:"Рузыев Арслан",region:"Алматы қ.",bc_e:0,bc_t:1.5,bc:1.5,bi_a:2.2,bi_b:0.75,bi_c:0.5,bi_d:0,bi:3.45,an_a:2.5,an_b:0.5,an_c:1.05,an_d:2,an:6.05,t1_raw:11,t1_app:0.25,t1_f:11.25},
+  {name:"Сембаев Максат",region:"ШҚО",bc_e:0,bc_t:0,bc:0,bi_a:3.15,bi_b:2.25,bi_c:0.75,bi_d:1.5,bi:7.65,an_a:1.4,an_b:0,an_c:0,an_d:1.2,an:2.6,t1_raw:10.25,t1_app:0,t1_f:10.25},
+  {name:"Сембай Айдана",region:"НЗМ ДББҰ",bc_e:1.5,bc_t:1,bc:2.5,bi_a:0.95,bi_b:2,bi_c:0.75,bi_d:0.5,bi:4.2,an_a:1.7,an_b:0,an_c:2.3,an_d:1.6,an:5.6,t1_raw:12.3,t1_app:-0.5,t1_f:11.8},
+  {name:"Серікұлы Нұрәлі",region:"ШҚО",bc_e:0.8,bc_t:0.2,bc:1,bi_a:3.4,bi_b:2.5,bi_c:0.25,bi_d:0,bi:6.15,an_a:0.5,an_b:0,an_c:1.55,an_d:1.6,an:3.65,t1_raw:10.8,t1_app:0.75,t1_f:11.55},
+  {name:"Сыздыкова Томирис",region:"Шымкент",bc_e:0.4,bc_t:1.2,bc:1.6,bi_a:1.4,bi_b:2,bi_c:0.25,bi_d:0,bi:3.65,an_a:0,an_b:0,an_c:1.55,an_d:0,an:1.55,t1_raw:6.8,t1_app:0,t1_f:6.8},
+  {name:"Татаркина Мария",region:"Жетісу",bc_e:0,bc_t:0,bc:0,bi_a:2.05,bi_b:0.75,bi_c:0.25,bi_d:0,bi:3.05,an_a:0,an_b:0,an_c:0.95,an_d:0.8,an:1.75,t1_raw:4.8,t1_app:0.5,t1_f:5.3},
+  {name:"Тынысов Мадияр",region:"Қостанай",bc_e:0,bc_t:1,bc:1,bi_a:2.4,bi_b:1.5,bi_c:1,bi_d:2,bi:6.9,an_a:0,an_b:0.5,an_c:1.15,an_d:1.2,an:2.85,t1_raw:10.75,t1_app:0,t1_f:10.75},
+  {name:"Широких Дарья",region:"Астана",bc_e:1.5,bc_t:0.6,bc:2.1,bi_a:1.2,bi_b:0.75,bi_c:0,bi_d:0.5,bi:2.45,an_a:3.8,an_b:0.5,an_c:2.25,an_d:2,an:8.55,t1_raw:13.1,t1_app:0.5,t1_f:13.6},
+],
+tour2: [
+  {name:"Абдукадырова Балауса",region:"Шымкент",t2_raw:15.2,t2_app:-1.2,t2_f:14},
+  {name:"Абдуллаев Ернур",region:"Ұлытау",t2_raw:13.6,t2_app:-0.4,t2_f:13.2},
+  {name:"Адилов Шахнур",region:"Түркістан",t2_raw:17.4,t2_app:1,t2_f:18.4},
+  {name:"Айтбай Нұрәділ",region:"Маңғыстау",t2_raw:12.8,t2_app:-1,t2_f:11.8},
+  {name:"Алдашбеков Ахмедияр",region:"Жамбыл",t2_raw:16.2,t2_app:-0.6,t2_f:15.6},
+  {name:"Аманжол Несібе",region:"Атырау",t2_raw:20.4,t2_app:0,t2_f:20.4},
+  {name:"Антмухаметов Шадияр",region:"Павлодар",t2_raw:17.8,t2_app:0.6,t2_f:18.4},
+  {name:"Аширханов Алихан",region:"Алматы қ.",t2_raw:22.2,t2_app:0.6,t2_f:22.8},
+  {name:"Базарбек Нұрәлі",region:"Абай",t2_raw:14.8,t2_app:-1.2,t2_f:13.6},
+  {name:"Батырғали Аянат",region:"Батыс Қазақстан",t2_raw:14,t2_app:-0.8,t2_f:13.2},
+  {name:"Берікқара Олжас",region:"Ұлытау",t2_raw:18.6,t2_app:-0.8,t2_f:17.8},
+  {name:"Бородай Роман",region:"СҚО",t2_raw:16,t2_app:-0.6,t2_f:15.4},
+  {name:"Ғабдулжағыпар Аңсар",region:"Павлодар",t2_raw:22.6,t2_app:0.4,t2_f:23},
+  {name:"Герасимова Валерия",region:"Ақмола",t2_raw:17.6,t2_app:-1.4,t2_f:16.2},
+  {name:"Горохова Яна",region:"Ақмола",t2_raw:21.8,t2_app:-1.2,t2_f:20.6},
+  {name:"Дуйсен Жансая",region:"СҚО",t2_raw:12.6,t2_app:0.2,t2_f:12.8},
+  {name:"Дулат Алдияр",region:"РФММ Алматы",t2_raw:13.2,t2_app:6.2,t2_f:19.4},
+  {name:"Дүйсен Гүлімай",region:"Жамбыл",t2_raw:14.2,t2_app:0.4,t2_f:14.6},
+  {name:"Елубай Ерасыл",region:"Абай",t2_raw:15.2,t2_app:-0.2,t2_f:15},
+  {name:"Әділғали Нұрасыл",region:"Маңғыстау",t2_raw:23.4,t2_app:0.8,t2_f:24.2},
+  {name:"Жаксыбаев Даниал",region:"Астана",t2_raw:17,t2_app:-0.8,t2_f:16.2},
+  {name:"Жұмағали Әлихан",region:"Қарағанды",t2_raw:19.6,t2_app:-0.2,t2_f:19.4},
+  {name:"Иса Хафиз",region:"Қызылорда",t2_raw:24,t2_app:0.4,t2_f:24.4},
+  {name:"Ислам Тілектес",region:"Қарағанды",t2_raw:14.2,t2_app:0.6,t2_f:14.8},
+  {name:"Кабышев Гафиз",region:"Батыс Қазақстан",t2_raw:16.6,t2_app:-0.4,t2_f:16.2},
+  {name:"Калкабеков Абитбек",region:"РФММ Алматы",t2_raw:12,t2_app:-0.6,t2_f:11.4},
+  {name:"Каратаева Дария",region:"НЗМ ДББҰ",t2_raw:14.2,t2_app:-0.4,t2_f:13.8},
+  {name:"Кеңесқали Мирас",region:"Алматы қ.",t2_raw:18.6,t2_app:-0.6,t2_f:18},
+  {name:"Күненжан Самал",region:"Алматы обл.",t2_raw:11.4,t2_app:0.4,t2_f:11.8},
+  {name:"Құттыбек Айкөркем",region:"Жетісу",t2_raw:14.4,t2_app:-0.6,t2_f:13.8},
+  {name:"Мақашев Ерсұлтан",region:"Жетісу",t2_raw:19.6,t2_app:1.2,t2_f:20.8},
+  {name:"Мусин Ануар",region:"Қостанай",t2_raw:17.6,t2_app:-1.4,t2_f:16.2},
+  {name:"Назым Ескендір",region:"НЗМ ДББҰ",t2_raw:17.2,t2_app:-1.2,t2_f:16},
+  {name:"Нариман Али Амир",region:"Алматы обл.",t2_raw:9.6,t2_app:-0.4,t2_f:9.2},
+  {name:"Нурлыбек Ақерке",region:"Түркістан",t2_raw:16.2,t2_app:-1.2,t2_f:15},
+  {name:"Нұрасыл Омар",region:"Ақтөбе",t2_raw:22.6,t2_app:-0.4,t2_f:22.2},
+  {name:"Олейников Давид",region:"Атырау",t2_raw:17.8,t2_app:-2.4,t2_f:15.4},
+  {name:"Орынбасар Рамазан",region:"Алматы қ.",t2_raw:19,t2_app:-0.8,t2_f:18.2},
+  {name:"Өмірбек Аян",region:"Қызылорда",t2_raw:12.6,t2_app:0.4,t2_f:13},
+  {name:"Рахманов Даниал",region:"Ақтөбе",t2_raw:18.6,t2_app:0.4,t2_f:19},
+  {name:"Рузыев Арслан",region:"Алматы қ.",t2_raw:16,t2_app:1.2,t2_f:17.2},
+  {name:"Сембаев Максат",region:"ШҚО",t2_raw:19.6,t2_app:-1.2,t2_f:18.4},
+  {name:"Сембай Айдана",region:"НЗМ ДББҰ",t2_raw:16.2,t2_app:0.2,t2_f:16.4},
+  {name:"Серікұлы Нұрәлі",region:"ШҚО",t2_raw:15,t2_app:0,t2_f:15},
+  {name:"Сыздыкова Томирис",region:"Шымкент",t2_raw:13.4,t2_app:0.6,t2_f:14},
+  {name:"Татаркина Мария",region:"Жетісу",t2_raw:15.6,t2_app:-1,t2_f:14.6},
+  {name:"Тынысов Мадияр",region:"Қостанай",t2_raw:15,t2_app:-0.2,t2_f:14.8},
+  {name:"Широких Дарья",region:"Астана",t2_raw:17.2,t2_app:-0.4,t2_f:16.8},
+]},
+10: {
+tour1: [
+  {name:"Абдужамал Бақберген",region:"Қызылорда",bc_e:0.4,bc_t:0.8,bc:1.2,bi_a:1.65,bi_b:1.75,bi_c:0,bi_d:2,bi:5.4,an_a:1.5,an_b:0,an_c:2.95,an_d:2,an:6.45,t1_raw:13.05,t1_app:-0.5,t1_f:12.55},
+  {name:"Абдығали Адина",region:"Жамбыл",bc_e:0,bc_t:0,bc:0,bi_a:1.4,bi_b:3.5,bi_c:0.75,bi_d:1.5,bi:7.15,an_a:0,an_b:2.1,an_c:1.5,an_d:0,an:3.6,t1_raw:10.75,t1_app:-0.5,t1_f:10.25},
+  {name:"Алмасұлы Бекәлі",region:"Батыс Қазақстан",bc_e:0.8,bc_t:1.2,bc:2,bi_a:2.35,bi_b:2.25,bi_c:0.75,bi_d:2,bi:7.35,an_a:2,an_b:0.5,an_c:2.35,an_d:1.6,an:6.45,t1_raw:15.8,t1_app:0,t1_f:15.8},
+  {name:"Альмагамбетов Санжар",region:"Қостанай",bc_e:2.7,bc_t:0.8,bc:3.5,bi_a:1.75,bi_b:2.5,bi_c:0.75,bi_d:2,bi:7,an_a:4.05,an_b:0.5,an_c:1.95,an_d:2,an:8.5,t1_raw:19,t1_app:0,t1_f:19},
+  {name:"Амантай Нұрбақыт",region:"Астана",bc_e:0,bc_t:0.4,bc:0.4,bi_a:4.2,bi_b:3.25,bi_c:0.75,bi_d:2,bi:10.2,an_a:3.2,an_b:0.5,an_c:2.05,an_d:1.2,an:6.95,t1_raw:17.55,t1_app:-0.25,t1_f:17.3},
+  {name:"Арыстанов Амир",region:"Шымкент",bc_e:0,bc_t:0,bc:0,bi_a:1.55,bi_b:1.5,bi_c:0.75,bi_d:1.5,bi:5.3,an_a:1.5,an_b:0.5,an_c:2.15,an_d:2,an:6.15,t1_raw:11.45,t1_app:-0.5,t1_f:10.95},
+  {name:"Ахметова Сабина",region:"Алматы обл.",bc_e:1,bc_t:0,bc:1,bi_a:2.25,bi_b:1.5,bi_c:0.75,bi_d:1.5,bi:6,an_a:0,an_b:0.5,an_c:0.5,an_d:1.2,an:2.2,t1_raw:9.2,t1_app:-0.5,t1_f:8.7},
+  {name:"Аюпов Расул",region:"Алматы обл.",bc_e:0.1,bc_t:0.6,bc:0.7,bi_a:2.3,bi_b:0.75,bi_c:0.75,bi_d:0,bi:3.8,an_a:0,an_b:0,an_c:1.55,an_d:1.2,an:2.75,t1_raw:7.25,t1_app:0,t1_f:7.25},
+  {name:"Байбаков Аңсар",region:"Түркістан",bc_e:0.5,bc_t:0.8,bc:1.3,bi_a:2.4,bi_b:1.25,bi_c:0.75,bi_d:0.5,bi:4.9,an_a:1.5,an_b:0,an_c:1.6,an_d:0.8,an:3.9,t1_raw:10.1,t1_app:0,t1_f:10.1},
+  {name:"Байкунакова Жанель",region:"Қарағанды",bc_e:0.4,bc_t:0,bc:0.4,bi_a:2.3,bi_b:2.75,bi_c:1,bi_d:1.5,bi:7.55,an_a:1.7,an_b:0.5,an_c:1.95,an_d:0,an:4.15,t1_raw:12.1,t1_app:-0.75,t1_f:11.35},
+  {name:"Бахтбекова Алуа",region:"НЗМ ДББҰ",bc_e:1.1,bc_t:0.8,bc:1.9,bi_a:4,bi_b:2.75,bi_c:0.75,bi_d:4,bi:11.5,an_a:4.2,an_b:0.5,an_c:3.3,an_d:2,an:10,t1_raw:23.4,t1_app:-0.5,t1_f:22.9},
+  {name:"Беремкулова Дайне",region:"РФММ Алматы",bc_e:2,bc_t:0.5,bc:2.5,bi_a:3.3,bi_b:0.5,bi_c:0.75,bi_d:3,bi:7.55,an_a:1.95,an_b:0,an_c:1.6,an_d:2,an:6.25,t1_raw:16.3,t1_app:1,t1_f:17.3},
+  {name:"Билялов Нурали",region:"Павлодар",bc_e:1.8,bc_t:0.6,bc:2.4,bi_a:3.8,bi_b:2.5,bi_c:1.25,bi_d:3,bi:10.55,an_a:5.9,an_b:0,an_c:1.95,an_d:0.8,an:8.65,t1_raw:21.6,t1_app:-0.25,t1_f:21.35},
+  {name:"Боздақова Инабат",region:"Қызылорда",bc_e:7.2,bc_t:0.6,bc:7.8,bi_a:1.35,bi_b:1.25,bi_c:0.75,bi_d:1.5,bi:4.85,an_a:0.5,an_b:0,an_c:1.2,an_d:1.2,an:2.9,t1_raw:15.55,t1_app:-0.5,t1_f:15.05},
+  {name:"Братаев Адильхан",region:"Ақмола",bc_e:1.1,bc_t:0.6,bc:1.7,bi_a:3.55,bi_b:1.75,bi_c:0,bi_d:1.5,bi:6.8,an_a:3.6,an_b:0.5,an_c:1.8,an_d:0.8,an:6.7,t1_raw:15.2,t1_app:1.5,t1_f:16.7},
+  {name:"Варин Марк",region:"Ақтөбе",bc_e:1,bc_t:1,bc:2,bi_a:2,bi_b:0.5,bi_c:0.75,bi_d:2,bi:5.25,an_a:6.1,an_b:0,an_c:2.1,an_d:1.2,an:9.4,t1_raw:16.65,t1_app:0.75,t1_f:17.4},
+  {name:"Волигов Владислав",region:"Жетісу",bc_e:0,bc_t:0,bc:0,bi_a:1.95,bi_b:0.5,bi_c:0.75,bi_d:0,bi:3.2,an_a:1.1,an_b:0,an_c:0,an_d:1.2,an:2.3,t1_raw:5.5,t1_app:0,t1_f:5.5},
+  {name:"Гурский Даниил",region:"Қостанай",bc_e:2.2,bc_t:1.5,bc:3.7,bi_a:4.15,bi_b:3.75,bi_c:0.5,bi_d:2,bi:10.4,an_a:2,an_b:0,an_c:1.2,an_d:1.6,an:4.8,t1_raw:18.9,t1_app:0.2,t1_f:19.1},
+  {name:"Джубаялиев Амир",region:"Атырау",bc_e:2.4,bc_t:0.6,bc:3,bi_a:2.95,bi_b:1.5,bi_c:1,bi_d:1.5,bi:6.95,an_a:3.7,an_b:0,an_c:2.4,an_d:0,an:6.1,t1_raw:16.05,t1_app:0.25,t1_f:16.3},
+  {name:"Джумашова Жазира",region:"Алматы обл.",bc_e:6.38,bc_t:0.2,bc:6.58,bi_a:1.5,bi_b:1.5,bi_c:0,bi_d:0.5,bi:3.5,an_a:4.3,an_b:0,an_c:2.5,an_d:2,an:8.8,t1_raw:18.88,t1_app:-0.5,t1_f:18.38},
+  {name:"Ермекбай Айбар",region:"Ақмола",bc_e:0,bc_t:0.4,bc:0.4,bi_a:2.55,bi_b:1.25,bi_c:0.75,bi_d:2,bi:6.55,an_a:5,an_b:0,an_c:2.4,an_d:2,an:9.4,t1_raw:16.35,t1_app:0.5,t1_f:16.85},
+  {name:"Ермекова Фатима",region:"Жетісу",bc_e:0,bc_t:0.8,bc:0.8,bi_a:1.15,bi_b:1,bi_c:0.75,bi_d:2,bi:4.9,an_a:1.5,an_b:0,an_c:1.5,an_d:0.4,an:3.4,t1_raw:9.1,t1_app:0,t1_f:9.1},
+  {name:"Әскер Қуаныш",region:"Атырау",bc_e:0.6,bc_t:0,bc:0.6,bi_a:1.35,bi_b:2,bi_c:0,bi_d:0,bi:3.35,an_a:3,an_b:0,an_c:0,an_d:0.8,an:3.8,t1_raw:7.75,t1_app:-1,t1_f:6.75},
+  {name:"Жақсылық Санжар",region:"НЗМ ДББҰ",bc_e:1.4,bc_t:0.2,bc:1.6,bi_a:2.4,bi_b:2,bi_c:0.25,bi_d:2,bi:6.65,an_a:0.7,an_b:0,an_c:2.95,an_d:2,an:5.65,t1_raw:13.9,t1_app:1,t1_f:14.9},
+  {name:"Забекова Сабина",region:"Батыс Қазақстан",bc_e:0.8,bc_t:0.4,bc:1.2,bi_a:2.4,bi_b:2,bi_c:0.75,bi_d:2,bi:7.15,an_a:3,an_b:0,an_c:1.25,an_d:0.8,an:5.05,t1_raw:13.4,t1_app:0,t1_f:13.4},
+  {name:"Ибадулла Алинұр",region:"Шымкент",bc_e:0,bc_t:0.4,bc:0.4,bi_a:2.5,bi_b:1.5,bi_c:0.25,bi_d:1.5,bi:5.75,an_a:2.25,an_b:0,an_c:0.65,an_d:1.2,an:4.1,t1_raw:10.25,t1_app:0.5,t1_f:10.75},
+  {name:"Инсебаева Фатима",region:"Павлодар",bc_e:0,bc_t:0.4,bc:0.4,bi_a:1.8,bi_b:1.75,bi_c:0.5,bi_d:1.5,bi:5.55,an_a:1.5,an_b:0,an_c:2.65,an_d:2,an:6.15,t1_raw:12.1,t1_app:0,t1_f:12.1},
+  {name:"Исмагулова Камалия",region:"СҚО",bc_e:0.8,bc_t:0.2,bc:1,bi_a:2.8,bi_b:0.5,bi_c:0.75,bi_d:1.5,bi:5.55,an_a:1.4,an_b:0.5,an_c:0.95,an_d:2,an:4.85,t1_raw:11.4,t1_app:0.5,t1_f:11.9},
+  {name:"Кириллов Артур",region:"РФММ Алматы",bc_e:0,bc_t:1,bc:1,bi_a:2.9,bi_b:1.75,bi_c:0.75,bi_d:1.5,bi:6.9,an_a:4.6,an_b:0,an_c:2.2,an_d:0.4,an:7.2,t1_raw:15.1,t1_app:-0.5,t1_f:14.6},
+  {name:"Қабдыкәрім Әли",region:"ШҚО",bc_e:1.8,bc_t:0,bc:1.8,bi_a:2.2,bi_b:1.5,bi_c:0.75,bi_d:2,bi:6.45,an_a:1.5,an_b:0,an_c:2.4,an_d:2,an:5.9,t1_raw:14.15,t1_app:0.15,t1_f:14.3},
+  {name:"Қуанышбек Жібек",region:"Маңғыстау",bc_e:1.8,bc_t:0,bc:1.8,bi_a:2.2,bi_b:0.5,bi_c:0.75,bi_d:1.5,bi:4.95,an_a:2.7,an_b:0,an_c:0.35,an_d:0.4,an:3.45,t1_raw:10.2,t1_app:0.5,t1_f:10.7},
+  {name:"Мақсот Нұрхат",region:"Астана",bc_e:0.9,bc_t:0.6,bc:1.5,bi_a:3.8,bi_b:2.25,bi_c:1,bi_d:3,bi:10.05,an_a:2.15,an_b:0,an_c:0.55,an_d:0,an:2.7,t1_raw:14.25,t1_app:0.25,t1_f:14.5},
+  {name:"Маулет Арсен",region:"Алматы қ.",bc_e:1.5,bc_t:1.7,bc:3.2,bi_a:4.05,bi_b:3.75,bi_c:0.75,bi_d:0,bi:8.55,an_a:1,an_b:0.5,an_c:2.1,an_d:0.8,an:4.4,t1_raw:16.15,t1_app:-1,t1_f:15.15},
+  {name:"Меженина Евгения",region:"НЗМ ДББҰ",bc_e:0.6,bc_t:0.8,bc:1.4,bi_a:2.55,bi_b:3.75,bi_c:0.75,bi_d:2,bi:9.05,an_a:2.7,an_b:0.5,an_c:3.5,an_d:2,an:8.7,t1_raw:19.15,t1_app:0,t1_f:19.15},
+  {name:"Мыңбай Санжар",region:"Ақтөбе",bc_e:0.8,bc_t:0.2,bc:1,bi_a:2.9,bi_b:1.75,bi_c:0.25,bi_d:2,bi:6.9,an_a:1.5,an_b:0.5,an_c:1.65,an_d:1.6,an:5.25,t1_raw:13.15,t1_app:1,t1_f:14.15},
+  {name:"Нурланов Саян",region:"Ұлытау",bc_e:0,bc_t:0.4,bc:0.4,bi_a:2.7,bi_b:0.5,bi_c:0.75,bi_d:1.5,bi:5.45,an_a:0,an_b:0.5,an_c:2.3,an_d:1.6,an:4.4,t1_raw:10.25,t1_app:-0.5,t1_f:9.75},
+  {name:"Оразалы Дильназ",region:"Ұлытау",bc_e:1.4,bc_t:0.2,bc:1.6,bi_a:1.45,bi_b:0.75,bi_c:0.25,bi_d:1.5,bi:3.95,an_a:5.9,an_b:0,an_c:1.75,an_d:1.2,an:8.85,t1_raw:14.4,t1_app:0.5,t1_f:14.9},
+  {name:"Оспанғали Ернұр",region:"Абай",bc_e:1.4,bc_t:0.4,bc:1.8,bi_a:2.95,bi_b:0.75,bi_c:1,bi_d:2.5,bi:7.2,an_a:3.6,an_b:0,an_c:2.5,an_d:2,an:8.1,t1_raw:17.1,t1_app:0.75,t1_f:17.85},
+  {name:"Сайлаубек Нурислам",region:"ШҚО",bc_e:2.2,bc_t:1,bc:3.2,bi_a:4.3,bi_b:3,bi_c:1.25,bi_d:1.5,bi:10.05,an_a:3.2,an_b:0.5,an_c:2.8,an_d:1.6,an:8.1,t1_raw:21.35,t1_app:1,t1_f:22.35},
+  {name:"Саматұлы Алимұхаммед",region:"Павлодар",bc_e:1.4,bc_t:1.3,bc:2.7,bi_a:3.9,bi_b:3,bi_c:0.75,bi_d:1.5,bi:9.15,an_a:2.5,an_b:0.5,an_c:0.45,an_d:1.6,an:5.05,t1_raw:16.9,t1_app:0,t1_f:16.9},
+  {name:"Слямов Арнұр",region:"Абай",bc_e:1.2,bc_t:0.4,bc:1.6,bi_a:2.15,bi_b:0.5,bi_c:0.5,bi_d:1.5,bi:4.65,an_a:4.1,an_b:0,an_c:0.4,an_d:1.2,an:5.7,t1_raw:11.95,t1_app:0,t1_f:11.95},
+  {name:"Советхан Еркежан",region:"Жамбыл",bc_e:0.4,bc_t:1.2,bc:1.6,bi_a:1.05,bi_b:1.25,bi_c:0.75,bi_d:1.5,bi:4.55,an_a:0,an_b:0,an_c:0.65,an_d:0,an:0.65,t1_raw:6.8,t1_app:0,t1_f:6.8},
+  {name:"Сүйеуберді Санжар",region:"Маңғыстау",bc_e:1.8,bc_t:0.4,bc:2.2,bi_a:2,bi_b:2.75,bi_c:0.25,bi_d:1.5,bi:6.5,an_a:0,an_b:0,an_c:1.6,an_d:1.2,an:2.8,t1_raw:11.5,t1_app:1,t1_f:12.5},
+  {name:"Тайрханов Сардорбек",region:"Түркістан",bc_e:0.8,bc_t:0.6,bc:1.4,bi_a:4.3,bi_b:3.25,bi_c:0.75,bi_d:1.5,bi:9.8,an_a:3.6,an_b:0.5,an_c:2.6,an_d:0,an:6.7,t1_raw:17.9,t1_app:-0.25,t1_f:17.65},
+  {name:"Ташмаканов Салават",region:"СҚО",bc_e:0.1,bc_t:0,bc:0.1,bi_a:3.5,bi_b:3.5,bi_c:0.75,bi_d:0,bi:7.75,an_a:2,an_b:0,an_c:0.75,an_d:1.6,an:4.35,t1_raw:12.2,t1_app:0,t1_f:12.2},
+  {name:"Тремко Олег",region:"Алматы обл.",bc_e:6.3,bc_t:1,bc:7.3,bi_a:3.55,bi_b:1.5,bi_c:0.75,bi_d:0.5,bi:6.3,an_a:1.6,an_b:0,an_c:2.15,an_d:1.6,an:5.35,t1_raw:18.95,t1_app:0,t1_f:18.95},
+  {name:"Тулеубаева Мариям",region:"Қарағанды",bc_e:1.8,bc_t:0.8,bc:2.6,bi_a:3.05,bi_b:4.5,bi_c:0.75,bi_d:1.5,bi:9.8,an_a:3.2,an_b:0,an_c:2.3,an_d:0,an:5.5,t1_raw:17.9,t1_app:0,t1_f:17.9},
+  {name:"Тұрғанбай Ибраһим",region:"Атырау",bc_e:1.8,bc_t:0,bc:1.8,bi_a:2.65,bi_b:1,bi_c:0.75,bi_d:2,bi:6.4,an_a:1.5,an_b:0,an_c:1.35,an_d:2,an:4.85,t1_raw:13.05,t1_app:0,t1_f:13.05},
+  {name:"Хаби Ануар",region:"Алматы қ.",bc_e:2.1,bc_t:0,bc:2.1,bi_a:3.15,bi_b:0.5,bi_c:0.75,bi_d:2.5,bi:6.9,an_a:0,an_b:0.5,an_c:3.2,an_d:2,an:5.7,t1_raw:14.7,t1_app:1.15,t1_f:15.85},
+  {name:"Шуленбай Едіге",region:"Алматы қ.",bc_e:1.8,bc_t:0.8,bc:2.6,bi_a:3.3,bi_b:2.5,bi_c:0.75,bi_d:0,bi:6.55,an_a:5.9,an_b:0,an_c:2.3,an_d:0.8,an:9,t1_raw:18.15,t1_app:1.15,t1_f:19.3},
+],
+tour2: [
+  {name:"Абдужамал Бақберген",region:"Қызылорда",t2_raw:15.2,t2_app:0.8,t2_f:16},
+  {name:"Абдығали Адина",region:"Жамбыл",t2_raw:18.8,t2_app:-2.2,t2_f:16.6},
+  {name:"Алмасұлы Бекәлі",region:"Батыс Қазақстан",t2_raw:21.4,t2_app:-0.4,t2_f:21},
+  {name:"Альмагамбетов Санжар",region:"Қостанай",t2_raw:20.6,t2_app:0.4,t2_f:21},
+  {name:"Амантай Нұрбақыт",region:"Астана",t2_raw:16,t2_app:0,t2_f:16},
+  {name:"Арыстанов Амир",region:"Шымкент",t2_raw:19,t2_app:-0.4,t2_f:18.6},
+  {name:"Ахметова Сабина",region:"Алматы обл.",t2_raw:18.4,t2_app:0.2,t2_f:18.6},
+  {name:"Аюпов Расул",region:"Алматы обл.",t2_raw:16.4,t2_app:1.2,t2_f:17.6},
+  {name:"Байбаков Аңсар",region:"Түркістан",t2_raw:18.2,t2_app:0,t2_f:18.2},
+  {name:"Байкунакова Жанель",region:"Қарағанды",t2_raw:10.2,t2_app:0.4,t2_f:10.6},
+  {name:"Бахтбекова Алуа",region:"НЗМ ДББҰ",t2_raw:17.6,t2_app:-0.2,t2_f:17.4},
+  {name:"Беремкулова Дайне",region:"РФММ Алматы",t2_raw:14.8,t2_app:0.2,t2_f:15},
+  {name:"Билялов Нурали",region:"Павлодар",t2_raw:22.4,t2_app:1,t2_f:23.4},
+  {name:"Боздақова Инабат",region:"Қызылорда",t2_raw:17,t2_app:-1.6,t2_f:15.4},
+  {name:"Братаев Адильхан",region:"Ақмола",t2_raw:13.4,t2_app:0.6,t2_f:14},
+  {name:"Варин Марк",region:"Ақтөбе",t2_raw:21.4,t2_app:-1,t2_f:20.4},
+  {name:"Волигов Владислав",region:"Жетісу",t2_raw:15.2,t2_app:-0.4,t2_f:14.8},
+  {name:"Гурский Даниил",region:"Қостанай",t2_raw:20.2,t2_app:-0.2,t2_f:20},
+  {name:"Джубаялиев Амир",region:"Атырау",t2_raw:18.6,t2_app:-0.6,t2_f:18},
+  {name:"Джумашова Жазира",region:"Алматы обл.",t2_raw:14.6,t2_app:-2.2,t2_f:12.4},
+  {name:"Ермекбай Айбар",region:"Ақмола",t2_raw:17.2,t2_app:0.4,t2_f:17.6},
+  {name:"Ермекова Фатима",region:"Жетісу",t2_raw:12.4,t2_app:0,t2_f:12.4},
+  {name:"Әскер Қуаныш",region:"Атырау",t2_raw:14.6,t2_app:-0.6,t2_f:14},
+  {name:"Жақсылық Санжар",region:"НЗМ ДББҰ",t2_raw:22.2,t2_app:-0.8,t2_f:21.4},
+  {name:"Забекова Сабина",region:"Батыс Қазақстан",t2_raw:13.6,t2_app:-0.2,t2_f:13.4},
+  {name:"Ибадулла Алинұр",region:"Шымкент",t2_raw:16.6,t2_app:0,t2_f:16.6},
+  {name:"Инсебаева Фатима",region:"Павлодар",t2_raw:16.4,t2_app:-1.4,t2_f:15},
+  {name:"Исмагулова Камалия",region:"СҚО",t2_raw:15.2,t2_app:0.6,t2_f:15.8},
+  {name:"Кириллов Артур",region:"РФММ Алматы",t2_raw:22,t2_app:-1.8,t2_f:20.2},
+  {name:"Қабдыкәрім Әли",region:"ШҚО",t2_raw:17.8,t2_app:-0.2,t2_f:17.6},
+  {name:"Қуанышбек Жібек",region:"Маңғыстау",t2_raw:12.6,t2_app:0,t2_f:12.6},
+  {name:"Мақсот Нұрхат",region:"Астана",t2_raw:20.8,t2_app:0.6,t2_f:21.4},
+  {name:"Маулет Арсен",region:"Алматы қ.",t2_raw:21.8,t2_app:0,t2_f:21.8},
+  {name:"Меженина Евгения",region:"НЗМ ДББҰ",t2_raw:25,t2_app:-1.6,t2_f:23.4},
+  {name:"Мыңбай Санжар",region:"Ақтөбе",t2_raw:18.8,t2_app:-1.2,t2_f:17.6},
+  {name:"Нурланов Саян",region:"Ұлытау",t2_raw:18,t2_app:-0.4,t2_f:17.6},
+  {name:"Оразалы Дильназ",region:"Ұлытау",t2_raw:17,t2_app:-0.6,t2_f:16.4},
+  {name:"Оспанғали Ернұр",region:"Абай",t2_raw:18.2,t2_app:-1,t2_f:17.2},
+  {name:"Сайлаубек Нурислам",region:"ШҚО",t2_raw:17,t2_app:-1.2,t2_f:15.8},
+  {name:"Саматұлы Алимұхаммед",region:"Павлодар",t2_raw:21.4,t2_app:0.2,t2_f:21.6},
+  {name:"Слямов Арнұр",region:"Абай",t2_raw:14.4,t2_app:-0.4,t2_f:14},
+  {name:"Советхан Еркежан",region:"Жамбыл",t2_raw:14.8,t2_app:-1.2,t2_f:13.6},
+  {name:"Сүйеуберді Санжар",region:"Маңғыстау",t2_raw:14.4,t2_app:-0.6,t2_f:13.8},
+  {name:"Тайрханов Сардорбек",region:"Түркістан",t2_raw:15.8,t2_app:-1.6,t2_f:14.2},
+  {name:"Ташмаканов Салават",region:"СҚО",t2_raw:17.4,t2_app:-0.8,t2_f:16.6},
+  {name:"Тремко Олег",region:"Алматы обл.",t2_raw:17,t2_app:-0.4,t2_f:16.6},
+  {name:"Тулеубаева Мариям",region:"Қарағанды",t2_raw:16.4,t2_app:0.2,t2_f:16.6},
+  {name:"Тұрғанбай Ибраһим",region:"Атырау",t2_raw:12.6,t2_app:1,t2_f:13.6},
+  {name:"Хаби Ануар",region:"Алматы қ.",t2_raw:21.4,t2_app:-1,t2_f:20.4},
+  {name:"Шуленбай Едіге",region:"Алматы қ.",t2_raw:16.2,t2_app:-0.2,t2_f:16},
+]},
+11: {
+tour1: [
+  {name:"Азизов Тимур",region:"РФММ Алматы",bc_e:1.5,bc_t:1.1,bc:2.6,bi_a:2.9,bi_b:1.75,bi_c:1,bi_d:1.5,bi:7.15,an_a:1.7,an_b:0,an_c:2.5,an_d:1.2,an:5.4,t1_raw:15.15,t1_app:1.3,t1_f:16.45},
+  {name:"Алкабай Үсен",region:"Түркістан",bc_e:1.2,bc_t:1,bc:2.2,bi_a:2.2,bi_b:2,bi_c:0.75,bi_d:0.5,bi:5.45,an_a:5.1,an_b:0,an_c:1.45,an_d:0,an:6.55,t1_raw:14.2,t1_app:-0.25,t1_f:13.95},
+  {name:"Ахметова Диана",region:"Ақмола",bc_e:0.7,bc_t:1,bc:1.7,bi_a:3.9,bi_b:1.5,bi_c:0.75,bi_d:1.5,bi:7.65,an_a:0,an_b:0.5,an_c:1.45,an_d:2,an:3.95,t1_raw:13.3,t1_app:0,t1_f:13.3},
+  {name:"Беилов Алтынбек",region:"Қостанай",bc_e:1.8,bc_t:1.4,bc:3.2,bi_a:2.2,bi_b:1,bi_c:0.75,bi_d:0.5,bi:4.45,an_a:3.2,an_b:0,an_c:1.1,an_d:0.4,an:4.7,t1_raw:12.35,t1_app:0,t1_f:12.35},
+  {name:"Береке Таслима",region:"РФММ Алматы",bc_e:1.3,bc_t:0.4,bc:1.7,bi_a:2.85,bi_b:3.5,bi_c:0.75,bi_d:2,bi:9.1,an_a:1.5,an_b:0,an_c:3.05,an_d:2,an:6.55,t1_raw:17.35,t1_app:0.75,t1_f:18.1},
+  {name:"Бизат Бағлан",region:"Ақтөбе",bc_e:1,bc_t:0.8,bc:1.8,bi_a:3.8,bi_b:0.75,bi_c:0.75,bi_d:2.5,bi:7.8,an_a:0.25,an_b:0.5,an_c:1.1,an_d:0.4,an:2.25,t1_raw:11.85,t1_app:0,t1_f:11.85},
+  {name:"Буймов Александр",region:"Ұлытау",bc_e:1.2,bc_t:1,bc:2.2,bi_a:2.8,bi_b:4,bi_c:0.75,bi_d:1.5,bi:9.05,an_a:2.2,an_b:0.5,an_c:2.05,an_d:0.4,an:5.15,t1_raw:16.4,t1_app:-0.5,t1_f:15.9},
+  {name:"Бұланбай Нұртай",region:"Шымкент",bc_e:0.4,bc_t:1.5,bc:1.9,bi_a:2.15,bi_b:4,bi_c:1,bi_d:1.5,bi:8.65,an_a:1.5,an_b:0,an_c:2.5,an_d:0,an:4,t1_raw:14.55,t1_app:-1,t1_f:13.55},
+  {name:"Гайнуллаев Али",region:"Атырау",bc_e:0.1,bc_t:0.8,bc:0.9,bi_a:0,bi_b:1.5,bi_c:0,bi_d:1.5,bi:3,an_a:0,an_b:0,an_c:2.55,an_d:2,an:4.55,t1_raw:8.45,t1_app:2.9,t1_f:11.35},
+  {name:"Гмыря Надежда",region:"Қостанай",bc_e:2.6,bc_t:0.8,bc:3.4,bi_a:2.15,bi_b:0.5,bi_c:0.75,bi_d:2,bi:5.4,an_a:2,an_b:0,an_c:1.65,an_d:1.6,an:5.25,t1_raw:14.05,t1_app:1.05,t1_f:15.1},
+  {name:"Дүйжанов Арсен",region:"Ақтөбе",bc_e:0.8,bc_t:0.6,bc:1.4,bi_a:1.2,bi_b:2.25,bi_c:0,bi_d:3,bi:6.45,an_a:0,an_b:0,an_c:2.15,an_d:0,an:2.15,t1_raw:10,t1_app:2.6,t1_f:12.6},
+  {name:"Ерғалық Тамерлан",region:"Алматы қ.",bc_e:2.5,bc_t:0,bc:2.5,bi_a:3.55,bi_b:3.75,bi_c:1.25,bi_d:0.5,bi:9.05,an_a:2.8,an_b:1.5,an_c:1.45,an_d:0,an:5.75,t1_raw:17.3,t1_app:-1.75,t1_f:15.55},
+  {name:"Ержанұлы Батыр",region:"НЗМ ДББҰ",bc_e:5.78,bc_t:1.9,bc:7.68,bi_a:4.3,bi_b:2.25,bi_c:0.75,bi_d:0.5,bi:7.8,an_a:2.7,an_b:0.5,an_c:2.75,an_d:2,an:7.95,t1_raw:23.43,t1_app:4.2,t1_f:27.63},
+  {name:"Жамбыл Жібек",region:"Астана",bc_e:4.4,bc_t:0.4,bc:4.8,bi_a:4.5,bi_b:4,bi_c:1.25,bi_d:3,bi:12.75,an_a:3.6,an_b:0.5,an_c:1.95,an_d:2,an:8.05,t1_raw:25.6,t1_app:-2.4,t1_f:23.2},
+  {name:"Жансеріков Қайсар",region:"Қызылорда",bc_e:1.1,bc_t:0.4,bc:1.5,bi_a:3.7,bi_b:2.25,bi_c:0.75,bi_d:2,bi:8.7,an_a:8.1,an_b:0,an_c:2.05,an_d:1.6,an:11.75,t1_raw:21.95,t1_app:-4.6,t1_f:17.35},
+  {name:"Желтова Софья",region:"НЗМ ДББҰ",bc_e:5.4,bc_t:1.6,bc:7,bi_a:1.2,bi_b:2,bi_c:0.25,bi_d:0,bi:3.45,an_a:4.25,an_b:0.5,an_c:3.2,an_d:2,an:9.95,t1_raw:20.4,t1_app:6.05,t1_f:26.45},
+  {name:"Жусупбекова Назерке",region:"Қарағанды",bc_e:1,bc_t:1.2,bc:2.2,bi_a:4,bi_b:3.25,bi_c:0.75,bi_d:1.5,bi:9.5,an_a:0,an_b:0.5,an_c:0.55,an_d:2,an:3.05,t1_raw:14.75,t1_app:-1.5,t1_f:13.25},
+  {name:"Зайт Мұхаммеджан",region:"Түркістан",bc_e:0,bc_t:0.6,bc:0.6,bi_a:3.25,bi_b:2,bi_c:0.75,bi_d:2,bi:8,an_a:0.2,an_b:0,an_c:1.15,an_d:0.8,an:2.15,t1_raw:10.75,t1_app:-2.8,t1_f:7.95},
+  {name:"Зинеден Аян",region:"Атырау",bc_e:0,bc_t:0.8,bc:0.8,bi_a:2.7,bi_b:1.5,bi_c:0.75,bi_d:0.5,bi:5.45,an_a:0,an_b:0,an_c:0.9,an_d:1.2,an:2.1,t1_raw:8.35,t1_app:0.5,t1_f:8.85},
+  {name:"Исанова Далия",region:"НЗМ ДББҰ",bc_e:1.1,bc_t:0.4,bc:1.5,bi_a:2.2,bi_b:1.75,bi_c:0.75,bi_d:1.5,bi:6.2,an_a:2,an_b:0,an_c:2.55,an_d:2,an:6.55,t1_raw:14.25,t1_app:1.45,t1_f:15.7},
+  {name:"Кәдірбай Абылай",region:"Астана",bc_e:1.8,bc_t:1.4,bc:3.2,bi_a:2.65,bi_b:3.5,bi_c:1,bi_d:0.5,bi:7.65,an_a:1.5,an_b:0,an_c:1.7,an_d:0,an:3.2,t1_raw:14.05,t1_app:-0.35,t1_f:13.7},
+  {name:"Қайркен Ерсұлтан",region:"Павлодар",bc_e:3.8,bc_t:2.4,bc:6.2,bi_a:3.55,bi_b:1,bi_c:0.75,bi_d:2,bi:7.3,an_a:2.5,an_b:0,an_c:3,an_d:0.8,an:6.3,t1_raw:19.8,t1_app:3.5,t1_f:23.3},
+  {name:"Қали Дария",region:"Алматы обл.",bc_e:2.3,bc_t:0,bc:2.3,bi_a:4.3,bi_b:4.25,bi_c:1.25,bi_d:2,bi:11.8,an_a:0,an_b:0,an_c:1,an_d:2,an:3,t1_raw:17.1,t1_app:-7.3,t1_f:9.8},
+  {name:"Мастобаев Никита",region:"Павлодар",bc_e:0.8,bc_t:0.8,bc:1.6,bi_a:1.25,bi_b:0.5,bi_c:0.75,bi_d:2,bi:4.5,an_a:1.5,an_b:0,an_c:2.3,an_d:2,an:5.8,t1_raw:11.9,t1_app:2.05,t1_f:13.95},
+  {name:"Менгулов Егор",region:"Ақмола",bc_e:2.7,bc_t:0.8,bc:3.5,bi_a:3.05,bi_b:1.25,bi_c:0.75,bi_d:0.5,bi:5.55,an_a:0,an_b:0,an_c:1.55,an_d:1.2,an:2.75,t1_raw:11.8,t1_app:2.5,t1_f:14.3},
+  {name:"Мерейұлы Санжар",region:"РФММ Алматы",bc_e:0.4,bc_t:0.8,bc:1.2,bi_a:3.05,bi_b:3.25,bi_c:1,bi_d:3,bi:10.3,an_a:0.7,an_b:0,an_c:1.9,an_d:2,an:4.6,t1_raw:16.1,t1_app:-6.65,t1_f:9.45},
+  {name:"Мереке Мирас",region:"Ақмола",bc_e:0.8,bc_t:0.8,bc:1.6,bi_a:1.4,bi_b:1,bi_c:0.75,bi_d:0.5,bi:3.65,an_a:0,an_b:0,an_c:1.8,an_d:2,an:3.8,t1_raw:9.05,t1_app:5.5,t1_f:14.55},
+  {name:"Молданова Эльнара",region:"Абай",bc_e:1,bc_t:0.8,bc:1.8,bi_a:3.65,bi_b:1.75,bi_c:0.25,bi_d:3,bi:8.65,an_a:2.5,an_b:0,an_c:1.1,an_d:1.6,an:5.2,t1_raw:15.65,t1_app:-3.95,t1_f:11.7},
+  {name:"Муратқызы Мерей",region:"Жетісу",bc_e:4.5,bc_t:0.4,bc:4.9,bi_a:1.95,bi_b:1,bi_c:0.75,bi_d:0.5,bi:4.2,an_a:2.8,an_b:0,an_c:1.85,an_d:1.2,an:5.9,t1_raw:15,t1_app:2.6,t1_f:17.6},
+  {name:"Муслім Аруана",region:"Алматы қ.",bc_e:0.5,bc_t:0,bc:0.5,bi_a:2.3,bi_b:2.25,bi_c:0.25,bi_d:2,bi:6.8,an_a:2,an_b:0,an_c:0.2,an_d:0,an:2.2,t1_raw:9.5,t1_app:-0.35,t1_f:9.15},
+  {name:"Мухамбеткалиев Адиль",region:"Батыс Қазақстан",bc_e:0.8,bc_t:0.6,bc:1.4,bi_a:3.2,bi_b:0.5,bi_c:0.75,bi_d:1.5,bi:5.95,an_a:4.1,an_b:0,an_c:1.1,an_d:0.8,an:6,t1_raw:13.35,t1_app:-0.85,t1_f:12.5},
+  {name:"Мұқашев Дарын",region:"ШҚО",bc_e:4.1,bc_t:0.6,bc:4.7,bi_a:1.85,bi_b:1.25,bi_c:0.5,bi_d:1.5,bi:5.1,an_a:1.75,an_b:0.5,an_c:2.85,an_d:2,an:7.1,t1_raw:16.9,t1_app:4.4,t1_f:21.3},
+  {name:"Мұрат Адэль",region:"Жамбыл",bc_e:1.6,bc_t:0.8,bc:2.4,bi_a:3.5,bi_b:2.75,bi_c:0.75,bi_d:1.5,bi:8.5,an_a:2,an_b:1,an_c:2.6,an_d:0,an:5.6,t1_raw:16.5,t1_app:-2.45,t1_f:14.05},
+  {name:"Мұратханов Батырхан",region:"Абай",bc_e:0.4,bc_t:1,bc:1.4,bi_a:1.55,bi_b:1.75,bi_c:0.75,bi_d:1.5,bi:5.55,an_a:2,an_b:0,an_c:0.85,an_d:0.8,an:3.65,t1_raw:10.6,t1_app:2.9,t1_f:13.5},
+  {name:"Мырзабай Бекнұртас",region:"Алматы қ.",bc_e:0.8,bc_t:0.8,bc:1.6,bi_a:2.95,bi_b:3.25,bi_c:0.75,bi_d:2,bi:8.95,an_a:1.5,an_b:0,an_c:1.75,an_d:1.6,an:4.85,t1_raw:15.4,t1_app:-0.55,t1_f:14.85},
+  {name:"Назаров Қасымжомарт",region:"Қызылорда",bc_e:0.4,bc_t:1.6,bc:2,bi_a:2.9,bi_b:2.5,bi_c:0.75,bi_d:1.5,bi:7.65,an_a:3.1,an_b:0,an_c:2.05,an_d:0,an:5.15,t1_raw:14.8,t1_app:-1.35,t1_f:13.45},
+  {name:"Нсанбаева Дана",region:"Батыс Қазақстан",bc_e:1.5,bc_t:0.6,bc:2.1,bi_a:3.05,bi_b:1,bi_c:0.25,bi_d:1.5,bi:5.8,an_a:4.3,an_b:0,an_c:0,an_d:0,an:4.3,t1_raw:12.2,t1_app:0,t1_f:12.2},
+  {name:"Нукенова Малика",region:"НЗМ ДББҰ",bc_e:1.1,bc_t:1,bc:2.1,bi_a:1.55,bi_b:1,bi_c:0.75,bi_d:1.5,bi:4.8,an_a:2,an_b:0.5,an_c:2.5,an_d:2,an:7,t1_raw:13.9,t1_app:3.75,t1_f:17.65},
+  {name:"Нұртілеу Мират",region:"Жамбыл",bc_e:3.7,bc_t:0.2,bc:3.9,bi_a:2.8,bi_b:3.5,bi_c:0.75,bi_d:1.5,bi:8.55,an_a:0.2,an_b:0,an_c:2.1,an_d:1.6,an:3.9,t1_raw:16.35,t1_app:0.6,t1_f:16.95},
+  {name:"Подлесная Анита",region:"СҚО",bc_e:1.1,bc_t:0.6,bc:1.7,bi_a:3.65,bi_b:3.75,bi_c:0.75,bi_d:2,bi:10.15,an_a:1.5,an_b:1.5,an_c:2.1,an_d:2,an:7.1,t1_raw:18.95,t1_app:-1.75,t1_f:17.2},
+  {name:"Саят Айгерім",region:"Қарағанды",bc_e:2.5,bc_t:0.8,bc:3.3,bi_a:2.4,bi_b:2.25,bi_c:0.75,bi_d:3,bi:8.4,an_a:1.5,an_b:0,an_c:0.8,an_d:2,an:4.3,t1_raw:16,t1_app:-0.35,t1_f:15.65},
+  {name:"Серік Аяулым",region:"Астана",bc_e:0.4,bc_t:0.6,bc:1,bi_a:3.55,bi_b:2.25,bi_c:0.75,bi_d:1.5,bi:8.05,an_a:0,an_b:0,an_c:3.3,an_d:0.4,an:3.7,t1_raw:12.75,t1_app:-3.75,t1_f:9},
+  {name:"Стрелова Ярослава",region:"Павлодар",bc_e:2.8,bc_t:0.2,bc:3,bi_a:2.3,bi_b:2,bi_c:1,bi_d:0,bi:5.3,an_a:2,an_b:0,an_c:2.15,an_d:1.6,an:5.75,t1_raw:14.05,t1_app:-2.35,t1_f:11.7,note:"ереже бұзғаны үшін"},
+  {name:"Таскынбаев Алихан",region:"НЗМ ДББҰ",bc_e:4.5,bc_t:0.8,bc:5.3,bi_a:1.45,bi_b:0.5,bi_c:0,bi_d:0.5,bi:2.45,an_a:2.25,an_b:0.5,an_c:3.5,an_d:2,an:8.25,t1_raw:16,t1_app:9.95,t1_f:25.95},
+  {name:"Тебенбаев Дидар",region:"Қызылорда",bc_e:0.4,bc_t:1.6,bc:2,bi_a:4.4,bi_b:3.5,bi_c:1.25,bi_d:3,bi:12.15,an_a:2.8,an_b:0.5,an_c:1.5,an_d:0.8,an:5.6,t1_raw:19.75,t1_app:-4.25,t1_f:15.5},
+  {name:"Титков Дмитрий",region:"Павлодар",bc_e:2.2,bc_t:1,bc:3.2,bi_a:2.4,bi_b:3,bi_c:0.5,bi_d:2,bi:7.9,an_a:4,an_b:0.5,an_c:2.45,an_d:2,an:8.95,t1_raw:20.05,t1_app:4.1,t1_f:24.15},
+  {name:"Төлеген Аруна",region:"СҚО",bc_e:0,bc_t:1.6,bc:1.6,bi_a:3.25,bi_b:4.5,bi_c:1,bi_d:2,bi:10.75,an_a:1.5,an_b:0,an_c:2,an_d:0.8,an:4.3,t1_raw:16.65,t1_app:-4.6,t1_f:12.05},
+  {name:"Уатхан Қаршыға",region:"ШҚО",bc_e:1.7,bc_t:0.6,bc:2.3,bi_a:2.4,bi_b:2,bi_c:0.25,bi_d:2,bi:6.65,an_a:6.5,an_b:0,an_c:1.9,an_d:1.6,an:10,t1_raw:18.95,t1_app:2.05,t1_f:21},
+  {name:"Үшкемпір Жанғали",region:"Ұлытау",bc_e:1.6,bc_t:0.4,bc:2,bi_a:4.2,bi_b:3,bi_c:0.75,bi_d:1.5,bi:9.45,an_a:3.6,an_b:0,an_c:1.5,an_d:2,an:7.1,t1_raw:18.55,t1_app:-2.8,t1_f:15.75},
+  {name:"Фадеев Александр",region:"Шымкент",bc_e:0.8,bc_t:0.6,bc:1.4,bi_a:2.65,bi_b:0.75,bi_c:0.25,bi_d:3,bi:6.65,an_a:4.1,an_b:1.5,an_c:1.35,an_d:2,an:8.95,t1_raw:17,t1_app:2.15,t1_f:19.15},
+  {name:"Хайруллин Амирхан",region:"Маңғыстау",bc_e:0,bc_t:0.4,bc:0.4,bi_a:3.8,bi_b:3.75,bi_c:1,bi_d:1.5,bi:10.05,an_a:1.5,an_b:0,an_c:2.8,an_d:2,an:6.3,t1_raw:16.75,t1_app:-4.65,t1_f:12.1,note:"ереже бұзғаны үшін (-1)"},
+  {name:"Хлобышева Дарья",region:"Павлодар",bc_e:1.5,bc_t:0.2,bc:1.7,bi_a:1.65,bi_b:1.25,bi_c:0.75,bi_d:1.5,bi:5.15,an_a:1.5,an_b:0.5,an_c:2.6,an_d:2,an:6.6,t1_raw:13.45,t1_app:1.25,t1_f:14.7},
+],
+tour2: [
+  {name:"Азизов Тимур",region:"РФММ Алматы",t2_raw:23.6,t2_app:2.6,t2_f:26.2},
+  {name:"Алкабай Үсен",region:"Түркістан",t2_raw:14.4,t2_app:0.2,t2_f:14.6},
+  {name:"Ахметова Диана",region:"Ақмола",t2_raw:19,t2_app:-0.2,t2_f:18.8},
+  {name:"Беилов Алтынбек",region:"Қостанай",t2_raw:19,t2_app:-1.4,t2_f:17.6},
+  {name:"Береке Таслима",region:"РФММ Алматы",t2_raw:6.6,t2_app:0.2,t2_f:6.8},
+  {name:"Бизат Бағлан",region:"Ақтөбе",t2_raw:15.4,t2_app:-0.2,t2_f:15.2},
+  {name:"Буймов Александр",region:"Ұлытау",t2_raw:20.2,t2_app:0,t2_f:20.2},
+  {name:"Бұланбай Нұртай",region:"Шымкент",t2_raw:17.8,t2_app:-1,t2_f:16.8},
+  {name:"Гайнуллаев Али",region:"Атырау",t2_raw:20.8,t2_app:-0.8,t2_f:20},
+  {name:"Гмыря Надежда",region:"Қостанай",t2_raw:16.2,t2_app:-0.8,t2_f:15.4},
+  {name:"Дүйжанов Арсен",region:"Ақтөбе",t2_raw:18.6,t2_app:-0.6,t2_f:18},
+  {name:"Ерғалық Тамерлан",region:"Алматы қ.",t2_raw:20.4,t2_app:1,t2_f:21.4},
+  {name:"Ержанұлы Батыр",region:"НЗМ ДББҰ",t2_raw:23.2,t2_app:-1.2,t2_f:22},
+  {name:"Жамбыл Жібек",region:"Астана",t2_raw:17.8,t2_app:-1.2,t2_f:16.6},
+  {name:"Жансеріков Қайсар",region:"Қызылорда",t2_raw:16.8,t2_app:0,t2_f:16.8},
+  {name:"Желтова Софья",region:"НЗМ ДББҰ",t2_raw:23.6,t2_app:0.2,t2_f:23.8},
+  {name:"Жусупбекова Назерке",region:"Қарағанды",t2_raw:15.8,t2_app:1.2,t2_f:17},
+  {name:"Зайт Мұхаммеджан",region:"Түркістан",t2_raw:20.4,t2_app:-1.4,t2_f:19},
+  {name:"Зинеден Аян",region:"Атырау",t2_raw:17.2,t2_app:-0.4,t2_f:16.8},
+  {name:"Исанова Далия",region:"НЗМ ДББҰ",t2_raw:16.2,t2_app:0,t2_f:16.2},
+  {name:"Кәдірбай Абылай",region:"Астана",t2_raw:18.4,t2_app:1,t2_f:19.4},
+  {name:"Қайркен Ерсұлтан",region:"Павлодар",t2_raw:25,t2_app:-1,t2_f:24},
+  {name:"Қали Дария",region:"Алматы обл.",t2_raw:16.4,t2_app:-1.4,t2_f:15},
+  {name:"Мастобаев Никита",region:"Павлодар",t2_raw:15,t2_app:-0.4,t2_f:14.6},
+  {name:"Менгулов Егор",region:"Ақмола",t2_raw:20.6,t2_app:-0.6,t2_f:20},
+  {name:"Мерейұлы Санжар",region:"РФММ Алматы",t2_raw:13.2,t2_app:1,t2_f:14.2},
+  {name:"Мереке Мирас",region:"Ақмола",t2_raw:16.4,t2_app:-0.2,t2_f:16.2},
+  {name:"Молданова Эльнара",region:"Абай",t2_raw:17.6,t2_app:-0.4,t2_f:17.2},
+  {name:"Муратқызы Мерей",region:"Жетісу",t2_raw:18.4,t2_app:-0.8,t2_f:17.6},
+  {name:"Муслім Аруана",region:"Алматы қ.",t2_raw:16,t2_app:0,t2_f:16},
+  {name:"Мухамбеткалиев Адиль",region:"Батыс Қазақстан",t2_raw:16,t2_app:-0.4,t2_f:15.6},
+  {name:"Мұқашев Дарын",region:"ШҚО",t2_raw:24.4,t2_app:-1.2,t2_f:23.2},
+  {name:"Мұрат Адэль",region:"Жамбыл",t2_raw:22.8,t2_app:-0.4,t2_f:22.4},
+  {name:"Мұратханов Батырхан",region:"Абай",t2_raw:11.8,t2_app:0,t2_f:11.8},
+  {name:"Мырзабай Бекнұртас",region:"Алматы қ.",t2_raw:15.2,t2_app:-0.8,t2_f:14.4},
+  {name:"Назаров Қасымжомарт",region:"Қызылорда",t2_raw:18.8,t2_app:-1,t2_f:17.8},
+  {name:"Нсанбаева Дана",region:"Батыс Қазақстан",t2_raw:16.4,t2_app:0.8,t2_f:17.2},
+  {name:"Нукенова Малика",region:"НЗМ ДББҰ",t2_raw:22.6,t2_app:-1,t2_f:21.6},
+  {name:"Нұртілеу Мират",region:"Жамбыл",t2_raw:18.4,t2_app:-1.2,t2_f:17.2},
+  {name:"Подлесная Анита",region:"СҚО",t2_raw:22,t2_app:-0.2,t2_f:21.8},
+  {name:"Саят Айгерім",region:"Қарағанды",t2_raw:14.8,t2_app:0.2,t2_f:15},
+  {name:"Серік Аяулым",region:"Астана",t2_raw:14.2,t2_app:0,t2_f:14.2},
+  {name:"Стрелова Ярослава",region:"Павлодар",t2_raw:9.8,t2_app:-0.8,t2_f:9,note:"ереже бұзғаны үшін (-1)"},
+  {name:"Таскынбаев Алихан",region:"НЗМ ДББҰ",t2_raw:17.8,t2_app:0.6,t2_f:18.4},
+  {name:"Тебенбаев Дидар",region:"Қызылорда",t2_raw:15.2,t2_app:-0.2,t2_f:15},
+  {name:"Титков Дмитрий",region:"Павлодар",t2_raw:17.4,t2_app:0.8,t2_f:18.2},
+  {name:"Төлеген Аруна",region:"СҚО",t2_raw:17.2,t2_app:-1,t2_f:16.2},
+  {name:"Уатхан Қаршыға",region:"ШҚО",t2_raw:17.2,t2_app:-1.2,t2_f:16},
+  {name:"Үшкемпір Жанғали",region:"Ұлытау",t2_raw:17.2,t2_app:0,t2_f:17.2},
+  {name:"Фадеев Александр",region:"Шымкент",t2_raw:22.8,t2_app:-0.6,t2_f:22.2},
+  {name:"Хайруллин Амирхан",region:"Маңғыстау",t2_raw:14.6,t2_app:0.8,t2_f:15.4,note:"ереже бұзғаны үшін (-1)"},
+  {name:"Хлобышева Дарья",region:"Павлодар",t2_raw:16.2,t2_app:-1.2,t2_f:15},
+]}};
 
-// ============================================================
-// STATE
-// ============================================================
-let currentClass = null;
-let currentTab = 'tour1';
-let currentSubtab = 'all-t1';
-let searchQuery = '';
+// ── STATE ────────────────────────────────────────────────────
+let cls=null,tab='tour1',sub='all-t1',q='';
+function getClasses(){return cls==='all'?[9,10,11]:[cls]}
+function t1all(){return getClasses().flatMap(c=>DATA[c].tour1.map(s=>({...s,cls:c})))}
+function t2all(){return getClasses().flatMap(c=>DATA[c].tour2.map(s=>({...s,cls:c})))}
+function fmt(n){if(n===undefined||n===null)return '—';if(n===0)return '0';return parseFloat((+n).toFixed(2))}
+function fmtAp(n){if(!n||n===0)return '0';const v=parseFloat((+n).toFixed(2));return(v>0?'+':'')+v}
+function apCls(n){if(!n||n===0)return 'ap-zero';return n>0?'ap-pos':'ap-neg'}
+function rCls(i){return i===0?'rank-1':i===1?'rank-2':i===2?'rank-3':''}
 
-const I18N = {
-  kk: {
-    classLabel: 'СЫНЫП', all: 'БАРЛЫҒЫ', back: 'Артқа', placeholder: 'Аты бойынша іздеу...', region: 'Облыс', fio: 'ФИО',
-    tour1sum: 'І ТУР ЖИЫНЫ', tour2pts: 'ІІ ТУР ҰПАЙ', final: 'ҚОРЫТЫНДЫ', top3: 'ТОП 3', allResults: 'БАРЛЫҚ НƏТИЖЕЛЕР',
-    classSuffix: ' СЫНЫП', allSuffix: '9 · 10 · 11 СЫНЫП',
-    appealPos: '+', appealNeg: '',
-  },
-  ru: {
-    classLabel: 'КЛАСС', all: 'ВСЕ', back: 'Назад', placeholder: 'Поиск по имени...', region: 'Регион', fio: 'ФИО',
-    tour1sum: 'СУММА І ТУР', tour2pts: 'БАЛЛЫ ІІ ТУР', final: 'ИТОГО', top3: 'ТОП 3', allResults: 'ВСЕ РЕЗУЛЬТАТЫ',
-    classSuffix: ' КЛАСС', allSuffix: '9 · 10 · 11 КЛАСС',
-  }
-};
+// ── NAV ─────────────────────────────────────────────────────
+function showHome(){document.getElementById('home').style.display='flex';document.getElementById('results').style.display='none';document.getElementById('searchInput').value='';q=''}
+function showResults(c){cls=c;document.getElementById('home').style.display='none';document.getElementById('results').style.display='block';const sfx=c==='all'?(lang==='kk'?'9 · 10 · 11 СЫНЫП':'9 · 10 · 11 КЛАСС'):c+(lang==='kk'?' СЫНЫП':' КЛАСС');document.getElementById('headerClass').textContent=sfx;switchTab('tour1')}
+function switchTab(t){tab=t;['tour1','tour2','appeal','final'].forEach(x=>{document.getElementById('tab-btn-'+x)?.classList.toggle('active',x===t);document.getElementById('tab-'+x).style.display=x===t?'block':'none'});rerender()}
+function switchSubtab(s){sub=s;document.querySelectorAll('.subtab-btn').forEach(b=>b.classList.toggle('active',b.getAttribute('onclick').includes("'"+s+"'")));['all-t1','biochem','bioinfo','anatomy'].forEach(x=>{const e=document.getElementById('subtab-'+x);if(e)e.style.display=x===s?'block':'none'});renderTour1()}
+function filterTable(){q=document.getElementById('searchInput').value.toLowerCase();rerender()}
+function rerender(){if(tab==='tour1')renderTour1();if(tab==='tour2')renderTour2();if(tab==='appeal')renderAppeal();if(tab==='final')renderFinal()}
+function filt(arr){return arr.filter(s=>s.name.toLowerCase().includes(q)||(s.region||'').toLowerCase().includes(q))}
 
-// ============================================================
-// NAVIGATION
-// ============================================================
-function showHome() {
-  document.getElementById('home').style.display = 'flex';
-  document.getElementById('results').style.display = 'none';
-  document.getElementById('searchInput').value = '';
-  searchQuery = '';
-}
-
-function showResults(cls) {
-  currentClass = cls;
-  document.getElementById('home').style.display = 'none';
-  document.getElementById('results').style.display = 'block';
-  const t = I18N[currentLang];
-  document.getElementById('headerClass').textContent = cls==='all' ? t.allSuffix : cls+t.classSuffix;
-  document.getElementById('searchInput').placeholder = t.placeholder;
-  switchTab('tour1');
-}
-
-function switchTab(tab) {
-  currentTab = tab;
-  ['tour1','tour2','appeal','final'].forEach(t => {
-    document.getElementById('tab-btn-'+t)?.classList.toggle('active', t===tab);
-    document.getElementById('tab-'+t).style.display = t===tab ? 'block' : 'none';
-  });
-  if (tab==='tour1') renderTour1();
-  if (tab==='tour2') renderTour2();
-  if (tab==='appeal') renderAppeal();
-  if (tab==='final') renderFinal();
-}
-
-function switchSubtab(sub) {
-  currentSubtab = sub;
-  document.querySelectorAll('.subtab-btn').forEach(b => {
-    b.classList.toggle('active', b.getAttribute('onclick').includes(sub));
-  });
-  ['all-t1','biochem','bioinfo','anatomy'].forEach(s => {
-    const el = document.getElementById('subtab-'+s);
-    if (el) el.style.display = s===sub ? 'block' : 'none';
-  });
-  renderTour1();
-}
-
-function filterTable() {
-  searchQuery = document.getElementById('searchInput').value.toLowerCase();
-  if (currentTab==='tour1') renderTour1();
-  if (currentTab==='tour2') renderTour2();
-  if (currentTab==='appeal') renderAppeal();
-  if (currentTab==='final') renderFinal();
-}
-
-// ============================================================
-// DATA HELPERS
-// ============================================================
-function getClasses() { return currentClass==='all' ? [9,10,11] : [currentClass]; }
-function getAllStudentsTour1() { return getClasses().flatMap(c => DATA[c].tour1.map(s => ({...s,cls:c}))); }
-function getAllStudentsTour2() { return getClasses().flatMap(c => DATA[c].tour2.map(s => ({...s,cls:c}))); }
-function fmt(n) {
-  if (n===undefined||n===null) return '—';
-  if (n===0) return '0';
-  return parseFloat(n.toFixed(2));
-}
-function fmtAppeal(n) {
-  if (n===undefined||n===null||n===0) return '0';
-  const v = parseFloat(n.toFixed(2));
-  return (v>0 ? '+' : '') + v;
-}
-function appealClass(n) {
-  if (!n||n===0) return 'score-appeal-zero';
-  return n>0 ? 'score-appeal-pos' : 'score-appeal-neg';
-}
-function rankClass(i) {
-  if (i===0) return 'rank-1';
-  if (i===1) return 'rank-2';
-  if (i===2) return 'rank-3';
-  return '';
-}
-
-// ============================================================
-// RENDER TOUR 1
-// ============================================================
-function renderTour1() {
-  const t = I18N[currentLang];
-  let students = getAllStudentsTour1()
-    .filter(s => s.name.toLowerCase().includes(searchQuery) || s.region.toLowerCase().includes(searchQuery));
-
-  const clsCls = currentClass==='all';
-
-  if (currentSubtab==='all-t1') {
-    students.sort((a,b) => (b.t1_final||b.total)-(a.t1_final||a.total));
-    document.getElementById('tbody-tour1-all').innerHTML = students.map((s,i) => `
-      <tr>
-        <td class="rank-cell ${rankClass(i)}">${i+1}</td>
-        <td class="name-cell">
-          ${s.name}
-          ${clsCls ? `<div class="subtable-detail">${s.cls} ${t.classLabel}</div>` : ''}
-          ${s.note ? `<div class="note-cell">⚠ ${s.note}</div>` : ''}
-        </td>
-        <td><span class="chip-region">${s.region}</span></td>
-        <td class="right"><span class="score-badge">${fmt(s.bc)}</span></td>
-        <td class="right"><span class="score-badge">${fmt(s.bi)}</span></td>
-        <td class="right"><span class="score-badge">${fmt(s.an)}</span></td>
-        <td class="right"><span class="score-badge">${fmt(s.total)}</span></td>
-        <td class="right"><span class="score-appeal ${appealClass(s.t1_app)}">${fmtAppeal(s.t1_app)}</span></td>
-        <td class="right"><span class="score-badge score-total">${fmt(s.t1_final)}</span></td>
-      </tr>`).join('');
-  }
-
-  if (currentSubtab==='biochem') {
-    students.sort((a,b) => b.bc-a.bc);
-    document.getElementById('tbody-tour1-biochem').innerHTML = students.map((s,i) => `
-      <tr>
-        <td class="rank-cell ${rankClass(i)}">${i+1}</td>
-        <td class="name-cell">${s.name}${clsCls ? `<div class="subtable-detail">${s.cls} ${t.classLabel}</div>` : ''}</td>
-        <td><span class="chip-region">${s.region}</span></td>
-        <td class="right"><span class="score-badge">${fmt(s.bc_exp)}</span></td>
-        <td class="right"><span class="score-badge">${fmt(s.bc_th)}</span></td>
-        <td class="right"><span class="score-badge score-total">${fmt(s.bc)}</span></td>
-      </tr>`).join('');
-  }
-
-  if (currentSubtab==='bioinfo') {
-    students.sort((a,b) => b.bi-a.bi);
-    document.getElementById('tbody-tour1-bioinfo').innerHTML = students.map((s,i) => `
-      <tr>
-        <td class="rank-cell ${rankClass(i)}">${i+1}</td>
-        <td class="name-cell">${s.name}${clsCls ? `<div class="subtable-detail">${s.cls} ${t.classLabel}</div>` : ''}</td>
-        <td><span class="chip-region">${s.region}</span></td>
-        <td class="right"><span class="score-badge">${fmt(s.bi_a)}</span></td>
-        <td class="right"><span class="score-badge">${fmt(s.bi_b)}</span></td>
-        <td class="right"><span class="score-badge">${fmt(s.bi_c)}</span></td>
-        <td class="right"><span class="score-badge">${fmt(s.bi_d)}</span></td>
-        <td class="right"><span class="score-badge score-total">${fmt(s.bi)}</span></td>
-      </tr>`).join('');
-  }
-
-  if (currentSubtab==='anatomy') {
-    students.sort((a,b) => b.an-a.an);
-    document.getElementById('tbody-tour1-anatomy').innerHTML = students.map((s,i) => `
-      <tr>
-        <td class="rank-cell ${rankClass(i)}">${i+1}</td>
-        <td class="name-cell">${s.name}${clsCls ? `<div class="subtable-detail">${s.cls} ${t.classLabel}</div>` : ''}</td>
-        <td><span class="chip-region">${s.region}</span></td>
-        <td class="right"><span class="score-badge">${fmt(s.an_a)}</span></td>
-        <td class="right"><span class="score-badge">${fmt(s.an_b)}</span></td>
-        <td class="right"><span class="score-badge">${fmt(s.an_c)}</span></td>
-        <td class="right"><span class="score-badge">${fmt(s.an_dis)}</span></td>
-        <td class="right"><span class="score-badge score-total">${fmt(s.an)}</span></td>
-      </tr>`).join('');
-  }
-}
-
-// ============================================================
-// RENDER TOUR 2
-// ============================================================
-function renderTour2() {
-  const t = I18N[currentLang];
-  const students = getAllStudentsTour2()
-    .filter(s => s.name.toLowerCase().includes(searchQuery) || s.region.toLowerCase().includes(searchQuery))
-    .sort((a,b) => (b.t2_final||b.total2)-(a.t2_final||a.total2));
-
-  document.getElementById('tbody-tour2').innerHTML = students.map((s,i) => `
-    <tr>
-      <td class="rank-cell ${rankClass(i)}">${i+1}</td>
-      <td class="name-cell">
-        ${s.name}
-        ${currentClass==='all' ? `<div class="subtable-detail">${s.cls} ${t.classLabel}</div>` : ''}
-        ${s.note ? `<div class="note-cell">⚠ ${s.note}</div>` : ''}
-      </td>
-      <td><span class="chip-region">${s.region}</span></td>
-      <td class="right"><span class="score-badge">${fmt(s.total2)}</span></td>
-      <td class="right"><span class="score-appeal ${appealClass(s.t2_app)}">${fmtAppeal(s.t2_app)}</span></td>
-      <td class="right"><span class="score-badge score-total">${fmt(s.t2_final)}</span></td>
+// ── RENDER TOUR 1 ────────────────────────────────────────────
+function renderTour1(){
+  const isAll=cls==='all';
+  const sf=lang==='kk'?' СЫНЫП':' КЛАСС';
+  let st=filt(t1all());
+  if(sub==='all-t1'){
+    st.sort((a,b)=>b.t1_f-a.t1_f);
+    document.getElementById('tbody-t1-all').innerHTML=st.map((s,i)=>`<tr>
+      <td class="rank-cell ${rCls(i)}">${i+1}</td>
+      <td class="name-cell">${s.name}${isAll?`<div class="sub-detail">${s.cls}${sf}</div>`:''}${s.note?`<div class="note-cell">⚠ ${s.note}</div>`:''}</td>
+      <td><span class="chip">${s.region}</span></td>
+      <td class="right"><span class="sb">${fmt(s.bc)}</span></td>
+      <td class="right"><span class="sb">${fmt(s.bi)}</span></td>
+      <td class="right"><span class="sb">${fmt(s.an)}</span></td>
+      <td class="right"><span class="sb">${fmt(s.t1_raw)}</span></td>
+      <td class="right"><span class="ap ${apCls(s.t1_app)}">${fmtAp(s.t1_app)}</span></td>
+      <td class="right"><span class="sb sb-total">${fmt(s.t1_f)}</span></td>
     </tr>`).join('');
-}
-
-// ============================================================
-// RENDER APPEAL
-// ============================================================
-function renderAppeal() {
-  const t = I18N[currentLang];
-  const tour1Map = {};
-  getAllStudentsTour1().forEach(s => { tour1Map[s.name] = s; });
-  const tour2Map = {};
-  getAllStudentsTour2().forEach(s => { tour2Map[s.name] = s; });
-
-  const names = new Set([...Object.keys(tour1Map), ...Object.keys(tour2Map)]);
-  const combined = [...names].map(name => {
-    const s1 = tour1Map[name] || {};
-    const s2 = tour2Map[name] || {};
-    const t1app = s1.t1_app || 0;
-    const t2app = s2.t2_app || 0;
-    return {
-      name, region: s1.region||s2.region, cls: s1.cls||s2.cls,
-      t1_before: s1.total||0, t1_app: t1app, t1_after: s1.t1_final||(s1.total+t1app)||0,
-      t2_before: s2.total2||0, t2_app: t2app, t2_after: s2.t2_final||(s2.total2+t2app)||0,
-      total_change: t1app + t2app,
-      note: s1.note||s2.note
-    };
-  })
-  .filter(s => (s.t1_app!==0||s.t2_app!==0))
-  .filter(s => s.name.toLowerCase().includes(searchQuery)||(s.region||'').toLowerCase().includes(searchQuery))
-  .sort((a,b) => Math.abs(b.total_change)-Math.abs(a.total_change));
-
-  document.getElementById('tbody-appeal').innerHTML = combined.map((s,i) => `
-    <tr>
-      <td class="rank-cell">${i+1}</td>
-      <td class="name-cell">
-        ${s.name}
-        ${currentClass==='all' ? `<div class="subtable-detail">${s.cls} ${t.classLabel}</div>` : ''}
-        ${s.note ? `<div class="note-cell">⚠ ${s.note}</div>` : ''}
-      </td>
-      <td><span class="chip-region">${s.region}</span></td>
-      <td class="right"><span class="score-badge">${fmt(s.t1_before)}</span></td>
-      <td class="right"><span class="score-appeal ${appealClass(s.t1_app)}">${fmtAppeal(s.t1_app)}</span></td>
-      <td class="right"><span class="score-badge">${fmt(s.t1_after)}</span></td>
-      <td class="right"><span class="score-badge">${fmt(s.t2_before)}</span></td>
-      <td class="right"><span class="score-appeal ${appealClass(s.t2_app)}">${fmtAppeal(s.t2_app)}</span></td>
-      <td class="right"><span class="score-badge">${fmt(s.t2_after)}</span></td>
-      <td class="right"><span class="score-appeal ${appealClass(s.total_change)}" style="font-size:17px;padding:4px 12px">${fmtAppeal(s.total_change)}</span></td>
+  }
+  if(sub==='biochem'){
+    st.sort((a,b)=>b.bc-a.bc);
+    document.getElementById('tbody-t1-biochem').innerHTML=st.map((s,i)=>`<tr>
+      <td class="rank-cell ${rCls(i)}">${i+1}</td>
+      <td class="name-cell">${s.name}${isAll?`<div class="sub-detail">${s.cls}${sf}</div>`:''}</td>
+      <td><span class="chip">${s.region}</span></td>
+      <td class="right"><span class="sb">${fmt(s.bc_e)}</span></td>
+      <td class="right"><span class="sb">${fmt(s.bc_t)}</span></td>
+      <td class="right"><span class="sb sb-total">${fmt(s.bc)}</span></td>
     </tr>`).join('');
+  }
+  if(sub==='bioinfo'){
+    st.sort((a,b)=>b.bi-a.bi);
+    document.getElementById('tbody-t1-bioinfo').innerHTML=st.map((s,i)=>`<tr>
+      <td class="rank-cell ${rCls(i)}">${i+1}</td>
+      <td class="name-cell">${s.name}${isAll?`<div class="sub-detail">${s.cls}${sf}</div>`:''}</td>
+      <td><span class="chip">${s.region}</span></td>
+      <td class="right"><span class="sb">${fmt(s.bi_a)}</span></td>
+      <td class="right"><span class="sb">${fmt(s.bi_b)}</span></td>
+      <td class="right"><span class="sb">${fmt(s.bi_c)}</span></td>
+      <td class="right"><span class="sb">${fmt(s.bi_d)}</span></td>
+      <td class="right"><span class="sb sb-total">${fmt(s.bi)}</span></td>
+    </tr>`).join('');
+  }
+  if(sub==='anatomy'){
+    st.sort((a,b)=>b.an-a.an);
+    document.getElementById('tbody-t1-anatomy').innerHTML=st.map((s,i)=>`<tr>
+      <td class="rank-cell ${rCls(i)}">${i+1}</td>
+      <td class="name-cell">${s.name}${isAll?`<div class="sub-detail">${s.cls}${sf}</div>`:''}</td>
+      <td><span class="chip">${s.region}</span></td>
+      <td class="right"><span class="sb">${fmt(s.an_a)}</span></td>
+      <td class="right"><span class="sb">${fmt(s.an_b)}</span></td>
+      <td class="right"><span class="sb">${fmt(s.an_c)}</span></td>
+      <td class="right"><span class="sb">${fmt(s.an_d)}</span></td>
+      <td class="right"><span class="sb sb-total">${fmt(s.an)}</span></td>
+    </tr>`).join('');
+  }
 }
 
-// ============================================================
-// RENDER FINAL
-// ============================================================
-function renderFinal() {
-  const t = I18N[currentLang];
-  const tour1Map = {};
-  getAllStudentsTour1().forEach(s => { tour1Map[s.name] = s; });
-  const tour2Map = {};
-  getAllStudentsTour2().forEach(s => { tour2Map[s.name] = s; });
+// ── RENDER TOUR 2 ────────────────────────────────────────────
+function renderTour2(){
+  const isAll=cls==='all';const sf=lang==='kk'?' СЫНЫП':' КЛАСС';
+  const st=filt(t2all()).sort((a,b)=>b.t2_f-a.t2_f);
+  document.getElementById('tbody-t2').innerHTML=st.map((s,i)=>`<tr>
+    <td class="rank-cell ${rCls(i)}">${i+1}</td>
+    <td class="name-cell">${s.name}${isAll?`<div class="sub-detail">${s.cls}${sf}</div>`:''}${s.note?`<div class="note-cell">⚠ ${s.note}</div>`:''}</td>
+    <td><span class="chip">${s.region}</span></td>
+    <td class="right"><span class="sb">${fmt(s.t2_raw)}</span></td>
+    <td class="right"><span class="ap ${apCls(s.t2_app)}">${fmtAp(s.t2_app)}</span></td>
+    <td class="right"><span class="sb sb-total">${fmt(s.t2_f)}</span></td>
+  </tr>`).join('');
+}
 
-  const names = new Set([...Object.keys(tour1Map), ...Object.keys(tour2Map)]);
-  const combined = [...names].map(name => {
-    const s1 = tour1Map[name]||{};
-    const s2 = tour2Map[name]||{};
-    const t1f = s1.t1_final != null ? s1.t1_final : (s1.total||0);
-    const t2f = s2.t2_final != null ? s2.t2_final : (s2.total2||0);
-    return {
-      name, region: s1.region||s2.region, cls: s1.cls||s2.cls,
-      t1: t1f, t2: t2f, final: t1f + t2f,
-      note: s1.note||s2.note
-    };
-  })
-  .filter(s => s.name.toLowerCase().includes(searchQuery)||(s.region||'').toLowerCase().includes(searchQuery))
-  .sort((a,b) => b.final-a.final);
+// ── RENDER APPEAL ────────────────────────────────────────────
+function renderAppeal(){
+  const isAll=cls==='all';const sf=lang==='kk'?' СЫНЫП':' КЛАСС';
+  const m1={};t1all().forEach(s=>{m1[s.name]=s});
+  const m2={};t2all().forEach(s=>{m2[s.name]=s});
+  const names=new Set([...Object.keys(m1),...Object.keys(m2)]);
+  let rows=[...names].map(name=>{
+    const s1=m1[name]||{};const s2=m2[name]||{};
+    const a1=s1.t1_app||0,a2=s2.t2_app||0;
+    return{name,region:s1.region||s2.region,cls:s1.cls||s2.cls,
+      t1_raw:s1.t1_raw||0,t1_app:a1,t1_f:s1.t1_f||0,
+      t2_raw:s2.t2_raw||0,t2_app:a2,t2_f:s2.t2_f||0,
+      total:a1+a2,note:s1.note||s2.note}
+  }).filter(s=>s.t1_app!==0||s.t2_app!==0);
+  rows=filt(rows).sort((a,b)=>Math.abs(b.total)-Math.abs(a.total));
+  document.getElementById('tbody-appeal').innerHTML=rows.map((s,i)=>`<tr>
+    <td class="rank-cell">${i+1}</td>
+    <td class="name-cell">${s.name}${isAll?`<div class="sub-detail">${s.cls}${sf}</div>`:''}${s.note?`<div class="note-cell">⚠ ${s.note}</div>`:''}</td>
+    <td><span class="chip">${s.region}</span></td>
+    <td class="right"><span class="sb">${fmt(s.t1_raw)}</span></td>
+    <td class="right"><span class="ap ${apCls(s.t1_app)}">${fmtAp(s.t1_app)}</span></td>
+    <td class="right"><span class="sb">${fmt(s.t1_f)}</span></td>
+    <td class="right"><span class="sb">${fmt(s.t2_raw)}</span></td>
+    <td class="right"><span class="ap ${apCls(s.t2_app)}">${fmtAp(s.t2_app)}</span></td>
+    <td class="right"><span class="sb">${fmt(s.t2_f)}</span></td>
+    <td class="right"><span class="ap ${apCls(s.total)}" style="font-size:17px;padding:4px 12px">${fmtAp(s.total)}</span></td>
+  </tr>`).join('');
+}
 
-  const medals = ['🥇','🥈','🥉'];
-  document.getElementById('top3-cards').innerHTML = combined.slice(0,3).map((s,i) => `
+// ── RENDER FINAL ─────────────────────────────────────────────
+function renderFinal(){
+  const isAll=cls==='all';const sf=lang==='kk'?' СЫНЫП':' КЛАСС';
+  const m1={};t1all().forEach(s=>{m1[s.name]=s});
+  const m2={};t2all().forEach(s=>{m2[s.name]=s});
+  const names=new Set([...Object.keys(m1),...Object.keys(m2)]);
+  let rows=filt([...names].map(name=>{
+    const s1=m1[name]||{};const s2=m2[name]||{};
+    const t1=s1.t1_f??0,t2=s2.t2_f??0;
+    return{name,region:s1.region||s2.region,cls:s1.cls||s2.cls,t1,t2,total:t1+t2,note:s1.note||s2.note}
+  })).sort((a,b)=>b.total-a.total);
+  const medals=['🥇','🥈','🥉'];
+  document.getElementById('top3-cards').innerHTML=rows.slice(0,3).map((s,i)=>`
     <div class="summary-card">
       <div class="summary-icon">${medals[i]}</div>
       <div class="summary-info">
         <div class="summary-name">${s.name}</div>
-        <div class="summary-region">${s.region}${currentClass==='all' ? ' · '+s.cls+' '+t.classLabel : ''}</div>
+        <div class="summary-region">${s.region}${isAll?' · '+s.cls+sf:''}</div>
       </div>
-      <div class="summary-score">${fmt(s.final)}</div>
+      <div class="summary-score">${fmt(s.total)}</div>
     </div>`).join('');
-
-  document.getElementById('tbody-final').innerHTML = combined.map((s,i) => `
-    <tr>
-      <td class="rank-cell ${rankClass(i)}">${i+1}</td>
-      <td class="name-cell">
-        ${s.name}
-        ${currentClass==='all' ? `<div class="subtable-detail">${s.cls} ${t.classLabel}</div>` : ''}
-        ${s.note ? `<div class="note-cell">⚠ ${s.note}</div>` : ''}
-      </td>
-      <td><span class="chip-region">${s.region}</span></td>
-      <td class="right"><span class="score-badge">${fmt(s.t1)}</span></td>
-      <td class="right"><span class="score-badge">${fmt(s.t2)}</span></td>
-      <td class="right"><span class="score-badge ${i<3?'score-top':'score-total'}">${fmt(s.final)}</span></td>
-    </tr>`).join('');
+  document.getElementById('tbody-final').innerHTML=rows.map((s,i)=>`<tr>
+    <td class="rank-cell ${rCls(i)}">${i+1}</td>
+    <td class="name-cell">${s.name}${isAll?`<div class="sub-detail">${s.cls}${sf}</div>`:''}${s.note?`<div class="note-cell">⚠ ${s.note}</div>`:''}</td>
+    <td><span class="chip">${s.region}</span></td>
+    <td class="right"><span class="sb">${fmt(s.t1)}</span></td>
+    <td class="right"><span class="sb">${fmt(s.t2)}</span></td>
+    <td class="right"><span class="sb ${i<3?'sb-top':'sb-total'}">${fmt(s.total)}</span></td>
+  </tr>`).join('');
 }
-
-document.getElementById('searchInput').placeholder = I18N[currentLang].placeholder;
 </script>
 </body>
 </html>
