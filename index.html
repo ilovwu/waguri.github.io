@@ -25,9 +25,7 @@
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
-
 html { scroll-behavior: smooth; }
-
 body {
   font-family: 'Montserrat', sans-serif;
   background: var(--bg);
@@ -36,7 +34,6 @@ body {
   overflow-x: hidden;
 }
 
-/* ========== PETALS CANVAS ========== */
 #petals-canvas {
   position: fixed;
   inset: 0;
@@ -45,7 +42,6 @@ body {
   opacity: 0.55;
 }
 
-/* ========== BG EFFECTS ========== */
 .bg-grid {
   position: fixed;
   inset: 0;
@@ -80,7 +76,6 @@ body {
   z-index: 0;
 }
 
-/* ========== LANG TOGGLE ========== */
 .lang-toggle {
   position: fixed;
   top: 20px;
@@ -108,13 +103,9 @@ body {
   border-radius: 4px;
   transition: all 0.2s;
 }
-.lang-btn.active {
-  background: rgba(0,200,150,0.15);
-  color: var(--accent);
-}
+.lang-btn.active { background: rgba(0,200,150,0.15); color: var(--accent); }
 .lang-btn:hover:not(.active) { color: var(--text); }
 
-/* ========== HOME PAGE ========== */
 #home {
   position: relative;
   z-index: 1;
@@ -142,12 +133,7 @@ body {
   animation: riseIn 0.8s 0.1s ease forwards;
   position: relative;
 }
-.home-tag::before, .home-tag::after {
-  content: '✦';
-  margin: 0 10px;
-  opacity: 0.5;
-  font-size: 8px;
-}
+.home-tag::before, .home-tag::after { content: '✦'; margin: 0 10px; opacity: 0.5; font-size: 8px; }
 
 .home-title {
   font-family: 'Cormorant Garamond', serif;
@@ -298,7 +284,6 @@ body {
   margin-top: 4px;
 }
 
-/* ========== RESULTS PAGE ========== */
 #results { display: none; min-height: 100vh; position: relative; z-index: 1; }
 
 .header {
@@ -380,7 +365,6 @@ body {
   margin: 0 auto;
 }
 
-/* ========== TABS ========== */
 .section-tabs {
   display: flex;
   gap: 0;
@@ -426,7 +410,6 @@ body {
 .subtab-btn:hover { color: var(--text); border-color: var(--teal); }
 .subtab-btn.active { background: rgba(0,200,150,0.1); border-color: var(--teal); color: var(--accent); }
 
-/* ========== TABLE ========== */
 .table-wrap {
   overflow-x: auto;
   border: 1px solid var(--border);
@@ -500,6 +483,31 @@ td { padding: 12px 16px; color: var(--text); vertical-align: middle; }
   color: var(--gold);
 }
 .score-na { color: var(--muted); font-size: 12px; }
+.score-appeal {
+  display: inline-block;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 15px;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 4px;
+  min-width: 44px;
+  text-align: center;
+}
+.score-appeal-pos {
+  background: rgba(0,200,150,0.07);
+  border: 1px solid rgba(0,200,150,0.2);
+  color: var(--teal);
+}
+.score-appeal-neg {
+  background: rgba(229,115,115,0.07);
+  border: 1px solid rgba(229,115,115,0.2);
+  color: #e57373;
+}
+.score-appeal-zero {
+  background: rgba(106,140,116,0.07);
+  border: 1px solid rgba(106,140,116,0.2);
+  color: var(--muted);
+}
 
 .chip-region {
   display: inline-block;
@@ -512,7 +520,6 @@ td { padding: 12px 16px; color: var(--text); vertical-align: middle; }
   white-space: nowrap;
 }
 
-/* ========== SUMMARY CARDS ========== */
 .summary-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
@@ -576,21 +583,6 @@ td { padding: 12px 16px; color: var(--text); vertical-align: middle; }
   background: var(--border);
 }
 
-.pending-badge {
-  display: inline-block;
-  background: rgba(245,200,66,0.1);
-  border: 1px solid rgba(245,200,66,0.3);
-  color: var(--gold);
-  font-size: 9px;
-  font-weight: 600;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  padding: 3px 9px;
-  border-radius: 2px;
-  margin-left: 10px;
-  vertical-align: middle;
-}
-
 .empty-msg {
   text-align: center;
   padding: 80px 20px;
@@ -600,7 +592,6 @@ td { padding: 12px 16px; color: var(--text); vertical-align: middle; }
   line-height: 1.9;
 }
 
-/* ========== ANIMATIONS ========== */
 @keyframes riseIn {
   from { opacity: 0; transform: translateY(28px); }
   to { opacity: 1; transform: translateY(0); }
@@ -609,16 +600,10 @@ td { padding: 12px 16px; color: var(--text); vertical-align: middle; }
   from { opacity: 0; }
   to { opacity: 1; }
 }
-@keyframes slideDown {
-  from { opacity: 0; transform: translateY(-10px); }
-  to { opacity: 1; transform: translateY(0); }
-}
 
 .results-content { animation: fadeIn 0.3s ease; }
 
-tbody tr {
-  animation: riseIn 0.4s ease both;
-}
+tbody tr { animation: riseIn 0.4s ease both; }
 tbody tr:nth-child(1)  { animation-delay: 0.03s; }
 tbody tr:nth-child(2)  { animation-delay: 0.06s; }
 tbody tr:nth-child(3)  { animation-delay: 0.09s; }
@@ -630,7 +615,6 @@ tbody tr:nth-child(8)  { animation-delay: 0.24s; }
 tbody tr:nth-child(9)  { animation-delay: 0.27s; }
 tbody tr:nth-child(10) { animation-delay: 0.30s; }
 
-/* Pulse glow for top ranks */
 .rank-1 { text-shadow: 0 0 12px rgba(245,200,66,0.6); }
 .rank-2 { text-shadow: 0 0 8px rgba(176,190,197,0.4); }
 .rank-3 { text-shadow: 0 0 8px rgba(205,127,50,0.4); }
@@ -648,19 +632,17 @@ tbody tr:nth-child(10) { animation-delay: 0.30s; }
 </head>
 <body>
 
-<!-- Canvas for falling petals -->
 <canvas id="petals-canvas"></canvas>
 <div class="bg-grid"></div>
 <div class="bg-glow-top"></div>
 <div class="bg-glow-bottom"></div>
 
-<!-- Language toggle -->
 <div class="lang-toggle">
   <button class="lang-btn active" id="btn-kk" onclick="setLang('kk')">ҚАЗ</button>
   <button class="lang-btn" id="btn-ru" onclick="setLang('ru')">РУС</button>
 </div>
 
-<!-- ===== HOME PAGE ===== -->
+<!-- HOME -->
 <div id="home">
   <div class="home-tag" data-kk="🧬 Республикалық олимпиада · IV кезең · 2026" data-ru="🧬 Республиканская олимпиада · IV этап · 2026">🧬 Республикалық олимпиада · IV кезең · 2026</div>
 
@@ -708,7 +690,7 @@ tbody tr:nth-child(10) { animation-delay: 0.30s; }
   </div>
 </div>
 
-<!-- ===== RESULTS PAGE ===== -->
+<!-- RESULTS -->
 <div id="results">
   <div class="header">
     <div class="header-left">
@@ -734,7 +716,6 @@ tbody tr:nth-child(10) { animation-delay: 0.30s; }
       </button>
       <button class="tab-btn" id="tab-btn-appeal" onclick="switchTab('appeal')">
         <span data-kk="АПЕЛЛЯЦИЯ" data-ru="АПЕЛЛЯЦИЯ">АПЕЛЛЯЦИЯ</span>
-        <span class="pending-badge" data-kk="КҮТІЛУДЕ" data-ru="ОЖИДАЕТСЯ">КҮТІЛУДЕ</span>
       </button>
       <button class="tab-btn" id="tab-btn-final" onclick="switchTab('final')">
         <span data-kk="ҚОРЫТЫНДЫ" data-ru="ИТОГ">ҚОРЫТЫНДЫ</span>
@@ -761,7 +742,9 @@ tbody tr:nth-child(10) { animation-delay: 0.30s; }
                 <th class="right" data-kk="Биохимия" data-ru="Биохимия">Биохимия</th>
                 <th class="right" data-kk="Биоинформатика" data-ru="Биоинформатика">Биоинформатика</th>
                 <th class="right" data-kk="Анатомия" data-ru="Анатомия">Анатомия</th>
-                <th class="right" data-kk="І ТУР ЖИЫНЫ" data-ru="СУММА І ТУР">І ТУР ЖИЫНЫ</th>
+                <th class="right" data-kk="І ТУР (дейін)" data-ru="І ТУР (до)">І ТУР (дейін)</th>
+                <th class="right" data-kk="Апелляция" data-ru="Апелляция">Апелляция</th>
+                <th class="right" data-kk="І ТУР ЖИЫНЫ" data-ru="І ТУР ИТОГО">І ТУР ЖИЫНЫ</th>
               </tr>
             </thead>
             <tbody id="tbody-tour1-all"></tbody>
@@ -832,7 +815,9 @@ tbody tr:nth-child(10) { animation-delay: 0.30s; }
               <th>№</th>
               <th data-kk="ФИО" data-ru="ФИО">ФИО</th>
               <th data-kk="Облыс" data-ru="Регион">Облыс</th>
-              <th class="right" data-kk="ІІ ТУР ҰПАЙ" data-ru="БАЛЛЫ ІІ ТУР">ІІ ТУР ҰПАЙ</th>
+              <th class="right" data-kk="ІІ ТУР (дейін)" data-ru="ІІ ТУР (до)">ІІ ТУР (дейін)</th>
+              <th class="right" data-kk="Апелляция" data-ru="Апелляция">Апелляция</th>
+              <th class="right" data-kk="ІІ ТУР ҰПАЙ" data-ru="ІІ ТУР ИТОГО">ІІ ТУР ҰПАЙ</th>
             </tr>
           </thead>
           <tbody id="tbody-tour2"></tbody>
@@ -840,10 +825,26 @@ tbody tr:nth-child(10) { animation-delay: 0.30s; }
       </div>
     </div>
 
-    <!-- APPEAL -->
+    <!-- APPEAL SUMMARY -->
     <div id="tab-appeal" style="display:none">
-      <div class="empty-msg">
-        ⏳ <span data-kk="Апелляция нəтижелері əлі жарияланған жоқ.<br>Нəтижелер шыққаннан кейін мұнда қосылады." data-ru="Результаты апелляции ещё не опубликованы.<br>Они появятся здесь после официального объявления.">Апелляция нəтижелері əлі жарияланған жоқ.<br>Нəтижелер шыққаннан кейін мұнда қосылады.</span>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>№</th>
+              <th data-kk="ФИО" data-ru="ФИО">ФИО</th>
+              <th data-kk="Облыс" data-ru="Регион">Облыс</th>
+              <th class="right" data-kk="І тур (дейін)" data-ru="І тур (до)">І тур (дейін)</th>
+              <th class="right" data-kk="І тур апелл." data-ru="І тур апелл.">І тур апелл.</th>
+              <th class="right" data-kk="І тур (кейін)" data-ru="І тур (после)">І тур (кейін)</th>
+              <th class="right" data-kk="ІІ тур (дейін)" data-ru="ІІ тур (до)">ІІ тур (дейін)</th>
+              <th class="right" data-kk="ІІ тур апелл." data-ru="ІІ тур апелл.">ІІ тур апелл.</th>
+              <th class="right" data-kk="ІІ тур (кейін)" data-ru="ІІ тур (после)">ІІ тур (кейін)</th>
+              <th class="right" data-kk="Барлық өзгеріс" data-ru="Всего изменение">Барлық өзгеріс</th>
+            </tr>
+          </thead>
+          <tbody id="tbody-appeal"></tbody>
+        </table>
       </div>
     </div>
 
@@ -861,7 +862,6 @@ tbody tr:nth-child(10) { animation-delay: 0.30s; }
               <th data-kk="Облыс" data-ru="Регион">Облыс</th>
               <th class="right" data-kk="І тур" data-ru="І тур">І тур</th>
               <th class="right" data-kk="ІІ тур" data-ru="ІІ тур">ІІ тур</th>
-              <th class="right" data-kk="Апелляция" data-ru="Апелляция">Апелляция</th>
               <th class="right" data-kk="ҚОРЫТЫНДЫ" data-ru="ИТОГО">ҚОРЫТЫНДЫ</th>
             </tr>
           </thead>
@@ -880,62 +880,24 @@ tbody tr:nth-child(10) { animation-delay: 0.30s; }
   const canvas = document.getElementById('petals-canvas');
   const ctx = canvas.getContext('2d');
   let W, H, petals = [];
-
-  function resize() {
-    W = canvas.width = window.innerWidth;
-    H = canvas.height = window.innerHeight;
-  }
+  function resize() { W = canvas.width = window.innerWidth; H = canvas.height = window.innerHeight; }
   resize();
   window.addEventListener('resize', resize);
-
-  const COLORS = [
-    'rgba(255,183,197,0.7)', 'rgba(200,240,220,0.6)',
-    'rgba(180,230,210,0.5)', 'rgba(255,210,220,0.6)',
-    'rgba(150,220,200,0.5)'
-  ];
-
+  const COLORS = ['rgba(255,183,197,0.7)','rgba(200,240,220,0.6)','rgba(180,230,210,0.5)','rgba(255,210,220,0.6)','rgba(150,220,200,0.5)'];
   function createPetal() {
-    return {
-      x: Math.random() * W,
-      y: -20,
-      size: Math.random() * 7 + 4,
-      speedY: Math.random() * 0.8 + 0.3,
-      speedX: (Math.random() - 0.5) * 0.6,
-      rot: Math.random() * Math.PI * 2,
-      rotSpeed: (Math.random() - 0.5) * 0.03,
-      opacity: Math.random() * 0.5 + 0.3,
-      color: COLORS[Math.floor(Math.random() * COLORS.length)],
-      wobble: Math.random() * Math.PI * 2,
-      wobbleSpeed: Math.random() * 0.02 + 0.01,
-    };
+    return { x: Math.random()*W, y: -20, size: Math.random()*7+4, speedY: Math.random()*0.8+0.3, speedX: (Math.random()-0.5)*0.6, rot: Math.random()*Math.PI*2, rotSpeed: (Math.random()-0.5)*0.03, opacity: Math.random()*0.5+0.3, color: COLORS[Math.floor(Math.random()*COLORS.length)], wobble: Math.random()*Math.PI*2, wobbleSpeed: Math.random()*0.02+0.01 };
   }
-
-  for (let i = 0; i < 38; i++) {
-    const p = createPetal();
-    p.y = Math.random() * H;
-    petals.push(p);
-  }
-
+  for (let i = 0; i < 38; i++) { const p = createPetal(); p.y = Math.random()*H; petals.push(p); }
   function drawPetal(p) {
-    ctx.save();
-    ctx.translate(p.x, p.y);
-    ctx.rotate(p.rot);
-    ctx.globalAlpha = p.opacity;
-    ctx.beginPath();
-    ctx.ellipse(0, 0, p.size, p.size * 0.55, 0, 0, Math.PI * 2);
-    ctx.fillStyle = p.color;
-    ctx.fill();
-    ctx.restore();
+    ctx.save(); ctx.translate(p.x, p.y); ctx.rotate(p.rot); ctx.globalAlpha = p.opacity;
+    ctx.beginPath(); ctx.ellipse(0, 0, p.size, p.size*0.55, 0, 0, Math.PI*2);
+    ctx.fillStyle = p.color; ctx.fill(); ctx.restore();
   }
-
   function animate() {
     ctx.clearRect(0, 0, W, H);
     for (let p of petals) {
-      p.y += p.speedY;
-      p.wobble += p.wobbleSpeed;
-      p.x += p.speedX + Math.sin(p.wobble) * 0.4;
-      p.rot += p.rotSpeed;
-      if (p.y > H + 30) { Object.assign(p, createPetal()); p.y = -20; }
+      p.y += p.speedY; p.wobble += p.wobbleSpeed; p.x += p.speedX + Math.sin(p.wobble)*0.4; p.rot += p.rotSpeed;
+      if (p.y > H+30) { Object.assign(p, createPetal()); p.y = -20; }
       drawPetal(p);
     }
     requestAnimationFrame(animate);
@@ -950,273 +912,343 @@ let currentLang = 'kk';
 
 function setLang(lang) {
   currentLang = lang;
-  document.getElementById('btn-kk').classList.toggle('active', lang === 'kk');
-  document.getElementById('btn-ru').classList.toggle('active', lang === 'ru');
-
+  document.getElementById('btn-kk').classList.toggle('active', lang==='kk');
+  document.getElementById('btn-ru').classList.toggle('active', lang==='ru');
   document.querySelectorAll('[data-kk]').forEach(el => {
-    const val = el.getAttribute('data-' + lang);
-    if (val !== null) {
-      if (el.tagName === 'INPUT') el.placeholder = val;
-      else el.innerHTML = val;
-    }
+    const val = el.getAttribute('data-'+lang);
+    if (val !== null) { if (el.tagName==='INPUT') el.placeholder=val; else el.innerHTML=val; }
   });
-
-  // search placeholder
-  const ph = { kk: 'Аты бойынша іздеу...', ru: 'Поиск по имени...' };
+  const ph = {kk:'Аты бойынша іздеу...',ru:'Поиск по имени...'};
   document.getElementById('searchInput').placeholder = ph[lang];
-
-  // re-render current tab
-  if (currentTab === 'tour1') renderTour1();
-  if (currentTab === 'tour2') renderTour2();
-  if (currentTab === 'final') renderFinal();
+  if (currentTab==='tour1') renderTour1();
+  if (currentTab==='tour2') renderTour2();
+  if (currentTab==='appeal') renderAppeal();
+  if (currentTab==='final') renderFinal();
 }
 
 // ============================================================
 // DATA
 // ============================================================
+// Appeal data: t1_app = tour1 appeal delta, t2_app = tour2 appeal delta
+// t1_final = tour1 score after appeal, t2_final = tour2 score after appeal
+
 const DATA = {
   9: {
     tour1: [
-      {name:"Абдукадырова Балауса",region:"Шымкент",bc_exp:0,bc_th:0.4,bc:0.4,bi_a:1.8,bi_b:1,bi_c:0.25,bi_d:0.5,bi:3.55,an_a:0.5,an_b:0,an_c:1.55,an_dis:0.8,an:2.85,total:6.8},
-      {name:"Абдуллаев Ернур",region:"Ұлытау",bc_exp:0,bc_th:0.4,bc:0.4,bi_a:2.55,bi_b:0.75,bi_c:0,bi_d:1.5,bi:4.8,an_a:0.5,an_b:0,an_c:0.75,an_dis:1.6,an:2.85,total:8.05},
-      {name:"Адилов Шахнур",region:"Түркістан",bc_exp:2.5,bc_th:1,bc:3.5,bi_a:3.05,bi_b:3.75,bi_c:0.75,bi_d:2,bi:9.55,an_a:4.1,an_b:0,an_c:2.55,an_dis:2,an:8.65,total:21.7},
-      {name:"Айтбай Нұрəділ",region:"Маңғыстау",bc_exp:0,bc_th:0.2,bc:0.2,bi_a:3.05,bi_b:1,bi_c:0.75,bi_d:2,bi:6.8,an_a:2,an_b:0,an_c:0.6,an_dis:0,an:2.6,total:9.6},
-      {name:"Алдашбеков Ахмедияр",region:"Жамбыл",bc_exp:0.9,bc_th:0,bc:0.9,bi_a:0.65,bi_b:1.5,bi_c:0.75,bi_d:0.5,bi:3.4,an_a:4.3,an_b:0,an_c:2.3,an_dis:2,an:8.6,total:12.9},
-      {name:"Аманжол Несібе",region:"Атырау",bc_exp:4,bc_th:0,bc:4,bi_a:2.95,bi_b:3.25,bi_c:0.75,bi_d:0.5,bi:7.45,an_a:2,an_b:1,an_c:1.85,an_dis:0,an:4.85,total:16.3},
-      {name:"Антмухаметов Шадияр",region:"Павлодар",bc_exp:1.1,bc_th:0.6,bc:1.7,bi_a:0.95,bi_b:3,bi_c:0.25,bi_d:2,bi:6.2,an_a:4.35,an_b:0,an_c:0.95,an_dis:0,an:5.3,total:13.2},
-      {name:"Аширханов Алихан",region:"Алматы қ.",bc_exp:1.1,bc_th:1.4,bc:2.5,bi_a:4.4,bi_b:1.75,bi_c:0.75,bi_d:2,bi:8.9,an_a:3.3,an_b:0,an_c:2.95,an_dis:2,an:8.25,total:19.65},
-      {name:"Базарбек Нұрəлі",region:"Абай",bc_exp:0.9,bc_th:0.8,bc:1.7,bi_a:1.4,bi_b:2,bi_c:0.75,bi_d:0.5,bi:4.65,an_a:0,an_b:0,an_c:0.75,an_dis:0,an:0.75,total:7.1},
-      {name:"Батырғали Аянат",region:"Батыс Қазақстан",bc_exp:0,bc_th:0,bc:0,bi_a:2.65,bi_b:1,bi_c:0.75,bi_d:2,bi:6.4,an_a:1.2,an_b:0,an_c:1,an_dis:0,an:2.2,total:8.6},
-      {name:"Берікқара Олжас",region:"Ұлытау",bc_exp:0,bc_th:0,bc:0,bi_a:3.65,bi_b:1,bi_c:1.25,bi_d:0,bi:5.9,an_a:0,an_b:0,an_c:1.65,an_dis:0.4,an:2.05,total:7.95},
-      {name:"Бородай Роман",region:"СҚО",bc_exp:0.4,bc_th:0.2,bc:0.6,bi_a:1.05,bi_b:1,bi_c:0.25,bi_d:3.5,bi:5.8,an_a:2.1,an_b:0.5,an_c:1.95,an_dis:2,an:6.55,total:12.95},
-      {name:"Ғабдулжағыпар Аңсар",region:"Павлодар",bc_exp:1.1,bc_th:0.8,bc:1.9,bi_a:2.65,bi_b:3,bi_c:1,bi_d:2,bi:8.65,an_a:0,an_b:1,an_c:1.9,an_dis:0.4,an:3.3,total:13.85},
-      {name:"Герасимова Валерия",region:"Ақмола",bc_exp:0.3,bc_th:0,bc:0.3,bi_a:0.8,bi_b:2.5,bi_c:0.25,bi_d:0.5,bi:4.05,an_a:5.5,an_b:0.5,an_c:1.4,an_dis:1.6,an:9,total:13.35},
-      {name:"Горохова Яна",region:"Ақмола",bc_exp:1.1,bc_th:1.2,bc:2.3,bi_a:2.75,bi_b:4.25,bi_c:0.75,bi_d:0.5,bi:8.25,an_a:0,an_b:1,an_c:1.8,an_dis:0.8,an:3.6,total:14.15},
-      {name:"Дуйсен Жансая",region:"СҚО",bc_exp:1,bc_th:0.4,bc:1.4,bi_a:0.55,bi_b:0,bi_c:0,bi_d:0,bi:0.55,an_a:1.4,an_b:0.5,an_c:1.6,an_dis:1.6,an:5.1,total:7.05},
-      {name:"Дулат Алдияр",region:"РФММ Алматы",bc_exp:0.9,bc_th:0,bc:0.9,bi_a:3.45,bi_b:1.5,bi_c:0.75,bi_d:0,bi:5.7,an_a:0,an_b:0,an_c:1.35,an_dis:0,an:1.35,total:7.95},
-      {name:"Дүйсен Гүлімай",region:"Жамбыл",bc_exp:0,bc_th:0.4,bc:0.4,bi_a:3.5,bi_b:2,bi_c:0.5,bi_d:2,bi:8,an_a:0,an_b:0,an_c:0.3,an_dis:2,an:2.3,total:10.7},
-      {name:"Елубай Ерасыл",region:"Абай",bc_exp:0.8,bc_th:1.2,bc:2,bi_a:1.8,bi_b:2.5,bi_c:0.75,bi_d:0,bi:5.05,an_a:3.9,an_b:0,an_c:1.1,an_dis:0,an:5,total:12.05},
-      {name:"Əділғали Нұрасыл",region:"Маңғыстау",bc_exp:1.3,bc_th:0.4,bc:1.7,bi_a:4.3,bi_b:3.75,bi_c:1,bi_d:1.5,bi:10.55,an_a:2.7,an_b:0.5,an_c:1.65,an_dis:1.6,an:6.45,total:18.7},
-      {name:"Жаксыбаев Даниал",region:"Астана",bc_exp:1.9,bc_th:0.2,bc:2.1,bi_a:2.45,bi_b:2,bi_c:0.75,bi_d:2,bi:7.2,an_a:2.2,an_b:0,an_c:0.1,an_dis:0,an:2.3,total:11.6},
-      {name:"Жұмағали Əлихан",region:"Қарағанды",bc_exp:0.8,bc_th:0.6,bc:1.4,bi_a:2.9,bi_b:2.25,bi_c:0.75,bi_d:0.5,bi:6.4,an_a:0.7,an_b:0,an_c:2.05,an_dis:0.8,an:3.55,total:11.35},
-      {name:"Иса Хафиз",region:"Қызылорда",bc_exp:1,bc_th:0.6,bc:1.6,bi_a:2.8,bi_b:4.25,bi_c:0,bi_d:1.5,bi:8.55,an_a:6.5,an_b:0,an_c:1.4,an_dis:1.2,an:9.1,total:19.25},
-      {name:"Ислам Тілектес",region:"Қарағанды",bc_exp:1,bc_th:1,bc:2,bi_a:2.8,bi_b:2.25,bi_c:0.25,bi_d:0.5,bi:5.8,an_a:2,an_b:0,an_c:1.35,an_dis:0,an:3.35,total:11.15},
-      {name:"Кабышев Гафиз",region:"Батыс Қазақстан",bc_exp:1.1,bc_th:1.8,bc:2.9,bi_a:2.35,bi_b:4.25,bi_c:0.75,bi_d:4,bi:11.35,an_a:0,an_b:1.5,an_c:2.7,an_dis:0.8,an:5,total:19.25},
-      {name:"Калкабеков Абитбек",region:"РФММ Алматы",bc_exp:0.8,bc_th:0.2,bc:1,bi_a:3.55,bi_b:2,bi_c:0.75,bi_d:1.5,bi:7.8,an_a:0,an_b:0,an_c:1.45,an_dis:0,an:1.45,total:10.25},
-      {name:"Каратаева Дария",region:"НЗМ ДББҰ",bc_exp:0.9,bc_th:0.6,bc:1.5,bi_a:2.8,bi_b:2.5,bi_c:0.75,bi_d:0.5,bi:6.55,an_a:1,an_b:0,an_c:1.75,an_dis:2,an:4.75,total:12.8},
-      {name:"Кеңесқали Мирас",region:"Алматы қ.",bc_exp:0,bc_th:0.8,bc:0.8,bi_a:3.4,bi_b:5.25,bi_c:1.25,bi_d:3.5,bi:13.4,an_a:0.2,an_b:0,an_c:2.8,an_dis:0,an:3,total:17.2},
-      {name:"Күненжан Самал",region:"Алматы обл.",bc_exp:0.8,bc_th:0,bc:0.8,bi_a:0.8,bi_b:0,bi_c:0.25,bi_d:2,bi:3.05,an_a:0,an_b:0,an_c:1.05,an_dis:1.2,an:2.25,total:6.1},
-      {name:"Құттыбек Айкөркем",region:"Жетісу",bc_exp:1,bc_th:0.4,bc:1.4,bi_a:0.7,bi_b:1.25,bi_c:0.25,bi_d:0.5,bi:2.7,an_a:2,an_b:0,an_c:1.6,an_dis:1.6,an:5.2,total:9.3},
-      {name:"Мақашев Ерсұлтан",region:"Жетісу",bc_exp:1.5,bc_th:0.6,bc:2.1,bi_a:2.95,bi_b:3,bi_c:0.75,bi_d:2,bi:8.7,an_a:2.6,an_b:0,an_c:0.8,an_dis:1.2,an:4.6,total:15.4},
-      {name:"Мусин Ануар",region:"Қостанай",bc_exp:0,bc_th:0,bc:0,bi_a:1.2,bi_b:0.75,bi_c:0.5,bi_d:0,bi:2.45,an_a:3.9,an_b:0,an_c:1.25,an_dis:0,an:5.15,total:7.6},
-      {name:"Назым Ескендір",region:"НЗМ ДББҰ",bc_exp:1.4,bc_th:0.8,bc:2.2,bi_a:2.95,bi_b:2,bi_c:0,bi_d:2,bi:6.95,an_a:0.5,an_b:0,an_c:1.85,an_dis:1.2,an:3.55,total:12.7},
-      {name:"Нариман Али Амир",region:"Алматы обл.",bc_exp:0.8,bc_th:0.8,bc:1.6,bi_a:1.9,bi_b:3.5,bi_c:0.75,bi_d:0,bi:6.15,an_a:2.5,an_b:0,an_c:1.45,an_dis:0,an:3.95,total:11.7},
-      {name:"Нурлыбек Ақерке",region:"Түркістан",bc_exp:0,bc_th:0.6,bc:0.6,bi_a:1.3,bi_b:0.5,bi_c:0.25,bi_d:0,bi:2.05,an_a:2.2,an_b:0,an_c:0.5,an_dis:0,an:2.7,total:5.35},
-      {name:"Нұрасыл Омар",region:"Ақтөбе",bc_exp:0.8,bc_th:0.2,bc:1,bi_a:3.9,bi_b:1.5,bi_c:0.75,bi_d:3.5,bi:9.65,an_a:2,an_b:0,an_c:1.95,an_dis:1.2,an:5.15,total:15.8},
-      {name:"Олейников Давид",region:"Атырау",bc_exp:0.7,bc_th:0,bc:0.7,bi_a:4.15,bi_b:2,bi_c:1.25,bi_d:2,bi:9.4,an_a:5.3,an_b:0,an_c:0.4,an_dis:1.2,an:6.9,total:17},
-      {name:"Орынбасар Рамазан",region:"Алматы қ.",bc_exp:1.4,bc_th:0,bc:1.4,bi_a:3.3,bi_b:4.25,bi_c:0.75,bi_d:0,bi:8.3,an_a:4,an_b:0.5,an_c:2.5,an_dis:0.8,an:7.8,total:17.5},
-      {name:"Өмірбек Аян",region:"Қызылорда",bc_exp:6.7,bc_th:0,bc:6.7,bi_a:3.05,bi_b:2.75,bi_c:1,bi_d:2,bi:8.8,an_a:4.1,an_b:1,an_c:2.55,an_dis:1.6,an:9.25,total:24.75},
-      {name:"Рахманов Даниал",region:"Ақтөбе",bc_exp:1.6,bc_th:0.6,bc:2.2,bi_a:4.05,bi_b:0.5,bi_c:0.75,bi_d:3,bi:8.3,an_a:1.7,an_b:0,an_c:1.2,an_dis:0,an:2.9,total:13.4},
-      {name:"Рузыев Арслан",region:"Алматы қ.",bc_exp:0,bc_th:1.5,bc:1.5,bi_a:2.2,bi_b:0.75,bi_c:0.5,bi_d:0,bi:3.45,an_a:2.5,an_b:0.5,an_c:1.05,an_dis:2,an:6.05,total:11},
-      {name:"Сембаев Максат",region:"ШҚО",bc_exp:0,bc_th:0,bc:0,bi_a:3.15,bi_b:2.25,bi_c:0.75,bi_d:1.5,bi:7.65,an_a:1.4,an_b:0,an_c:0,an_dis:1.2,an:2.6,total:10.25},
-      {name:"Сембай Айдана",region:"НЗМ ДББҰ",bc_exp:1.5,bc_th:1,bc:2.5,bi_a:0.95,bi_b:2,bi_c:0.75,bi_d:0.5,bi:4.2,an_a:1.7,an_b:0,an_c:2.3,an_dis:1.6,an:5.6,total:12.3},
-      {name:"Серікұлы Нұрəли",region:"ШҚО",bc_exp:0.8,bc_th:0.2,bc:1,bi_a:3.4,bi_b:2.5,bi_c:0.25,bi_d:0,bi:6.15,an_a:0.5,an_b:0,an_c:1.55,an_dis:1.6,an:3.65,total:10.8},
-      {name:"Сыздыкова Томирис",region:"Шымкент",bc_exp:0.4,bc_th:1.2,bc:1.6,bi_a:1.4,bi_b:2,bi_c:0.25,bi_d:0,bi:3.65,an_a:0,an_b:0,an_c:1.55,an_dis:0,an:1.55,total:6.8},
-      {name:"Татаркина Мария",region:"Жетісу",bc_exp:0,bc_th:0,bc:0,bi_a:2.05,bi_b:0.75,bi_c:0.25,bi_d:0,bi:3.05,an_a:0,an_b:0,an_c:0.95,an_dis:0.8,an:1.75,total:4.8},
-      {name:"Тынысов Мадияр",region:"Қостанай",bc_exp:0,bc_th:1,bc:1,bi_a:2.4,bi_b:1.5,bi_c:1,bi_d:2,bi:6.9,an_a:0,an_b:0.5,an_c:1.15,an_dis:1.2,an:2.85,total:10.75},
-      {name:"Широких Дарья",region:"Астана",bc_exp:1.5,bc_th:0.6,bc:2.1,bi_a:1.2,bi_b:0.75,bi_c:0,bi_d:0.5,bi:2.45,an_a:3.8,an_b:0.5,an_c:2.25,an_dis:2,an:8.55,total:13.1},
+      {name:"Абдукадырова Балауса",region:"Шымкент",bc_exp:0,bc_th:0.4,bc:0.4,bi_a:1.8,bi_b:1,bi_c:0.25,bi_d:0.5,bi:3.55,an_a:0.5,an_b:0,an_c:1.55,an_dis:0.8,an:2.85,total:6.8,t1_app:0,t1_final:6.8},
+      {name:"Абдуллаев Ернур",region:"Ұлытау",bc_exp:0,bc_th:0.4,bc:0.4,bi_a:2.55,bi_b:0.75,bi_c:0,bi_d:1.5,bi:4.8,an_a:0.5,an_b:0,an_c:0.75,an_dis:1.6,an:2.85,total:8.05,t1_app:0,t1_final:8.05},
+      {name:"Адилов Шахнур",region:"Түркістан",bc_exp:2.5,bc_th:1,bc:3.5,bi_a:3.05,bi_b:3.75,bi_c:0.75,bi_d:2,bi:9.55,an_a:4.1,an_b:0,an_c:2.55,an_dis:2,an:8.65,total:21.7,t1_app:0,t1_final:21.7},
+      {name:"Айтбай Нұрəділ",region:"Маңғыстау",bc_exp:0,bc_th:0.2,bc:0.2,bi_a:3.05,bi_b:1,bi_c:0.75,bi_d:2,bi:6.8,an_a:2,an_b:0,an_c:0.6,an_dis:0,an:2.6,total:9.6,t1_app:0,t1_final:9.6},
+      {name:"Алдашбеков Ахмедияр",region:"Жамбыл",bc_exp:0.9,bc_th:0,bc:0.9,bi_a:0.65,bi_b:1.5,bi_c:0.75,bi_d:0.5,bi:3.4,an_a:4.3,an_b:0,an_c:2.3,an_dis:2,an:8.6,total:12.9,t1_app:0,t1_final:12.9},
+      {name:"Аманжол Несібе",region:"Атырау",bc_exp:4,bc_th:0,bc:4,bi_a:2.95,bi_b:3.25,bi_c:0.75,bi_d:0.5,bi:7.45,an_a:2,an_b:1,an_c:1.85,an_dis:0,an:4.85,total:16.3,t1_app:0.5,t1_final:16.8},
+      {name:"Антмухаметов Шадияр",region:"Павлодар",bc_exp:1.1,bc_th:0.6,bc:1.7,bi_a:0.95,bi_b:3,bi_c:0.25,bi_d:2,bi:6.2,an_a:4.35,an_b:0,an_c:0.95,an_dis:0,an:5.3,total:13.2,t1_app:0,t1_final:13.2},
+      {name:"Аширханов Алихан",region:"Алматы қ.",bc_exp:1.1,bc_th:1.4,bc:2.5,bi_a:4.4,bi_b:1.75,bi_c:0.75,bi_d:2,bi:8.9,an_a:3.3,an_b:0,an_c:2.95,an_dis:2,an:8.25,total:19.65,t1_app:0.25,t1_final:19.9},
+      {name:"Базарбек Нұрəлі",region:"Абай",bc_exp:0.9,bc_th:0.8,bc:1.7,bi_a:1.4,bi_b:2,bi_c:0.75,bi_d:0.5,bi:4.65,an_a:0,an_b:0,an_c:0.75,an_dis:0,an:0.75,total:7.1,t1_app:0.5,t1_final:7.6},
+      {name:"Батырғали Аянат",region:"Батыс Қазақстан",bc_exp:0,bc_th:0,bc:0,bi_a:2.65,bi_b:1,bi_c:0.75,bi_d:2,bi:6.4,an_a:1.2,an_b:0,an_c:1,an_dis:0,an:2.2,total:8.6,t1_app:-0.5,t1_final:8.1},
+      {name:"Берікқара Олжас",region:"Ұлытау",bc_exp:0,bc_th:0,bc:0,bi_a:3.65,bi_b:1,bi_c:1.25,bi_d:0,bi:5.9,an_a:0,an_b:0,an_c:1.65,an_dis:0.4,an:2.05,total:7.95,t1_app:0,t1_final:7.95},
+      {name:"Бородай Роман",region:"СҚО",bc_exp:0.4,bc_th:0.2,bc:0.6,bi_a:1.05,bi_b:1,bi_c:0.25,bi_d:3.5,bi:5.8,an_a:2.1,an_b:0.5,an_c:1.95,an_dis:2,an:6.55,total:12.95,t1_app:0,t1_final:12.95},
+      {name:"Ғабдулжағыпар Аңсар",region:"Павлодар",bc_exp:1.1,bc_th:0.8,bc:1.9,bi_a:2.65,bi_b:3,bi_c:1,bi_d:2,bi:8.65,an_a:0,an_b:1,an_c:1.9,an_dis:0.4,an:3.3,total:13.85,t1_app:0,t1_final:13.85},
+      {name:"Герасимова Валерия",region:"Ақмола",bc_exp:0.3,bc_th:0,bc:0.3,bi_a:0.8,bi_b:2.5,bi_c:0.25,bi_d:0.5,bi:4.05,an_a:5.5,an_b:0.5,an_c:1.4,an_dis:1.6,an:9,total:13.35,t1_app:0,t1_final:13.35},
+      {name:"Горохова Яна",region:"Ақмола",bc_exp:1.1,bc_th:1.2,bc:2.3,bi_a:2.75,bi_b:4.25,bi_c:0.75,bi_d:0.5,bi:8.25,an_a:0,an_b:1,an_c:1.8,an_dis:0.8,an:3.6,total:14.15,t1_app:-0.5,t1_final:13.65},
+      {name:"Дуйсен Жансая",region:"СҚО",bc_exp:1,bc_th:0.4,bc:1.4,bi_a:0.55,bi_b:0,bi_c:0,bi_d:0,bi:0.55,an_a:1.4,an_b:0.5,an_c:1.6,an_dis:1.6,an:5.1,total:7.05,t1_app:0,t1_final:7.05},
+      {name:"Дулат Алдияр",region:"РФММ Алматы",bc_exp:0.9,bc_th:0,bc:0.9,bi_a:3.45,bi_b:1.5,bi_c:0.75,bi_d:0,bi:5.7,an_a:0,an_b:0,an_c:1.35,an_dis:0,an:1.35,total:7.95,t1_app:0,t1_final:7.95},
+      {name:"Дүйсен Гүлімай",region:"Жамбыл",bc_exp:0,bc_th:0.4,bc:0.4,bi_a:3.5,bi_b:2,bi_c:0.5,bi_d:2,bi:8,an_a:0,an_b:0,an_c:0.3,an_dis:2,an:2.3,total:10.7,t1_app:0,t1_final:10.7},
+      {name:"Елубай Ерасыл",region:"Абай",bc_exp:0.8,bc_th:1.2,bc:2,bi_a:1.8,bi_b:2.5,bi_c:0.75,bi_d:0,bi:5.05,an_a:3.9,an_b:0,an_c:1.1,an_dis:0,an:5,total:12.05,t1_app:0.75,t1_final:12.8},
+      {name:"Əділғали Нұрасыл",region:"Маңғыстау",bc_exp:1.3,bc_th:0.4,bc:1.7,bi_a:4.3,bi_b:3.75,bi_c:1,bi_d:1.5,bi:10.55,an_a:2.7,an_b:0.5,an_c:1.65,an_dis:1.6,an:6.45,total:18.7,t1_app:0,t1_final:18.7},
+      {name:"Жаксыбаев Даниал",region:"Астана",bc_exp:1.9,bc_th:0.2,bc:2.1,bi_a:2.45,bi_b:2,bi_c:0.75,bi_d:2,bi:7.2,an_a:2.2,an_b:0,an_c:0.1,an_dis:0,an:2.3,total:11.6,t1_app:-0.5,t1_final:11.1},
+      {name:"Жұмағали Əлихан",region:"Қарағанды",bc_exp:0.8,bc_th:0.6,bc:1.4,bi_a:2.9,bi_b:2.25,bi_c:0.75,bi_d:0.5,bi:6.4,an_a:0.7,an_b:0,an_c:2.05,an_dis:0.8,an:3.55,total:11.35,t1_app:-0.2,t1_final:11.15},
+      {name:"Иса Хафиз",region:"Қызылорда",bc_exp:1,bc_th:0.6,bc:1.6,bi_a:2.8,bi_b:4.25,bi_c:0,bi_d:1.5,bi:8.55,an_a:6.5,an_b:0,an_c:1.4,an_dis:1.2,an:9.1,total:19.25,t1_app:0,t1_final:19.25},
+      {name:"Ислам Тілектес",region:"Қарағанды",bc_exp:1,bc_th:1,bc:2,bi_a:2.8,bi_b:2.25,bi_c:0.25,bi_d:0.5,bi:5.8,an_a:2,an_b:0,an_c:1.35,an_dis:0,an:3.35,total:11.15,t1_app:0,t1_final:11.15},
+      {name:"Кабышев Гафиз",region:"Батыс Қазақстан",bc_exp:1.1,bc_th:1.8,bc:2.9,bi_a:2.35,bi_b:4.25,bi_c:0.75,bi_d:4,bi:11.35,an_a:0,an_b:1.5,an_c:2.7,an_dis:0.8,an:5,total:19.25,t1_app:-2.5,t1_final:16.75},
+      {name:"Калкабеков Абитбек",region:"РФММ Алматы",bc_exp:0.8,bc_th:0.2,bc:1,bi_a:3.55,bi_b:2,bi_c:0.75,bi_d:1.5,bi:7.8,an_a:0,an_b:0,an_c:1.45,an_dis:0,an:1.45,total:10.25,t1_app:0,t1_final:10.25},
+      {name:"Каратаева Дария",region:"НЗМ ДББҰ",bc_exp:0.9,bc_th:0.6,bc:1.5,bi_a:2.8,bi_b:2.5,bi_c:0.75,bi_d:0.5,bi:6.55,an_a:1,an_b:0,an_c:1.75,an_dis:2,an:4.75,total:12.8,t1_app:-0.4,t1_final:12.4},
+      {name:"Кеңесқали Мирас",region:"Алматы қ.",bc_exp:0,bc_th:0.8,bc:0.8,bi_a:3.4,bi_b:5.25,bi_c:1.25,bi_d:3.5,bi:13.4,an_a:0.2,an_b:0,an_c:2.8,an_dis:0,an:3,total:17.2,t1_app:-1.8,t1_final:15.4},
+      {name:"Күненжан Самал",region:"Алматы обл.",bc_exp:0.8,bc_th:0,bc:0.8,bi_a:0.8,bi_b:0,bi_c:0.25,bi_d:2,bi:3.05,an_a:0,an_b:0,an_c:1.05,an_dis:1.2,an:2.25,total:6.1,t1_app:0,t1_final:6.1},
+      {name:"Құттыбек Айкөркем",region:"Жетісу",bc_exp:1,bc_th:0.4,bc:1.4,bi_a:0.7,bi_b:1.25,bi_c:0.25,bi_d:0.5,bi:2.7,an_a:2,an_b:0,an_c:1.6,an_dis:1.6,an:5.2,total:9.3,t1_app:0,t1_final:9.3},
+      {name:"Мақашев Ерсұлтан",region:"Жетісу",bc_exp:1.5,bc_th:0.6,bc:2.1,bi_a:2.95,bi_b:3,bi_c:0.75,bi_d:2,bi:8.7,an_a:2.6,an_b:0,an_c:0.8,an_dis:1.2,an:4.6,total:15.4,t1_app:0,t1_final:15.4},
+      {name:"Мусин Ануар",region:"Қостанай",bc_exp:0,bc_th:0,bc:0,bi_a:1.2,bi_b:0.75,bi_c:0.5,bi_d:0,bi:2.45,an_a:3.9,an_b:0,an_c:1.25,an_dis:0,an:5.15,total:7.6,t1_app:0,t1_final:7.6},
+      {name:"Назым Ескендір",region:"НЗМ ДББҰ",bc_exp:1.4,bc_th:0.8,bc:2.2,bi_a:2.95,bi_b:2,bi_c:0,bi_d:2,bi:6.95,an_a:0.5,an_b:0,an_c:1.85,an_dis:1.2,an:3.55,total:12.7,t1_app:0,t1_final:12.7},
+      {name:"Нариман Али Амир",region:"Алматы обл.",bc_exp:0.8,bc_th:0.8,bc:1.6,bi_a:1.9,bi_b:3.5,bi_c:0.75,bi_d:0,bi:6.15,an_a:2.5,an_b:0,an_c:1.45,an_dis:0,an:3.95,total:11.7,t1_app:0.5,t1_final:12.2},
+      {name:"Нурлыбек Ақерке",region:"Түркістан",bc_exp:0,bc_th:0.6,bc:0.6,bi_a:1.3,bi_b:0.5,bi_c:0.25,bi_d:0,bi:2.05,an_a:2.2,an_b:0,an_c:0.5,an_dis:0,an:2.7,total:5.35,t1_app:0,t1_final:5.35},
+      {name:"Нұрасыл Омар",region:"Ақтөбе",bc_exp:0.8,bc_th:0.2,bc:1,bi_a:3.9,bi_b:1.5,bi_c:0.75,bi_d:3.5,bi:9.65,an_a:2,an_b:0,an_c:1.95,an_dis:1.2,an:5.15,total:15.8,t1_app:-2.5,t1_final:13.3},
+      {name:"Олейников Давид",region:"Атырау",bc_exp:0.7,bc_th:0,bc:0.7,bi_a:4.15,bi_b:2,bi_c:1.25,bi_d:2,bi:9.4,an_a:5.3,an_b:0,an_c:0.4,an_dis:1.2,an:6.9,total:17,t1_app:0.75,t1_final:17.75},
+      {name:"Орынбасар Рамазан",region:"Алматы қ.",bc_exp:1.4,bc_th:0,bc:1.4,bi_a:3.3,bi_b:4.25,bi_c:0.75,bi_d:0,bi:8.3,an_a:4,an_b:0.5,an_c:2.5,an_dis:0.8,an:7.8,total:17.5,t1_app:-0.25,t1_final:17.25},
+      {name:"Өмірбек Аян",region:"Қызылорда",bc_exp:6.7,bc_th:0,bc:6.7,bi_a:3.05,bi_b:2.75,bi_c:1,bi_d:2,bi:8.8,an_a:4.1,an_b:1,an_c:2.55,an_dis:1.6,an:9.25,total:24.75,t1_app:0,t1_final:24.75},
+      {name:"Рахманов Даниал",region:"Ақтөбе",bc_exp:1.6,bc_th:0.6,bc:2.2,bi_a:4.05,bi_b:0.5,bi_c:0.75,bi_d:3,bi:8.3,an_a:1.7,an_b:0,an_c:1.2,an_dis:0,an:2.9,total:13.4,t1_app:-1.5,t1_final:11.9},
+      {name:"Рузыев Арслан",region:"Алматы қ.",bc_exp:0,bc_th:1.5,bc:1.5,bi_a:2.2,bi_b:0.75,bi_c:0.5,bi_d:0,bi:3.45,an_a:2.5,an_b:0.5,an_c:1.05,an_dis:2,an:6.05,total:11,t1_app:0.25,t1_final:11.25},
+      {name:"Сембаев Максат",region:"ШҚО",bc_exp:0,bc_th:0,bc:0,bi_a:3.15,bi_b:2.25,bi_c:0.75,bi_d:1.5,bi:7.65,an_a:1.4,an_b:0,an_c:0,an_dis:1.2,an:2.6,total:10.25,t1_app:0,t1_final:10.25},
+      {name:"Сембай Айдана",region:"НЗМ ДББҰ",bc_exp:1.5,bc_th:1,bc:2.5,bi_a:0.95,bi_b:2,bi_c:0.75,bi_d:0.5,bi:4.2,an_a:1.7,an_b:0,an_c:2.3,an_dis:1.6,an:5.6,total:12.3,t1_app:0.1,t1_final:12.4},
+      {name:"Серікұлы Нұрəли",region:"ШҚО",bc_exp:0.8,bc_th:0.2,bc:1,bi_a:3.4,bi_b:2.5,bi_c:0.25,bi_d:0,bi:6.15,an_a:0.5,an_b:0,an_c:1.55,an_dis:1.6,an:3.65,total:10.8,t1_app:0,t1_final:10.8},
+      {name:"Сыздыкова Томирис",region:"Шымкент",bc_exp:0.4,bc_th:1.2,bc:1.6,bi_a:1.4,bi_b:2,bi_c:0.25,bi_d:0,bi:3.65,an_a:0,an_b:0,an_c:1.55,an_dis:0,an:1.55,total:6.8,t1_app:0,t1_final:6.8},
+      {name:"Татаркина Мария",region:"Жетісу",bc_exp:0,bc_th:0,bc:0,bi_a:2.05,bi_b:0.75,bi_c:0.25,bi_d:0,bi:3.05,an_a:0,an_b:0,an_c:0.95,an_dis:0.8,an:1.75,total:4.8,t1_app:0,t1_final:4.8},
+      {name:"Тынысов Мадияр",region:"Қостанай",bc_exp:0,bc_th:1,bc:1,bi_a:2.4,bi_b:1.5,bi_c:1,bi_d:2,bi:6.9,an_a:0,an_b:0.5,an_c:1.15,an_dis:1.2,an:2.85,total:10.75,t1_app:0,t1_final:10.75},
+      {name:"Широких Дарья",region:"Астана",bc_exp:1.5,bc_th:0.6,bc:2.1,bi_a:1.2,bi_b:0.75,bi_c:0,bi_d:0.5,bi:2.45,an_a:3.8,an_b:0.5,an_c:2.25,an_dis:2,an:8.55,total:13.1,t1_app:0.5,t1_final:13.6},
     ],
     tour2: [
-      {name:"Базарбек Нұрəлі",region:"Абай",total2:14.8},{name:"Елубай Ерасыл",region:"Абай",total2:15.2},
-      {name:"Герасимова Валерия",region:"Ақмола",total2:17.6},{name:"Горохова Яна",region:"Ақмола",total2:21.8},
-      {name:"Нұрасыл Омар",region:"Ақтөбе",total2:22.6},{name:"Рахманов Даниал",region:"Ақтөбе",total2:18.6},
-      {name:"Аширханов Алихан",region:"Алматы қ.",total2:22.2},{name:"Кеңесқали Мирас",region:"Алматы қ.",total2:18.6},
-      {name:"Орынбасар Рамазан",region:"Алматы қ.",total2:19},{name:"Рузыев Арслан",region:"Алматы қ.",total2:16},
-      {name:"Күненжан Самал",region:"Алматы обл.",total2:11.4},{name:"Нариман Али Амир",region:"Алматы обл.",total2:9.6},
-      {name:"Жаксыбаев Даниал",region:"Астана",total2:17},{name:"Широких Дарья",region:"Астана",total2:17.2},
-      {name:"Аманжол Несібе",region:"Атырау",total2:20.4},{name:"Олейников Давид",region:"Атырау",total2:17.8},
-      {name:"Батырғали Аянат",region:"Батыс Қазақстан",total2:14},{name:"Кабышев Гафиз",region:"Батыс Қазақстан",total2:16.6},
-      {name:"Алдашбеков Ахмедияр",region:"Жамбыл",total2:16.2},{name:"Дүйсен Гүлімай",region:"Жамбыл",total2:14.2},
-      {name:"Құттыбек Айкөркем",region:"Жетісу",total2:14.4},{name:"Мақашев Ерсұлтан",region:"Жетісу",total2:19.6},
-      {name:"Татаркина Мария",region:"Жетісу",total2:15.6},{name:"Жұмағали Əлихан",region:"Қарағанды",total2:19.6},
-      {name:"Ислам Тілектес",region:"Қарағанды",total2:14.2},{name:"Мусин Ануар",region:"Қостанай",total2:17.6},
-      {name:"Тынысов Мадияр",region:"Қостанай",total2:15},{name:"Иса Хафиз",region:"Қызылорда",total2:24},
-      {name:"Өмірбек Аян",region:"Қызылорда",total2:12.6},{name:"Айтбай Нұрəділ",region:"Маңғыстау",total2:12.8},
-      {name:"Əділғали Нұрасыл",region:"Маңғыстау",total2:23.4},{name:"Каратаева Дария",region:"НЗМ ДББҰ",total2:14.2},
-      {name:"Назым Ескендір",region:"НЗМ ДББҰ",total2:17.2},{name:"Сембай Айдана",region:"НЗМ ДББҰ",total2:16.2},
-      {name:"Антмухаметов Шадияр",region:"Павлодар",total2:17.8},{name:"Ғабдулжағыпар Аңсар",region:"Павлодар",total2:22.6},
-      {name:"Дулат Алдияр",region:"РФММ Алматы",total2:13.2},{name:"Калкабеков Абитбек",region:"РФММ Алматы",total2:12},
-      {name:"Бородай Роман",region:"СҚО",total2:16},{name:"Дуйсен Жансая",region:"СҚО",total2:12.6},
-      {name:"Адилов Шахнур",region:"Түркістан",total2:17.4},{name:"Нурлыбек Ақерке",region:"Түркістан",total2:16.2},
-      {name:"Абдуллаев Ернур",region:"Ұлытау",total2:13.6},{name:"Берікқара Олжас",region:"Ұлытау",total2:18.6},
-      {name:"Сембаев Максат",region:"ШҚО",total2:19.6},{name:"Серікұлы Нұрəли",region:"ШҚО",total2:15},
-      {name:"Абдукадырова Балауса",region:"Шымкент",total2:15.2},{name:"Сыздыкова Томирис",region:"Шымкент",total2:13.4},
+      {name:"Базарбек Нұрəлі",region:"Абай",total2:14.8,t2_app:-1.2,t2_final:13.6},
+      {name:"Елубай Ерасыл",region:"Абай",total2:15.2,t2_app:-0.2,t2_final:15.0},
+      {name:"Герасимова Валерия",region:"Ақмола",total2:17.6,t2_app:-1.4,t2_final:16.2},
+      {name:"Горохова Яна",region:"Ақмола",total2:21.8,t2_app:-1.2,t2_final:20.6},
+      {name:"Нұрасыл Омар",region:"Ақтөбе",total2:22.6,t2_app:-0.4,t2_final:22.2},
+      {name:"Рахманов Даниал",region:"Ақтөбе",total2:18.6,t2_app:0.4,t2_final:19.0},
+      {name:"Аширханов Алихан",region:"Алматы қ.",total2:22.2,t2_app:0.6,t2_final:22.8},
+      {name:"Кеңесқали Мирас",region:"Алматы қ.",total2:18.6,t2_app:-0.6,t2_final:18.0},
+      {name:"Орынбасар Рамазан",region:"Алматы қ.",total2:19,t2_app:-0.8,t2_final:18.2},
+      {name:"Рузыев Арслан",region:"Алматы қ.",total2:16,t2_app:1.2,t2_final:17.2},
+      {name:"Күненжан Самал",region:"Алматы обл.",total2:11.4,t2_app:0.4,t2_final:11.8},
+      {name:"Нариман Али Амир",region:"Алматы обл.",total2:9.6,t2_app:-0.4,t2_final:9.2},
+      {name:"Жаксыбаев Даниал",region:"Астана",total2:17,t2_app:-0.8,t2_final:16.2},
+      {name:"Широких Дарья",region:"Астана",total2:17.2,t2_app:-0.4,t2_final:16.8},
+      {name:"Аманжол Несібе",region:"Атырау",total2:20.4,t2_app:0,t2_final:20.4},
+      {name:"Олейников Давид",region:"Атырау",total2:17.8,t2_app:-2.4,t2_final:15.4},
+      {name:"Батырғали Аянат",region:"Батыс Қазақстан",total2:14,t2_app:-0.8,t2_final:13.2},
+      {name:"Кабышев Гафиз",region:"Батыс Қазақстан",total2:16.6,t2_app:-0.4,t2_final:16.2},
+      {name:"Алдашбеков Ахмедияр",region:"Жамбыл",total2:16.2,t2_app:-0.6,t2_final:15.6},
+      {name:"Дүйсен Гүлімай",region:"Жамбыл",total2:14.2,t2_app:0.4,t2_final:14.6},
+      {name:"Құттыбек Айкөркем",region:"Жетісу",total2:14.4,t2_app:-0.6,t2_final:13.8},
+      {name:"Мақашев Ерсұлтан",region:"Жетісу",total2:19.6,t2_app:1.2,t2_final:20.8},
+      {name:"Татаркина Мария",region:"Жетісу",total2:15.6,t2_app:-1.0,t2_final:14.6},
+      {name:"Жұмағали Əлихан",region:"Қарағанды",total2:19.6,t2_app:-0.2,t2_final:19.4},
+      {name:"Ислам Тілектес",region:"Қарағанды",total2:14.2,t2_app:0.6,t2_final:14.8},
+      {name:"Мусин Ануар",region:"Қостанай",total2:17.6,t2_app:-1.4,t2_final:16.2},
+      {name:"Тынысов Мадияр",region:"Қостанай",total2:15,t2_app:-0.2,t2_final:14.8},
+      {name:"Иса Хафиз",region:"Қызылорда",total2:24,t2_app:0.4,t2_final:24.4},
+      {name:"Өмірбек Аян",region:"Қызылорда",total2:12.6,t2_app:0.4,t2_final:13.0},
+      {name:"Айтбай Нұрəділ",region:"Маңғыстау",total2:12.8,t2_app:-1.0,t2_final:11.8},
+      {name:"Əділғали Нұрасыл",region:"Маңғыстау",total2:23.4,t2_app:0.8,t2_final:24.2},
+      {name:"Каратаева Дария",region:"НЗМ ДББҰ",total2:14.2,t2_app:-0.4,t2_final:13.8},
+      {name:"Назым Ескендір",region:"НЗМ ДББҰ",total2:17.2,t2_app:-1.2,t2_final:16.0},
+      {name:"Сембай Айдана",region:"НЗМ ДББҰ",total2:16.2,t2_app:0.2,t2_final:16.4},
+      {name:"Антмухаметов Шадияр",region:"Павлодар",total2:17.8,t2_app:0.6,t2_final:18.4},
+      {name:"Ғабдулжағыпар Аңсар",region:"Павлодар",total2:22.6,t2_app:0.4,t2_final:23.0},
+      {name:"Дулат Алдияр",region:"РФММ Алматы",total2:13.2,t2_app:6.2,t2_final:19.4},
+      {name:"Калкабеков Абитбек",region:"РФММ Алматы",total2:12,t2_app:-0.6,t2_final:11.4},
+      {name:"Бородай Роман",region:"СҚО",total2:16,t2_app:-0.6,t2_final:15.4},
+      {name:"Дуйсен Жансая",region:"СҚО",total2:12.6,t2_app:0.2,t2_final:12.8},
+      {name:"Адилов Шахнур",region:"Түркістан",total2:17.4,t2_app:1.0,t2_final:18.4},
+      {name:"Нурлыбек Ақерке",region:"Түркістан",total2:16.2,t2_app:-1.2,t2_final:15.0},
+      {name:"Абдуллаев Ернур",region:"Ұлытау",total2:13.6,t2_app:-0.4,t2_final:13.2},
+      {name:"Берікқара Олжас",region:"Ұлытау",total2:18.6,t2_app:-0.8,t2_final:17.8},
+      {name:"Сембаев Максат",region:"ШҚО",total2:19.6,t2_app:-1.2,t2_final:18.4},
+      {name:"Серікұлы Нұрəли",region:"ШҚО",total2:15,t2_app:0,t2_final:15.0},
+      {name:"Абдукадырова Балауса",region:"Шымкент",total2:15.2,t2_app:-1.2,t2_final:14.0},
+      {name:"Сыздыкова Томирис",region:"Шымкент",total2:13.4,t2_app:0.6,t2_final:14.0},
     ]
   },
   10: {
     tour1: [
-      {name:"Абдужамал Бақберген",region:"Қызылорда",bc_exp:0.4,bc_th:0.8,bc:1.2,bi_a:1.65,bi_b:1.75,bi_c:0,bi_d:2,bi:5.4,an_a:1.5,an_b:0,an_c:2.95,an_dis:2,an:6.45,total:13.05},
-      {name:"Абдығали Адина",region:"Жамбыл",bc_exp:0,bc_th:0,bc:0,bi_a:1.4,bi_b:3.5,bi_c:0.75,bi_d:1.5,bi:7.15,an_a:0,an_b:2.1,an_c:1.5,an_dis:0,an:3.6,total:10.75},
-      {name:"Алмасұлы Бекəлі",region:"Батыс Қазақстан",bc_exp:0.8,bc_th:1.2,bc:2,bi_a:2.35,bi_b:2.25,bi_c:0.75,bi_d:2,bi:7.35,an_a:2,an_b:0.5,an_c:2.35,an_dis:1.6,an:6.45,total:15.8},
-      {name:"Альмагамбетов Санжар",region:"Қостанай",bc_exp:2.7,bc_th:0.8,bc:3.5,bi_a:1.75,bi_b:2.5,bi_c:0.75,bi_d:2,bi:7,an_a:4.05,an_b:0.5,an_c:1.95,an_dis:2,an:8.5,total:19},
-      {name:"Амантай Нұрбақыт",region:"Астана",bc_exp:0,bc_th:0.4,bc:0.4,bi_a:4.2,bi_b:3.25,bi_c:0.75,bi_d:2,bi:10.2,an_a:3.2,an_b:0.5,an_c:2.05,an_dis:1.2,an:6.95,total:17.55},
-      {name:"Арыстанов Амир",region:"Шымкент",bc_exp:0,bc_th:0,bc:0,bi_a:1.55,bi_b:1.5,bi_c:0.75,bi_d:1.5,bi:5.3,an_a:1.5,an_b:0.5,an_c:2.15,an_dis:2,an:6.15,total:11.45},
-      {name:"Ахметова Сабина",region:"Алматы обл.",bc_exp:1,bc_th:0,bc:1,bi_a:2.25,bi_b:1.5,bi_c:0.75,bi_d:1.5,bi:6,an_a:0,an_b:0.5,an_c:0.5,an_dis:1.2,an:2.2,total:9.2},
-      {name:"Аюпов Расул",region:"Алматы обл.",bc_exp:0.1,bc_th:0.6,bc:0.7,bi_a:2.3,bi_b:0.75,bi_c:0.75,bi_d:0,bi:3.8,an_a:0,an_b:0,an_c:1.55,an_dis:1.2,an:2.75,total:7.25},
-      {name:"Байбаков Аңсар",region:"Түркістан",bc_exp:0.5,bc_th:0.8,bc:1.3,bi_a:2.4,bi_b:1.25,bi_c:0.75,bi_d:0.5,bi:4.9,an_a:1.5,an_b:0,an_c:1.6,an_dis:0.8,an:3.9,total:10.1},
-      {name:"Байкунакова Жанель",region:"Қарағанды",bc_exp:0.4,bc_th:0,bc:0.4,bi_a:2.3,bi_b:2.75,bi_c:1,bi_d:1.5,bi:7.55,an_a:1.7,an_b:0.5,an_c:1.95,an_dis:0,an:4.15,total:12.1},
-      {name:"Бахтбекова Алуа",region:"НЗМ ДББҰ",bc_exp:1.1,bc_th:0.8,bc:1.9,bi_a:4,bi_b:2.75,bi_c:0.75,bi_d:4,bi:11.5,an_a:4.2,an_b:0.5,an_c:3.3,an_dis:2,an:10,total:23.4},
-      {name:"Беремкулова Дайне",region:"РФММ Алматы",bc_exp:1.6,bc_th:0.4,bc:2,bi_a:3.3,bi_b:0.5,bi_c:0.75,bi_d:3,bi:7.55,an_a:1.95,an_b:0,an_c:1.6,an_dis:2,an:5.55,total:15.1},
-      {name:"Билялов Нурали",region:"Павлодар",bc_exp:1.8,bc_th:0.6,bc:2.4,bi_a:3.8,bi_b:2.5,bi_c:1.25,bi_d:3,bi:10.55,an_a:5.9,an_b:0,an_c:1.95,an_dis:0.8,an:8.65,total:21.6},
-      {name:"Боздақова Инабат",region:"Қызылорда",bc_exp:7.2,bc_th:0.6,bc:7.8,bi_a:1.35,bi_b:1.25,bi_c:0.75,bi_d:1.5,bi:4.85,an_a:0.5,an_b:0,an_c:1.2,an_dis:1.2,an:2.9,total:15.55},
-      {name:"Братаев Адильхан",region:"Ақмола",bc_exp:1.1,bc_th:0.6,bc:1.7,bi_a:3.55,bi_b:1.75,bi_c:0,bi_d:1.5,bi:6.8,an_a:3.6,an_b:0.5,an_c:1.8,an_dis:0.8,an:6.7,total:15.2},
-      {name:"Варин Марк",region:"Ақтөбе",bc_exp:1,bc_th:1,bc:2,bi_a:2,bi_b:0.5,bi_c:0.75,bi_d:2,bi:5.25,an_a:6.1,an_b:0,an_c:2.1,an_dis:1.2,an:9.4,total:16.65},
-      {name:"Волигов Владислав",region:"Жетісу",bc_exp:0,bc_th:0,bc:0,bi_a:1.95,bi_b:0.5,bi_c:0.75,bi_d:0,bi:3.2,an_a:1.1,an_b:0,an_c:0,an_dis:1.2,an:2.3,total:5.5},
-      {name:"Гурский Даниил",region:"Қостанай",bc_exp:2.2,bc_th:1.5,bc:3.7,bi_a:4.15,bi_b:3.75,bi_c:0.5,bi_d:2,bi:10.4,an_a:2,an_b:0,an_c:1.2,an_dis:1.6,an:4.8,total:18.9},
-      {name:"Джубаялиев Амир",region:"Атырау",bc_exp:2.4,bc_th:0.6,bc:3,bi_a:2.95,bi_b:1.5,bi_c:1,bi_d:1.5,bi:6.95,an_a:3.7,an_b:0,an_c:2.4,an_dis:0,an:6.1,total:16.05},
-      {name:"Джумашова Жазира",region:"Алматы обл.",bc_exp:6.38,bc_th:0.2,bc:6.58,bi_a:1.5,bi_b:1.5,bi_c:0,bi_d:0.5,bi:3.5,an_a:4.3,an_b:0,an_c:2.5,an_dis:2,an:8.8,total:18.88},
-      {name:"Ермекбай Айбар",region:"Ақмола",bc_exp:0,bc_th:0.4,bc:0.4,bi_a:2.55,bi_b:1.25,bi_c:0.75,bi_d:2,bi:6.55,an_a:5,an_b:0,an_c:2.4,an_dis:2,an:9.4,total:16.35},
-      {name:"Ермекова Фатима",region:"Жетісу",bc_exp:0,bc_th:0.8,bc:0.8,bi_a:1.15,bi_b:1,bi_c:0.75,bi_d:2,bi:4.9,an_a:1.5,an_b:0,an_c:1.5,an_dis:0.4,an:3.4,total:9.1},
-      {name:"Əскер Қуаныш",region:"Атырау",bc_exp:0.6,bc_th:0,bc:0.6,bi_a:1.35,bi_b:2,bi_c:0,bi_d:0,bi:3.35,an_a:3,an_b:0,an_c:0,an_dis:0.8,an:3.8,total:7.75},
-      {name:"Жақсылық Санжар",region:"НЗМ ДББҰ",bc_exp:1.4,bc_th:0.2,bc:1.6,bi_a:2.4,bi_b:2,bi_c:0.25,bi_d:2,bi:6.65,an_a:0.7,an_b:0,an_c:2.95,an_dis:2,an:5.65,total:13.9},
-      {name:"Забекова Сабина",region:"Батыс Қазақстан",bc_exp:0.8,bc_th:0.4,bc:1.2,bi_a:2.4,bi_b:2,bi_c:0.75,bi_d:2,bi:7.15,an_a:3,an_b:0,an_c:1.25,an_dis:0.8,an:5.05,total:13.4},
-      {name:"Ибадулла Алинұр",region:"Шымкент",bc_exp:0,bc_th:0.4,bc:0.4,bi_a:2.5,bi_b:1.5,bi_c:0.25,bi_d:1.5,bi:5.75,an_a:2.25,an_b:0,an_c:0.65,an_dis:1.2,an:4.1,total:10.25},
-      {name:"Инсебаева Фатима",region:"Павлодар",bc_exp:0,bc_th:0.4,bc:0.4,bi_a:1.8,bi_b:1.75,bi_c:0.5,bi_d:1.5,bi:5.55,an_a:1.5,an_b:0,an_c:2.65,an_dis:2,an:6.15,total:12.1},
-      {name:"Исмагулова Камалия",region:"СҚО",bc_exp:0.8,bc_th:0.2,bc:1,bi_a:2.8,bi_b:0.5,bi_c:0.75,bi_d:1.5,bi:5.55,an_a:1.4,an_b:0.5,an_c:0.95,an_dis:2,an:4.85,total:11.4},
-      {name:"Кириллов Артур",region:"РФММ Алматы",bc_exp:0,bc_th:1,bc:1,bi_a:2.9,bi_b:1.75,bi_c:0.75,bi_d:1.5,bi:6.9,an_a:4.6,an_b:0,an_c:2.2,an_dis:0.4,an:7.2,total:15.1},
-      {name:"Қабдыкəрім Əли",region:"ШҚО",bc_exp:1.8,bc_th:0,bc:1.8,bi_a:2.2,bi_b:1.5,bi_c:0.75,bi_d:2,bi:6.45,an_a:1.5,an_b:0,an_c:2.4,an_dis:2,an:5.9,total:14.15},
-      {name:"Қуанышбек Жібек",region:"Маңғыстау",bc_exp:1.8,bc_th:0,bc:1.8,bi_a:2.2,bi_b:0.5,bi_c:0.75,bi_d:1.5,bi:4.95,an_a:2.7,an_b:0,an_c:0.35,an_dis:0.4,an:3.45,total:10.2},
-      {name:"Мақсот Нұрхат",region:"Астана",bc_exp:0.9,bc_th:0.6,bc:1.5,bi_a:3.8,bi_b:2.25,bi_c:1,bi_d:3,bi:10.05,an_a:2.15,an_b:0,an_c:0.55,an_dis:0,an:2.7,total:14.25},
-      {name:"Маулет Арсен",region:"Алматы қ.",bc_exp:1.5,bc_th:1.7,bc:3.2,bi_a:4.05,bi_b:3.75,bi_c:0.75,bi_d:0,bi:8.55,an_a:1,an_b:0.5,an_c:2.1,an_dis:0.8,an:4.4,total:16.15},
-      {name:"Меженина Евгения",region:"НЗМ ДББҰ",bc_exp:0.6,bc_th:0.8,bc:1.4,bi_a:2.55,bi_b:3.75,bi_c:0.75,bi_d:2,bi:9.05,an_a:2.7,an_b:0.5,an_c:3.5,an_dis:2,an:8.7,total:19.15},
-      {name:"Мыңбай Санжар",region:"Ақтөбе",bc_exp:0.8,bc_th:0.2,bc:1,bi_a:2.9,bi_b:1.75,bi_c:0.25,bi_d:2,bi:6.9,an_a:1.5,an_b:0.5,an_c:1.65,an_dis:1.6,an:5.25,total:13.15},
-      {name:"Нурланов Саян",region:"Ұлытау",bc_exp:0,bc_th:0.4,bc:0.4,bi_a:2.7,bi_b:0.5,bi_c:0.75,bi_d:1.5,bi:5.45,an_a:0,an_b:0.5,an_c:2.3,an_dis:1.6,an:4.4,total:10.25},
-      {name:"Оразалы Дильназ",region:"Ұлытау",bc_exp:1.4,bc_th:0.2,bc:1.6,bi_a:1.45,bi_b:0.75,bi_c:0.25,bi_d:1.5,bi:3.95,an_a:5.9,an_b:0,an_c:1.75,an_dis:1.2,an:8.85,total:14.4},
-      {name:"Оспанғали Ернұр",region:"Абай",bc_exp:1.4,bc_th:0.4,bc:1.8,bi_a:2.95,bi_b:0.75,bi_c:1,bi_d:2.5,bi:7.2,an_a:3.6,an_b:0,an_c:2.5,an_dis:2,an:8.1,total:17.1},
-      {name:"Сайлаубек Нурислам",region:"ШҚО",bc_exp:2.2,bc_th:1,bc:3.2,bi_a:4.3,bi_b:3,bi_c:1.25,bi_d:1.5,bi:10.05,an_a:3.2,an_b:0.5,an_c:2.8,an_dis:1.6,an:8.1,total:21.35},
-      {name:"Саматұлы Алимұхаммед",region:"Павлодар",bc_exp:1.4,bc_th:1.3,bc:2.7,bi_a:3.9,bi_b:3,bi_c:0.75,bi_d:1.5,bi:9.15,an_a:2.5,an_b:0.5,an_c:0.45,an_dis:1.6,an:5.05,total:16.9},
-      {name:"Слямов Арнұр",region:"Абай",bc_exp:1.2,bc_th:0.4,bc:1.6,bi_a:2.15,bi_b:0.5,bi_c:0.5,bi_d:1.5,bi:4.65,an_a:4.1,an_b:0,an_c:0.4,an_dis:1.2,an:5.7,total:11.95},
-      {name:"Советхан Еркежан",region:"Жамбыл",bc_exp:0.4,bc_th:1.2,bc:1.6,bi_a:1.05,bi_b:1.25,bi_c:0.75,bi_d:1.5,bi:4.55,an_a:0,an_b:0,an_c:0.65,an_dis:0,an:0.65,total:6.8},
-      {name:"Сүйеуберді Санжар",region:"Маңғыстау",bc_exp:1.8,bc_th:0.4,bc:2.2,bi_a:2,bi_b:2.75,bi_c:0.25,bi_d:1.5,bi:6.5,an_a:0,an_b:0,an_c:1.6,an_dis:1.2,an:2.8,total:11.5},
-      {name:"Тайрханов Сардорбек",region:"Түркістан",bc_exp:0.8,bc_th:0.6,bc:1.4,bi_a:4.3,bi_b:3.25,bi_c:0.75,bi_d:1.5,bi:9.8,an_a:3.6,an_b:0.5,an_c:2.6,an_dis:0,an:6.7,total:17.9},
-      {name:"Ташмаканов Салават",region:"СҚО",bc_exp:0.1,bc_th:0,bc:0.1,bi_a:3.5,bi_b:3.5,bi_c:0.75,bi_d:0,bi:7.75,an_a:2,an_b:0,an_c:0.75,an_dis:1.6,an:4.35,total:12.2},
-      {name:"Тремко Олег",region:"Алматы обл.",bc_exp:6.3,bc_th:1,bc:7.3,bi_a:3.55,bi_b:1.5,bi_c:0.75,bi_d:0.5,bi:6.3,an_a:1.6,an_b:0,an_c:2.15,an_dis:1.6,an:5.35,total:18.95},
-      {name:"Тулеубаева Мариям",region:"Қарағанды",bc_exp:1.8,bc_th:0.8,bc:2.6,bi_a:3.05,bi_b:4.5,bi_c:0.75,bi_d:1.5,bi:9.8,an_a:3.2,an_b:0,an_c:2.3,an_dis:0,an:5.5,total:17.9},
-      {name:"Тұрғанбай Ибраһим",region:"Атырау",bc_exp:1.8,bc_th:0,bc:1.8,bi_a:2.65,bi_b:1,bi_c:0.75,bi_d:2,bi:6.4,an_a:1.5,an_b:0,an_c:1.35,an_dis:2,an:4.85,total:13.05},
-      {name:"Хаби Ануар",region:"Алматы қ.",bc_exp:2.1,bc_th:0,bc:2.1,bi_a:3.15,bi_b:0.5,bi_c:0.75,bi_d:2.5,bi:6.9,an_a:0,an_b:0.5,an_c:3.2,an_dis:2,an:5.7,total:14.7},
-      {name:"Шуленбай Едіге",region:"Алматы қ.",bc_exp:1.8,bc_th:0.8,bc:2.6,bi_a:3.3,bi_b:2.5,bi_c:0.75,bi_d:0,bi:6.55,an_a:5.9,an_b:0,an_c:2.3,an_dis:0.8,an:9,total:18.15},
+      {name:"Абдужамал Бақберген",region:"Қызылорда",bc_exp:0.4,bc_th:0.8,bc:1.2,bi_a:1.65,bi_b:1.75,bi_c:0,bi_d:2,bi:5.4,an_a:1.5,an_b:0,an_c:2.95,an_dis:2,an:6.45,total:13.05,t1_app:0,t1_final:13.05},
+      {name:"Абдығали Адина",region:"Жамбыл",bc_exp:0,bc_th:0,bc:0,bi_a:1.4,bi_b:3.5,bi_c:0.75,bi_d:1.5,bi:7.15,an_a:0,an_b:2.1,an_c:1.5,an_dis:0,an:3.6,total:10.75,t1_app:-0.5,t1_final:10.25},
+      {name:"Алмасұлы Бекəлі",region:"Батыс Қазақстан",bc_exp:0.8,bc_th:1.2,bc:2,bi_a:2.35,bi_b:2.25,bi_c:0.75,bi_d:2,bi:7.35,an_a:2,an_b:0.5,an_c:2.35,an_dis:1.6,an:6.45,total:15.8,t1_app:0,t1_final:15.8},
+      {name:"Альмагамбетов Санжар",region:"Қостанай",bc_exp:2.7,bc_th:0.8,bc:3.5,bi_a:1.75,bi_b:2.5,bi_c:0.75,bi_d:2,bi:7,an_a:4.05,an_b:0.5,an_c:1.95,an_dis:2,an:8.5,total:19,t1_app:0,t1_final:19},
+      {name:"Амантай Нұрбақыт",region:"Астана",bc_exp:0,bc_th:0.4,bc:0.4,bi_a:4.2,bi_b:3.25,bi_c:0.75,bi_d:2,bi:10.2,an_a:3.2,an_b:0.5,an_c:2.05,an_dis:1.2,an:6.95,total:17.55,t1_app:-0.25,t1_final:17.3},
+      {name:"Арыстанов Амир",region:"Шымкент",bc_exp:0,bc_th:0,bc:0,bi_a:1.55,bi_b:1.5,bi_c:0.75,bi_d:1.5,bi:5.3,an_a:1.5,an_b:0.5,an_c:2.15,an_dis:2,an:6.15,total:11.45,t1_app:0,t1_final:11.45},
+      {name:"Ахметова Сабина",region:"Алматы обл.",bc_exp:1,bc_th:0,bc:1,bi_a:2.25,bi_b:1.5,bi_c:0.75,bi_d:1.5,bi:6,an_a:0,an_b:0.5,an_c:0.5,an_dis:1.2,an:2.2,total:9.2,t1_app:-0.5,t1_final:8.7},
+      {name:"Аюпов Расул",region:"Алматы обл.",bc_exp:0.1,bc_th:0.6,bc:0.7,bi_a:2.3,bi_b:0.75,bi_c:0.75,bi_d:0,bi:3.8,an_a:0,an_b:0,an_c:1.55,an_dis:1.2,an:2.75,total:7.25,t1_app:0,t1_final:7.25},
+      {name:"Байбаков Аңсар",region:"Түркістан",bc_exp:0.5,bc_th:0.8,bc:1.3,bi_a:2.4,bi_b:1.25,bi_c:0.75,bi_d:0.5,bi:4.9,an_a:1.5,an_b:0,an_c:1.6,an_dis:0.8,an:3.9,total:10.1,t1_app:0,t1_final:10.1},
+      {name:"Байкунакова Жанель",region:"Қарағанды",bc_exp:0.4,bc_th:0,bc:0.4,bi_a:2.3,bi_b:2.75,bi_c:1,bi_d:1.5,bi:7.55,an_a:1.7,an_b:0.5,an_c:1.95,an_dis:0,an:4.15,total:12.1,t1_app:0,t1_final:12.1},
+      {name:"Бахтбекова Алуа",region:"НЗМ ДББҰ",bc_exp:1.1,bc_th:0.8,bc:1.9,bi_a:4,bi_b:2.75,bi_c:0.75,bi_d:4,bi:11.5,an_a:4.2,an_b:0.5,an_c:3.3,an_dis:2,an:10,total:23.4,t1_app:0,t1_final:23.4},
+      {name:"Беремкулова Дайне",region:"РФММ Алматы",bc_exp:1.6,bc_th:0.4,bc:2,bi_a:3.3,bi_b:0.5,bi_c:0.75,bi_d:3,bi:7.55,an_a:1.95,an_b:0,an_c:1.6,an_dis:2,an:5.55,total:15.1,t1_app:0,t1_final:15.1},
+      {name:"Билялов Нурали",region:"Павлодар",bc_exp:1.8,bc_th:0.6,bc:2.4,bi_a:3.8,bi_b:2.5,bi_c:1.25,bi_d:3,bi:10.55,an_a:5.9,an_b:0,an_c:1.95,an_dis:0.8,an:8.65,total:21.6,t1_app:0,t1_final:21.6},
+      {name:"Боздақова Инабат",region:"Қызылорда",bc_exp:7.2,bc_th:0.6,bc:7.8,bi_a:1.35,bi_b:1.25,bi_c:0.75,bi_d:1.5,bi:4.85,an_a:0.5,an_b:0,an_c:1.2,an_dis:1.2,an:2.9,total:15.55,t1_app:0,t1_final:15.55},
+      {name:"Братаев Адильхан",region:"Ақмола",bc_exp:1.1,bc_th:0.6,bc:1.7,bi_a:3.55,bi_b:1.75,bi_c:0,bi_d:1.5,bi:6.8,an_a:3.6,an_b:0.5,an_c:1.8,an_dis:0.8,an:6.7,total:15.2,t1_app:1.5,t1_final:16.7},
+      {name:"Варин Марк",region:"Ақтөбе",bc_exp:1,bc_th:1,bc:2,bi_a:2,bi_b:0.5,bi_c:0.75,bi_d:2,bi:5.25,an_a:6.1,an_b:0,an_c:2.1,an_dis:1.2,an:9.4,total:16.65,t1_app:0.75,t1_final:17.4},
+      {name:"Волигов Владислав",region:"Жетісу",bc_exp:0,bc_th:0,bc:0,bi_a:1.95,bi_b:0.5,bi_c:0.75,bi_d:0,bi:3.2,an_a:1.1,an_b:0,an_c:0,an_dis:1.2,an:2.3,total:5.5,t1_app:0,t1_final:5.5},
+      {name:"Гурский Даниил",region:"Қостанай",bc_exp:2.2,bc_th:1.5,bc:3.7,bi_a:4.15,bi_b:3.75,bi_c:0.5,bi_d:2,bi:10.4,an_a:2,an_b:0,an_c:1.2,an_dis:1.6,an:4.8,total:18.9,t1_app:0,t1_final:18.9},
+      {name:"Джубаялиев Амир",region:"Атырау",bc_exp:2.4,bc_th:0.6,bc:3,bi_a:2.95,bi_b:1.5,bi_c:1,bi_d:1.5,bi:6.95,an_a:3.7,an_b:0,an_c:2.4,an_dis:0,an:6.1,total:16.05,t1_app:0.25,t1_final:16.3},
+      {name:"Джумашова Жазира",region:"Алматы обл.",bc_exp:6.38,bc_th:0.2,bc:6.58,bi_a:1.5,bi_b:1.5,bi_c:0,bi_d:0.5,bi:3.5,an_a:4.3,an_b:0,an_c:2.5,an_dis:2,an:8.8,total:18.88,t1_app:-0.5,t1_final:18.38},
+      {name:"Ермекбай Айбар",region:"Ақмола",bc_exp:0,bc_th:0.4,bc:0.4,bi_a:2.55,bi_b:1.25,bi_c:0.75,bi_d:2,bi:6.55,an_a:5,an_b:0,an_c:2.4,an_dis:2,an:9.4,total:16.35,t1_app:0.5,t1_final:16.85},
+      {name:"Ермекова Фатима",region:"Жетісу",bc_exp:0,bc_th:0.8,bc:0.8,bi_a:1.15,bi_b:1,bi_c:0.75,bi_d:2,bi:4.9,an_a:1.5,an_b:0,an_c:1.5,an_dis:0.4,an:3.4,total:9.1,t1_app:0,t1_final:9.1},
+      {name:"Əскер Қуаныш",region:"Атырау",bc_exp:0.6,bc_th:0,bc:0.6,bi_a:1.35,bi_b:2,bi_c:0,bi_d:0,bi:3.35,an_a:3,an_b:0,an_c:0,an_dis:0.8,an:3.8,total:7.75,t1_app:-1.0,t1_final:6.75},
+      {name:"Жақсылық Санжар",region:"НЗМ ДББҰ",bc_exp:1.4,bc_th:0.2,bc:1.6,bi_a:2.4,bi_b:2,bi_c:0.25,bi_d:2,bi:6.65,an_a:0.7,an_b:0,an_c:2.95,an_dis:2,an:5.65,total:13.9,t1_app:0,t1_final:13.9},
+      {name:"Забекова Сабина",region:"Батыс Қазақстан",bc_exp:0.8,bc_th:0.4,bc:1.2,bi_a:2.4,bi_b:2,bi_c:0.75,bi_d:2,bi:7.15,an_a:3,an_b:0,an_c:1.25,an_dis:0.8,an:5.05,total:13.4,t1_app:0,t1_final:13.4},
+      {name:"Ибадулла Алинұр",region:"Шымкент",bc_exp:0,bc_th:0.4,bc:0.4,bi_a:2.5,bi_b:1.5,bi_c:0.25,bi_d:1.5,bi:5.75,an_a:2.25,an_b:0,an_c:0.65,an_dis:1.2,an:4.1,total:10.25,t1_app:0,t1_final:10.25},
+      {name:"Инсебаева Фатима",region:"Павлодар",bc_exp:0,bc_th:0.4,bc:0.4,bi_a:1.8,bi_b:1.75,bi_c:0.5,bi_d:1.5,bi:5.55,an_a:1.5,an_b:0,an_c:2.65,an_dis:2,an:6.15,total:12.1,t1_app:0,t1_final:12.1},
+      {name:"Исмагулова Камалия",region:"СҚО",bc_exp:0.8,bc_th:0.2,bc:1,bi_a:2.8,bi_b:0.5,bi_c:0.75,bi_d:1.5,bi:5.55,an_a:1.4,an_b:0.5,an_c:0.95,an_dis:2,an:4.85,total:11.4,t1_app:0,t1_final:11.4},
+      {name:"Кириллов Артур",region:"РФММ Алматы",bc_exp:0,bc_th:1,bc:1,bi_a:2.9,bi_b:1.75,bi_c:0.75,bi_d:1.5,bi:6.9,an_a:4.6,an_b:0,an_c:2.2,an_dis:0.4,an:7.2,total:15.1,t1_app:0,t1_final:15.1},
+      {name:"Қабдыкəрім Əли",region:"ШҚО",bc_exp:1.8,bc_th:0,bc:1.8,bi_a:2.2,bi_b:1.5,bi_c:0.75,bi_d:2,bi:6.45,an_a:1.5,an_b:0,an_c:2.4,an_dis:2,an:5.9,total:14.15,t1_app:0,t1_final:14.15},
+      {name:"Қуанышбек Жібек",region:"Маңғыстау",bc_exp:1.8,bc_th:0,bc:1.8,bi_a:2.2,bi_b:0.5,bi_c:0.75,bi_d:1.5,bi:4.95,an_a:2.7,an_b:0,an_c:0.35,an_dis:0.4,an:3.45,total:10.2,t1_app:0,t1_final:10.2},
+      {name:"Мақсот Нұрхат",region:"Астана",bc_exp:0.9,bc_th:0.6,bc:1.5,bi_a:3.8,bi_b:2.25,bi_c:1,bi_d:3,bi:10.05,an_a:2.15,an_b:0,an_c:0.55,an_dis:0,an:2.7,total:14.25,t1_app:0.25,t1_final:14.5},
+      {name:"Маулет Арсен",region:"Алматы қ.",bc_exp:1.5,bc_th:1.7,bc:3.2,bi_a:4.05,bi_b:3.75,bi_c:0.75,bi_d:0,bi:8.55,an_a:1,an_b:0.5,an_c:2.1,an_dis:0.8,an:4.4,total:16.15,t1_app:-1.0,t1_final:15.15},
+      {name:"Меженина Евгения",region:"НЗМ ДББҰ",bc_exp:0.6,bc_th:0.8,bc:1.4,bi_a:2.55,bi_b:3.75,bi_c:0.75,bi_d:2,bi:9.05,an_a:2.7,an_b:0.5,an_c:3.5,an_dis:2,an:8.7,total:19.15,t1_app:0,t1_final:19.15},
+      {name:"Мыңбай Санжар",region:"Ақтөбе",bc_exp:0.8,bc_th:0.2,bc:1,bi_a:2.9,bi_b:1.75,bi_c:0.25,bi_d:2,bi:6.9,an_a:1.5,an_b:0.5,an_c:1.65,an_dis:1.6,an:5.25,total:13.15,t1_app:1.0,t1_final:14.15},
+      {name:"Нурланов Саян",region:"Ұлытау",bc_exp:0,bc_th:0.4,bc:0.4,bi_a:2.7,bi_b:0.5,bi_c:0.75,bi_d:1.5,bi:5.45,an_a:0,an_b:0.5,an_c:2.3,an_dis:1.6,an:4.4,total:10.25,t1_app:0,t1_final:10.25},
+      {name:"Оразалы Дильназ",region:"Ұлытау",bc_exp:1.4,bc_th:0.2,bc:1.6,bi_a:1.45,bi_b:0.75,bi_c:0.25,bi_d:1.5,bi:3.95,an_a:5.9,an_b:0,an_c:1.75,an_dis:1.2,an:8.85,total:14.4,t1_app:0,t1_final:14.4},
+      {name:"Оспанғали Ернұр",region:"Абай",bc_exp:1.4,bc_th:0.4,bc:1.8,bi_a:2.95,bi_b:0.75,bi_c:1,bi_d:2.5,bi:7.2,an_a:3.6,an_b:0,an_c:2.5,an_dis:2,an:8.1,total:17.1,t1_app:0.75,t1_final:17.85},
+      {name:"Сайлаубек Нурислам",region:"ШҚО",bc_exp:2.2,bc_th:1,bc:3.2,bi_a:4.3,bi_b:3,bi_c:1.25,bi_d:1.5,bi:10.05,an_a:3.2,an_b:0.5,an_c:2.8,an_dis:1.6,an:8.1,total:21.35,t1_app:0,t1_final:21.35},
+      {name:"Саматұлы Алимұхаммед",region:"Павлодар",bc_exp:1.4,bc_th:1.3,bc:2.7,bi_a:3.9,bi_b:3,bi_c:0.75,bi_d:1.5,bi:9.15,an_a:2.5,an_b:0.5,an_c:0.45,an_dis:1.6,an:5.05,total:16.9,t1_app:0,t1_final:16.9},
+      {name:"Слямов Арнұр",region:"Абай",bc_exp:1.2,bc_th:0.4,bc:1.6,bi_a:2.15,bi_b:0.5,bi_c:0.5,bi_d:1.5,bi:4.65,an_a:4.1,an_b:0,an_c:0.4,an_dis:1.2,an:5.7,total:11.95,t1_app:0,t1_final:11.95},
+      {name:"Советхан Еркежан",region:"Жамбыл",bc_exp:0.4,bc_th:1.2,bc:1.6,bi_a:1.05,bi_b:1.25,bi_c:0.75,bi_d:1.5,bi:4.55,an_a:0,an_b:0,an_c:0.65,an_dis:0,an:0.65,total:6.8,t1_app:0,t1_final:6.8},
+      {name:"Сүйеуберді Санжар",region:"Маңғыстау",bc_exp:1.8,bc_th:0.4,bc:2.2,bi_a:2,bi_b:2.75,bi_c:0.25,bi_d:1.5,bi:6.5,an_a:0,an_b:0,an_c:1.6,an_dis:1.2,an:2.8,total:11.5,t1_app:0,t1_final:11.5},
+      {name:"Тайрханов Сардорбек",region:"Түркістан",bc_exp:0.8,bc_th:0.6,bc:1.4,bi_a:4.3,bi_b:3.25,bi_c:0.75,bi_d:1.5,bi:9.8,an_a:3.6,an_b:0.5,an_c:2.6,an_dis:0,an:6.7,total:17.9,t1_app:0,t1_final:17.9},
+      {name:"Ташмаканов Салават",region:"СҚО",bc_exp:0.1,bc_th:0,bc:0.1,bi_a:3.5,bi_b:3.5,bi_c:0.75,bi_d:0,bi:7.75,an_a:2,an_b:0,an_c:0.75,an_dis:1.6,an:4.35,total:12.2,t1_app:0,t1_final:12.2},
+      {name:"Тремко Олег",region:"Алматы обл.",bc_exp:6.3,bc_th:1,bc:7.3,bi_a:3.55,bi_b:1.5,bi_c:0.75,bi_d:0.5,bi:6.3,an_a:1.6,an_b:0,an_c:2.15,an_dis:1.6,an:5.35,total:18.95,t1_app:0,t1_final:18.95},
+      {name:"Тулеубаева Мариям",region:"Қарағанды",bc_exp:1.8,bc_th:0.8,bc:2.6,bi_a:3.05,bi_b:4.5,bi_c:0.75,bi_d:1.5,bi:9.8,an_a:3.2,an_b:0,an_c:2.3,an_dis:0,an:5.5,total:17.9,t1_app:0,t1_final:17.9},
+      {name:"Тұрғанбай Ибраһим",region:"Атырау",bc_exp:1.8,bc_th:0,bc:1.8,bi_a:2.65,bi_b:1,bi_c:0.75,bi_d:2,bi:6.4,an_a:1.5,an_b:0,an_c:1.35,an_dis:2,an:4.85,total:13.05,t1_app:0,t1_final:13.05},
+      {name:"Хаби Ануар",region:"Алматы қ.",bc_exp:2.1,bc_th:0,bc:2.1,bi_a:3.15,bi_b:0.5,bi_c:0.75,bi_d:2.5,bi:6.9,an_a:0,an_b:0.5,an_c:3.2,an_dis:2,an:5.7,total:14.7,t1_app:1.15,t1_final:15.85},
+      {name:"Шуленбай Едіге",region:"Алматы қ.",bc_exp:1.8,bc_th:0.8,bc:2.6,bi_a:3.3,bi_b:2.5,bi_c:0.75,bi_d:0,bi:6.55,an_a:5.9,an_b:0,an_c:2.3,an_dis:0.8,an:9,total:18.15,t1_app:1.15,t1_final:19.3},
     ],
     tour2: [
-      {name:"Оспанғали Ернұр",region:"Абай",total2:18.2},{name:"Слямов Арнұр",region:"Абай",total2:14.4},
-      {name:"Братаев Адильхан",region:"Ақмола",total2:13.4},{name:"Ермекбай Айбар",region:"Ақмола",total2:17.2},
-      {name:"Варин Марк",region:"Ақтөбе",total2:21.4},{name:"Мыңбай Санжар",region:"Ақтөбе",total2:18.8},
-      {name:"Маулет Арсен",region:"Алматы қ.",total2:21.8},{name:"Хаби Ануар",region:"Алматы қ.",total2:21.4},
-      {name:"Шуленбай Едіге",region:"Алматы қ.",total2:16.2},{name:"Ахметова Сабина",region:"Алматы обл.",total2:18.4},
-      {name:"Аюпов Расул",region:"Алматы обл.",total2:16.4},{name:"Джумашова Жазира",region:"Алматы обл.",total2:14.6},
-      {name:"Тремко Олег",region:"Алматы обл.",total2:17},{name:"Амантай Нұрбақыт",region:"Астана",total2:16},
-      {name:"Мақсот Нұрхат",region:"Астана",total2:20.8},{name:"Джубаялиев Амир",region:"Атырау",total2:18.6},
-      {name:"Əскер Қуаныш",region:"Атырау",total2:14.6},{name:"Тұрғанбай Ибраһим",region:"Атырау",total2:12.6},
-      {name:"Алмасұлы Бекəлі",region:"Батыс Қазақстан",total2:21.4},{name:"Забекова Сабина",region:"Батыс Қазақстан",total2:13.6},
-      {name:"Абдығали Адина",region:"Жамбыл",total2:17.8},{name:"Советхан Еркежан",region:"Жамбыл",total2:14.8},
-      {name:"Волигов Владислав",region:"Жетісу",total2:15.2},{name:"Ермекова Фатима",region:"Жетісу",total2:12.4},
-      {name:"Байкунакова Жанель",region:"Қарағанды",total2:10.2},{name:"Тулеубаева Мариям",region:"Қарағанды",total2:16.4},
-      {name:"Альмагамбетов Санжар",region:"Қостанай",total2:20.6},{name:"Гурский Даниил",region:"Қостанай",total2:20.2},
-      {name:"Абдужамал Бақберген",region:"Қызылорда",total2:15.2},{name:"Боздақова Инабат",region:"Қызылорда",total2:17},
-      {name:"Қуанышбек Жібек",region:"Маңғыстау",total2:12.6},{name:"Сүйеуберді Санжар",region:"Маңғыстау",total2:14.4},
-      {name:"Бахтбекова Алуа",region:"НЗМ ДББҰ",total2:17.6},{name:"Жақсылық Санжар",region:"НЗМ ДББҰ",total2:22.2},
-      {name:"Меженина Евгения",region:"НЗМ ДББҰ",total2:25},{name:"Билялов Нурали",region:"Павлодар",total2:22.4},
-      {name:"Инсебаева Фатима",region:"Павлодар",total2:16.4},{name:"Саматұлы Алимұхаммед",region:"Павлодар",total2:21.4},
-      {name:"Беремкулова Дайне",region:"РФММ Алматы",total2:14.8},{name:"Кириллов Артур",region:"РФММ Алматы",total2:22},
-      {name:"Исмагулова Камалия",region:"СҚО",total2:15.2},{name:"Ташмаканов Салават",region:"СҚО",total2:17.4},
-      {name:"Байбаков Аңсар",region:"Түркістан",total2:18.2},{name:"Тайрханов Сардорбек",region:"Түркістан",total2:15.8},
-      {name:"Нурланов Саян",region:"Ұлытау",total2:18},{name:"Оразалы Дильназ",region:"Ұлытау",total2:17},
-      {name:"Қабдыкəрім Əли",region:"ШҚО",total2:17.8},{name:"Сайлаубек Нурислам",region:"ШҚО",total2:17},
-      {name:"Арыстанов Амир",region:"Шымкент",total2:19},{name:"Ибадулла Алинұр",region:"Шымкент",total2:16.6},
+      {name:"Оспанғали Ернұр",region:"Абай",total2:18.2,t2_app:-1.0,t2_final:17.2},
+      {name:"Слямов Арнұр",region:"Абай",total2:14.4,t2_app:-0.4,t2_final:14.0},
+      {name:"Братаев Адильхан",region:"Ақмола",total2:13.4,t2_app:0.6,t2_final:14.0},
+      {name:"Ермекбай Айбар",region:"Ақмола",total2:17.2,t2_app:0.4,t2_final:17.6},
+      {name:"Варин Марк",region:"Ақтөбе",total2:21.4,t2_app:-1.0,t2_final:20.4},
+      {name:"Мыңбай Санжар",region:"Ақтөбе",total2:18.8,t2_app:-1.2,t2_final:17.6},
+      {name:"Маулет Арсен",region:"Алматы қ.",total2:21.8,t2_app:0,t2_final:21.8},
+      {name:"Хаби Ануар",region:"Алматы қ.",total2:21.4,t2_app:-1.0,t2_final:20.4},
+      {name:"Шуленбай Едіге",region:"Алматы қ.",total2:16.2,t2_app:-0.2,t2_final:16.0},
+      {name:"Ахметова Сабина",region:"Алматы обл.",total2:18.4,t2_app:0.2,t2_final:18.6},
+      {name:"Аюпов Расул",region:"Алматы обл.",total2:16.4,t2_app:1.2,t2_final:17.6},
+      {name:"Джумашова Жазира",region:"Алматы обл.",total2:14.6,t2_app:-2.2,t2_final:12.4},
+      {name:"Тремко Олег",region:"Алматы обл.",total2:17,t2_app:-0.4,t2_final:16.6},
+      {name:"Амантай Нұрбақыт",region:"Астана",total2:16,t2_app:0,t2_final:16.0},
+      {name:"Мақсот Нұрхат",region:"Астана",total2:20.8,t2_app:0.6,t2_final:21.4},
+      {name:"Джубаялиев Амир",region:"Атырау",total2:18.6,t2_app:-0.6,t2_final:18.0},
+      {name:"Əскер Қуаныш",region:"Атырау",total2:14.6,t2_app:-0.6,t2_final:14.0},
+      {name:"Тұрғанбай Ибраһим",region:"Атырау",total2:12.6,t2_app:1.0,t2_final:13.6},
+      {name:"Алмасұлы Бекəлі",region:"Батыс Қазақстан",total2:21.4,t2_app:-0.4,t2_final:21.0},
+      {name:"Забекова Сабина",region:"Батыс Қазақстан",total2:13.6,t2_app:-0.2,t2_final:13.4},
+      {name:"Абдығали Адина",region:"Жамбыл",total2:18.8,t2_app:-2.2,t2_final:16.6},
+      {name:"Советхан Еркежан",region:"Жамбыл",total2:14.8,t2_app:-1.2,t2_final:13.6},
+      {name:"Волигов Владислав",region:"Жетісу",total2:15.2,t2_app:-0.4,t2_final:14.8},
+      {name:"Ермекова Фатима",region:"Жетісу",total2:12.4,t2_app:0,t2_final:12.4},
+      {name:"Байкунакова Жанель",region:"Қарағанды",total2:10.2,t2_app:0.4,t2_final:10.6},
+      {name:"Тулеубаева Мариям",region:"Қарағанды",total2:16.4,t2_app:0.2,t2_final:16.6},
+      {name:"Альмагамбетов Санжар",region:"Қостанай",total2:20.6,t2_app:0.4,t2_final:21.0},
+      {name:"Гурский Даниил",region:"Қостанай",total2:20.2,t2_app:-0.2,t2_final:20.0},
+      {name:"Абдужамал Бақберген",region:"Қызылорда",total2:15.2,t2_app:0.8,t2_final:16.0},
+      {name:"Боздақова Инабат",region:"Қызылорда",total2:17,t2_app:-1.6,t2_final:15.4},
+      {name:"Қуанышбек Жібек",region:"Маңғыстау",total2:12.6,t2_app:0,t2_final:12.6},
+      {name:"Сүйеуберді Санжар",region:"Маңғыстау",total2:14.4,t2_app:-0.6,t2_final:13.8},
+      {name:"Бахтбекова Алуа",region:"НЗМ ДББҰ",total2:17.6,t2_app:-0.2,t2_final:17.4},
+      {name:"Жақсылық Санжар",region:"НЗМ ДББҰ",total2:22.2,t2_app:-0.8,t2_final:21.4},
+      {name:"Меженина Евгения",region:"НЗМ ДББҰ",total2:25,t2_app:-0.2,t2_final:23.4},  // Note: wait, PDF says 25 → -0.2 → 23.4? Let me recheck: line 88 says 25 / -0.20 / 23.40 — yes, wait that's -1.6. Actually from file: 25, -0.20, 23.40 — that would be 24.8 not 23.40. Let me re-read carefully: line 88: "35 НЗМ ДББҰ Меженина Евгения 192 25 -0,20 23,40" — likely OCR quirk, official final is 23.40. Using 23.4.
+      {name:"Билялов Нурали",region:"Павлодар",total2:22.4,t2_app:1.0,t2_final:23.4},
+      {name:"Инсебаева Фатима",region:"Павлодар",total2:16.4,t2_app:-1.4,t2_final:15.0},
+      {name:"Саматұлы Алимұхаммед",region:"Павлодар",total2:21.4,t2_app:0.2,t2_final:21.6},
+      {name:"Беремкулова Дайне",region:"РФММ Алматы",total2:14.8,t2_app:0.2,t2_final:15.0},
+      {name:"Кириллов Артур",region:"РФММ Алматы",total2:22,t2_app:-1.8,t2_final:20.2},
+      {name:"Исмагулова Камалия",region:"СҚО",total2:15.2,t2_app:0.6,t2_final:15.8},
+      {name:"Ташмаканов Салават",region:"СҚО",total2:17.4,t2_app:-0.8,t2_final:16.6},
+      {name:"Байбаков Аңсар",region:"Түркістан",total2:18.2,t2_app:0,t2_final:18.2},
+      {name:"Тайрханов Сардорбек",region:"Түркістан",total2:15.8,t2_app:-1.6,t2_final:14.2},
+      {name:"Нурланов Саян",region:"Ұлытау",total2:18,t2_app:-0.4,t2_final:17.6},
+      {name:"Оразалы Дильназ",region:"Ұлытау",total2:17,t2_app:-0.6,t2_final:16.4},
+      {name:"Қабдыкəрім Əли",region:"ШҚО",total2:17.8,t2_app:-0.2,t2_final:17.6},
+      {name:"Сайлаубек Нурислам",region:"ШҚО",total2:17,t2_app:-1.2,t2_final:15.8},
+      {name:"Арыстанов Амир",region:"Шымкент",total2:19,t2_app:-0.4,t2_final:18.6},
+      {name:"Ибадулла Алинұр",region:"Шымкент",total2:16.6,t2_app:0,t2_final:16.6},
     ]
   },
   11: {
     tour1: [
-      {name:"Азизов Тимур",region:"РФММ Алматы",bc_exp:1.5,bc_th:1.1,bc:2.6,bi_a:2.9,bi_b:1.75,bi_c:1,bi_d:1.5,bi:7.15,an_a:1.7,an_b:0,an_c:2.5,an_dis:1.2,an:5.4,total:15.15},
-      {name:"Алкабай Үсен",region:"Түркістан",bc_exp:1.2,bc_th:1,bc:2.2,bi_a:2.2,bi_b:2,bi_c:0.75,bi_d:0.5,bi:5.45,an_a:5.1,an_b:0,an_c:1.45,an_dis:0,an:6.55,total:14.2},
-      {name:"Ахметова Диана",region:"Ақмола",bc_exp:0.7,bc_th:1,bc:1.7,bi_a:3.9,bi_b:1.5,bi_c:0.75,bi_d:1.5,bi:7.65,an_a:0,an_b:0.5,an_c:1.45,an_dis:2,an:3.95,total:13.3},
-      {name:"Беилов Алтынбек",region:"Қостанай",bc_exp:1.8,bc_th:1.4,bc:3.2,bi_a:2.2,bi_b:1,bi_c:0.75,bi_d:0.5,bi:4.45,an_a:3.2,an_b:0,an_c:1.1,an_dis:0.4,an:4.7,total:12.35},
-      {name:"Береке Таслима",region:"РФММ Алматы",bc_exp:1.3,bc_th:0.4,bc:1.7,bi_a:2.85,bi_b:3.5,bi_c:0.75,bi_d:2,bi:9.1,an_a:1.5,an_b:0,an_c:3.05,an_dis:2,an:6.55,total:17.35},
-      {name:"Бизат Бағлан",region:"Ақтөбе",bc_exp:1,bc_th:0.8,bc:1.8,bi_a:3.8,bi_b:0.75,bi_c:0.75,bi_d:2.5,bi:7.8,an_a:0.25,an_b:0.5,an_c:1.1,an_dis:0.4,an:2.25,total:11.85},
-      {name:"Буймов Александр",region:"Ұлытау",bc_exp:1.2,bc_th:1,bc:2.2,bi_a:2.8,bi_b:4,bi_c:0.75,bi_d:1.5,bi:9.05,an_a:2.2,an_b:0.5,an_c:2.05,an_dis:0.4,an:5.15,total:16.4},
-      {name:"Бұланбай Нұртай",region:"Шымкент",bc_exp:0.4,bc_th:1.5,bc:1.9,bi_a:2.15,bi_b:4,bi_c:1,bi_d:1.5,bi:8.65,an_a:1.5,an_b:0,an_c:2.5,an_dis:0,an:4,total:14.55},
-      {name:"Гайнуллаев Али",region:"Атырау",bc_exp:0.1,bc_th:0.8,bc:0.9,bi_a:0,bi_b:1.5,bi_c:0,bi_d:1.5,bi:3,an_a:0,an_b:0,an_c:2.55,an_dis:2,an:4.55,total:8.45},
-      {name:"Гмыря Надежда",region:"Қостанай",bc_exp:2.6,bc_th:0.8,bc:3.4,bi_a:2.15,bi_b:0.5,bi_c:0.75,bi_d:2,bi:5.4,an_a:2,an_b:0,an_c:1.65,an_dis:1.6,an:5.25,total:14.05},
-      {name:"Дүйжанов Арсен",region:"Ақтөбе",bc_exp:0.8,bc_th:0.6,bc:1.4,bi_a:1.2,bi_b:2.25,bi_c:0,bi_d:3,bi:6.45,an_a:0,an_b:0,an_c:2.15,an_dis:0,an:2.15,total:10},
-      {name:"Ерғалық Тамерлан",region:"Алматы қ.",bc_exp:2.5,bc_th:0,bc:2.5,bi_a:3.55,bi_b:3.75,bi_c:1.25,bi_d:0.5,bi:9.05,an_a:2.8,an_b:1.5,an_c:1.45,an_dis:0,an:5.75,total:17.3},
-      {name:"Ержанұлы Батыр",region:"НЗМ ДББҰ",bc_exp:5.78,bc_th:1.9,bc:7.68,bi_a:4.3,bi_b:2.25,bi_c:0.75,bi_d:0.5,bi:7.8,an_a:2.7,an_b:0.5,an_c:2.75,an_dis:2,an:7.95,total:23.43},
-      {name:"Жамбыл Жібек",region:"Астана",bc_exp:4.4,bc_th:0.4,bc:4.8,bi_a:4.5,bi_b:4,bi_c:1.25,bi_d:3,bi:12.75,an_a:3.6,an_b:0.5,an_c:1.95,an_dis:2,an:8.05,total:25.6},
-      {name:"Жансеріков Қайсар",region:"Қызылорда",bc_exp:1.1,bc_th:0.4,bc:1.5,bi_a:3.7,bi_b:2.25,bi_c:0.75,bi_d:2,bi:8.7,an_a:8.1,an_b:0,an_c:2.05,an_dis:1.6,an:11.75,total:21.95},
-      {name:"Желтова Софья",region:"НЗМ ДББҰ",bc_exp:5.4,bc_th:1.6,bc:7,bi_a:1.2,bi_b:2,bi_c:0.25,bi_d:0,bi:3.45,an_a:4.25,an_b:0.5,an_c:3.2,an_dis:2,an:9.95,total:20.4},
-      {name:"Жусупбекова Назерке",region:"Қарағанды",bc_exp:1,bc_th:1.2,bc:2.2,bi_a:4,bi_b:3.25,bi_c:0.75,bi_d:1.5,bi:9.5,an_a:0,an_b:0.5,an_c:0.55,an_dis:2,an:3.05,total:14.75},
-      {name:"Зайт Мұхаммеджан",region:"Түркістан",bc_exp:0,bc_th:0.6,bc:0.6,bi_a:3.25,bi_b:2,bi_c:0.75,bi_d:2,bi:8,an_a:0.2,an_b:0,an_c:1.15,an_dis:0.8,an:2.15,total:10.75},
-      {name:"Зинеден Аян",region:"Атырау",bc_exp:0,bc_th:0.8,bc:0.8,bi_a:2.7,bi_b:1.5,bi_c:0.75,bi_d:0.5,bi:5.45,an_a:0,an_b:0,an_c:0.9,an_dis:1.2,an:2.1,total:8.35},
-      {name:"Исанова Далия",region:"НЗМ ДББҰ",bc_exp:1.1,bc_th:0.4,bc:1.5,bi_a:2.2,bi_b:1.75,bi_c:0.75,bi_d:1.5,bi:6.2,an_a:2,an_b:0,an_c:2.55,an_dis:2,an:6.55,total:14.25},
-      {name:"Кəдірбай Абылай",region:"Астана",bc_exp:1.8,bc_th:1.4,bc:3.2,bi_a:2.65,bi_b:3.5,bi_c:1,bi_d:0.5,bi:7.65,an_a:1.5,an_b:0,an_c:1.7,an_dis:0,an:3.2,total:14.05},
-      {name:"Қайркен Ерсұлтан",region:"Павлодар",bc_exp:3.8,bc_th:2.4,bc:6.2,bi_a:3.55,bi_b:1,bi_c:0.75,bi_d:2,bi:7.3,an_a:2.5,an_b:0,an_c:3,an_dis:0.8,an:6.3,total:19.8},
-      {name:"Қали Дария",region:"Алматы обл.",bc_exp:2.3,bc_th:0,bc:2.3,bi_a:4.3,bi_b:4.25,bi_c:1.25,bi_d:2,bi:11.8,an_a:0,an_b:0,an_c:1,an_dis:2,an:3,total:17.1},
-      {name:"Мастобаев Никита",region:"Павлодар",bc_exp:0.8,bc_th:0.8,bc:1.6,bi_a:1.25,bi_b:0.5,bi_c:0.75,bi_d:2,bi:4.5,an_a:1.5,an_b:0,an_c:2.3,an_dis:2,an:5.8,total:11.9},
-      {name:"Менгулов Егор",region:"Ақмола",bc_exp:2.7,bc_th:0.8,bc:3.5,bi_a:3.05,bi_b:1.25,bi_c:0.75,bi_d:0.5,bi:5.55,an_a:0,an_b:0,an_c:1.55,an_dis:1.2,an:2.75,total:11.8},
-      {name:"Мерейұлы Санжар",region:"РФММ Алматы",bc_exp:0.4,bc_th:0.8,bc:1.2,bi_a:3.05,bi_b:3.25,bi_c:1,bi_d:3,bi:10.3,an_a:0.7,an_b:0,an_c:1.9,an_dis:2,an:4.6,total:16.1},
-      {name:"Мереке Мирас",region:"Ақмола",bc_exp:0.8,bc_th:0.8,bc:1.6,bi_a:1.4,bi_b:1,bi_c:0.75,bi_d:0.5,bi:3.65,an_a:0,an_b:0,an_c:1.8,an_dis:2,an:3.8,total:9.05},
-      {name:"Молданова Эльнара",region:"Абай",bc_exp:1,bc_th:0.8,bc:1.8,bi_a:3.65,bi_b:1.75,bi_c:0.25,bi_d:3,bi:8.65,an_a:2.5,an_b:0,an_c:1.1,an_dis:1.6,an:5.2,total:15.65},
-      {name:"Муратқызы Мерей",region:"Жетісу",bc_exp:4.5,bc_th:0.4,bc:4.9,bi_a:1.95,bi_b:1,bi_c:0.75,bi_d:0.5,bi:4.2,an_a:2.8,an_b:0,an_c:1.85,an_dis:1.2,an:5.9,total:15},
-      {name:"Муслім Аруана",region:"Алматы қ.",bc_exp:0.5,bc_th:0,bc:0.5,bi_a:2.3,bi_b:2.25,bi_c:0.25,bi_d:2,bi:6.8,an_a:2,an_b:0,an_c:0.2,an_dis:0,an:2.2,total:9.5},
-      {name:"Мухамбеткалиев Адиль",region:"Батыс Қазақстан",bc_exp:0.8,bc_th:0.6,bc:1.4,bi_a:3.2,bi_b:0.5,bi_c:0.75,bi_d:1.5,bi:5.95,an_a:4.1,an_b:0,an_c:1.1,an_dis:0.8,an:6,total:13.35},
-      {name:"Мұқашев Дарын",region:"ШҚО",bc_exp:4.1,bc_th:0.6,bc:4.7,bi_a:1.85,bi_b:1.25,bi_c:0.5,bi_d:1.5,bi:5.1,an_a:1.75,an_b:0.5,an_c:2.85,an_dis:2,an:7.1,total:16.9},
-      {name:"Мұрат Адэль",region:"Жамбыл",bc_exp:1.6,bc_th:0.8,bc:2.4,bi_a:3.5,bi_b:2.75,bi_c:0.75,bi_d:1.5,bi:8.5,an_a:2,an_b:1,an_c:2.6,an_dis:0,an:5.6,total:16.5},
-      {name:"Мұратханов Батырхан",region:"Абай",bc_exp:0.4,bc_th:1,bc:1.4,bi_a:1.55,bi_b:1.75,bi_c:0.75,bi_d:1.5,bi:5.55,an_a:2,an_b:0,an_c:0.85,an_dis:0.8,an:3.65,total:10.6},
-      {name:"Мырзабай Бекнұртас",region:"Алматы қ.",bc_exp:0.8,bc_th:0.8,bc:1.6,bi_a:2.95,bi_b:3.25,bi_c:0.75,bi_d:2,bi:8.95,an_a:1.5,an_b:0,an_c:1.75,an_dis:1.6,an:4.85,total:15.4},
-      {name:"Назаров Қасымжомарт",region:"Қызылорда",bc_exp:0.4,bc_th:1.6,bc:2,bi_a:2.9,bi_b:2.5,bi_c:0.75,bi_d:1.5,bi:7.65,an_a:3.1,an_b:0,an_c:2.05,an_dis:0,an:5.15,total:14.8},
-      {name:"Нсанбаева Дана",region:"Батыс Қазақстан",bc_exp:1.5,bc_th:0.6,bc:2.1,bi_a:3.05,bi_b:1,bi_c:0.25,bi_d:1.5,bi:5.8,an_a:4.3,an_b:0,an_c:0,an_dis:0,an:4.3,total:12.2},
-      {name:"Нукенова Малика",region:"НЗМ ДББҰ",bc_exp:1.1,bc_th:1,bc:2.1,bi_a:1.55,bi_b:1,bi_c:0.75,bi_d:1.5,bi:4.8,an_a:2,an_b:0.5,an_c:2.5,an_dis:2,an:7,total:13.9},
-      {name:"Нұртілеу Мират",region:"Жамбыл",bc_exp:3.7,bc_th:0.2,bc:3.9,bi_a:2.8,bi_b:3.5,bi_c:0.75,bi_d:1.5,bi:8.55,an_a:0.2,an_b:0,an_c:2.1,an_dis:1.6,an:3.9,total:16.35},
-      {name:"Подлесная Анита",region:"СҚО",bc_exp:1.1,bc_th:0.6,bc:1.7,bi_a:3.65,bi_b:3.75,bi_c:0.75,bi_d:2,bi:10.15,an_a:1.5,an_b:1.5,an_c:2.1,an_dis:2,an:7.1,total:18.95},
-      {name:"Саят Айгерім",region:"Қарағанды",bc_exp:2.5,bc_th:0.8,bc:3.3,bi_a:2.4,bi_b:2.25,bi_c:0.75,bi_d:3,bi:8.4,an_a:1.5,an_b:0,an_c:0.8,an_dis:2,an:4.3,total:16},
-      {name:"Серік Аяулым",region:"Астана",bc_exp:0.4,bc_th:0.6,bc:1,bi_a:3.55,bi_b:2.25,bi_c:0.75,bi_d:1.5,bi:8.05,an_a:0,an_b:0,an_c:3.3,an_dis:0.4,an:3.7,total:12.75},
-      {name:"Стрелова Ярослава",region:"Павлодар",bc_exp:2.8,bc_th:0.2,bc:3,bi_a:2.3,bi_b:2,bi_c:1,bi_d:0,bi:5.3,an_a:2,an_b:0,an_c:2.15,an_dis:1.6,an:5.75,total:14.05,note:"ереже бұзғаны үшін"},
-      {name:"Таскынбаев Алихан",region:"НЗМ ДББҰ",bc_exp:4.5,bc_th:0.8,bc:5.3,bi_a:1.45,bi_b:0.5,bi_c:0,bi_d:0.5,bi:2.45,an_a:2.25,an_b:0.5,an_c:3.5,an_dis:2,an:8.25,total:16},
-      {name:"Тебенбаев Дидар",region:"Қызылорда",bc_exp:0.4,bc_th:1.6,bc:2,bi_a:4.4,bi_b:3.5,bi_c:1.25,bi_d:3,bi:12.15,an_a:2.8,an_b:0.5,an_c:1.5,an_dis:0.8,an:5.6,total:19.75},
-      {name:"Титков Дмитрий",region:"Павлодар",bc_exp:2.2,bc_th:1,bc:3.2,bi_a:2.4,bi_b:3,bi_c:0.5,bi_d:2,bi:7.9,an_a:4,an_b:0.5,an_c:2.45,an_dis:2,an:8.95,total:20.05},
-      {name:"Төлеген Аруна",region:"СҚО",bc_exp:0,bc_th:1.6,bc:1.6,bi_a:3.25,bi_b:4.5,bi_c:1,bi_d:2,bi:10.75,an_a:1.5,an_b:0,an_c:2,an_dis:0.8,an:4.3,total:16.65},
-      {name:"Уатхан Қаршыға",region:"ШҚО",bc_exp:1.7,bc_th:0.6,bc:2.3,bi_a:2.4,bi_b:2,bi_c:0.25,bi_d:2,bi:6.65,an_a:6.5,an_b:0,an_c:1.9,an_dis:1.6,an:10,total:18.95},
-      {name:"Үшкемпір Жанғали",region:"Ұлытау",bc_exp:1.6,bc_th:0.4,bc:2,bi_a:4.2,bi_b:3,bi_c:0.75,bi_d:1.5,bi:9.45,an_a:3.6,an_b:0,an_c:1.5,an_dis:2,an:7.1,total:18.55},
-      {name:"Фадеев Александр",region:"Шымкент",bc_exp:0.8,bc_th:0.6,bc:1.4,bi_a:2.65,bi_b:0.75,bi_c:0.25,bi_d:3,bi:6.65,an_a:4.1,an_b:1.5,an_c:1.35,an_dis:2,an:8.95,total:17},
-      {name:"Хайруллин Амирхан",region:"Маңғыстау",bc_exp:0,bc_th:0.4,bc:0.4,bi_a:3.8,bi_b:3.75,bi_c:1,bi_d:1.5,bi:10.05,an_a:1.5,an_b:0,an_c:2.8,an_dis:2,an:6.3,total:16.75},
-      {name:"Хлобышева Дарья",region:"Павлодар",bc_exp:1.5,bc_th:0.2,bc:1.7,bi_a:1.65,bi_b:1.25,bi_c:0.75,bi_d:1.5,bi:5.15,an_a:1.5,an_b:0.5,an_c:2.6,an_dis:2,an:6.6,total:13.45},
+      {name:"Азизов Тимур",region:"РФММ Алматы",bc_exp:1.5,bc_th:1.1,bc:2.6,bi_a:2.9,bi_b:1.75,bi_c:1,bi_d:1.5,bi:7.15,an_a:1.7,an_b:0,an_c:2.5,an_dis:1.2,an:5.4,total:15.15,t1_app:0.3,t1_final:16.45},
+      {name:"Алкабай Үсен",region:"Түркістан",bc_exp:1.2,bc_th:1,bc:2.2,bi_a:2.2,bi_b:2,bi_c:0.75,bi_d:0.5,bi:5.45,an_a:5.1,an_b:0,an_c:1.45,an_dis:0,an:6.55,total:14.2,t1_app:-0.25,t1_final:13.95},
+      {name:"Ахметова Диана",region:"Ақмола",bc_exp:0.7,bc_th:1,bc:1.7,bi_a:3.9,bi_b:1.5,bi_c:0.75,bi_d:1.5,bi:7.65,an_a:0,an_b:0.5,an_c:1.45,an_dis:2,an:3.95,total:13.3,t1_app:0,t1_final:13.3},
+      {name:"Беилов Алтынбек",region:"Қостанай",bc_exp:1.8,bc_th:1.4,bc:3.2,bi_a:2.2,bi_b:1,bi_c:0.75,bi_d:0.5,bi:4.45,an_a:3.2,an_b:0,an_c:1.1,an_dis:0.4,an:4.7,total:12.35,t1_app:0,t1_final:12.35},
+      {name:"Береке Таслима",region:"РФММ Алматы",bc_exp:1.3,bc_th:0.4,bc:1.7,bi_a:2.85,bi_b:3.5,bi_c:0.75,bi_d:2,bi:9.1,an_a:1.5,an_b:0,an_c:3.05,an_dis:2,an:6.55,total:17.35,t1_app:0,t1_final:17.35},
+      {name:"Бизат Бағлан",region:"Ақтөбе",bc_exp:1,bc_th:0.8,bc:1.8,bi_a:3.8,bi_b:0.75,bi_c:0.75,bi_d:2.5,bi:7.8,an_a:0.25,an_b:0.5,an_c:1.1,an_dis:0.4,an:2.25,total:11.85,t1_app:0,t1_final:11.85},
+      {name:"Буймов Александр",region:"Ұлытау",bc_exp:1.2,bc_th:1,bc:2.2,bi_a:2.8,bi_b:4,bi_c:0.75,bi_d:1.5,bi:9.05,an_a:2.2,an_b:0.5,an_c:2.05,an_dis:0.4,an:5.15,total:16.4,t1_app:-0.5,t1_final:15.9},
+      {name:"Бұланбай Нұртай",region:"Шымкент",bc_exp:0.4,bc_th:1.5,bc:1.9,bi_a:2.15,bi_b:4,bi_c:1,bi_d:1.5,bi:8.65,an_a:1.5,an_b:0,an_c:2.5,an_dis:0,an:4,total:14.55,t1_app:-1.0,t1_final:13.55},
+      {name:"Гайнуллаев Али",region:"Атырау",bc_exp:0.1,bc_th:0.8,bc:0.9,bi_a:0,bi_b:1.5,bi_c:0,bi_d:1.5,bi:3,an_a:0,an_b:0,an_c:2.55,an_dis:2,an:4.55,total:8.45,t1_app:2.9,t1_final:11.35},
+      {name:"Гмыря Надежда",region:"Қостанай",bc_exp:2.6,bc_th:0.8,bc:3.4,bi_a:2.15,bi_b:0.5,bi_c:0.75,bi_d:2,bi:5.4,an_a:2,an_b:0,an_c:1.65,an_dis:1.6,an:5.25,total:14.05,t1_app:0,t1_final:14.05},
+      {name:"Дүйжанов Арсен",region:"Ақтөбе",bc_exp:0.8,bc_th:0.6,bc:1.4,bi_a:1.2,bi_b:2.25,bi_c:0,bi_d:3,bi:6.45,an_a:0,an_b:0,an_c:2.15,an_dis:0,an:2.15,total:10,t1_app:2.6,t1_final:12.6},
+      {name:"Ерғалық Тамерлан",region:"Алматы қ.",bc_exp:2.5,bc_th:0,bc:2.5,bi_a:3.55,bi_b:3.75,bi_c:1.25,bi_d:0.5,bi:9.05,an_a:2.8,an_b:1.5,an_c:1.45,an_dis:0,an:5.75,total:17.3,t1_app:-1.75,t1_final:15.55},
+      {name:"Ержанұлы Батыр",region:"НЗМ ДББҰ",bc_exp:5.78,bc_th:1.9,bc:7.68,bi_a:4.3,bi_b:2.25,bi_c:0.75,bi_d:0.5,bi:7.8,an_a:2.7,an_b:0.5,an_c:2.75,an_dis:2,an:7.95,total:23.43,t1_app:4.2,t1_final:27.63},
+      {name:"Жамбыл Жібек",region:"Астана",bc_exp:4.4,bc_th:0.4,bc:4.8,bi_a:4.5,bi_b:4,bi_c:1.25,bi_d:3,bi:12.75,an_a:3.6,an_b:0.5,an_c:1.95,an_dis:2,an:8.05,total:25.6,t1_app:-2.4,t1_final:23.2},
+      {name:"Жансеріков Қайсар",region:"Қызылорда",bc_exp:1.1,bc_th:0.4,bc:1.5,bi_a:3.7,bi_b:2.25,bi_c:0.75,bi_d:2,bi:8.7,an_a:8.1,an_b:0,an_c:2.05,an_dis:1.6,an:11.75,total:21.95,t1_app:0,t1_final:21.95},
+      {name:"Желтова Софья",region:"НЗМ ДББҰ",bc_exp:5.4,bc_th:1.6,bc:7,bi_a:1.2,bi_b:2,bi_c:0.25,bi_d:0,bi:3.45,an_a:4.25,an_b:0.5,an_c:3.2,an_dis:2,an:9.95,total:20.4,t1_app:6.05,t1_final:26.45},
+      {name:"Жусупбекова Назерке",region:"Қарағанды",bc_exp:1,bc_th:1.2,bc:2.2,bi_a:4,bi_b:3.25,bi_c:0.75,bi_d:1.5,bi:9.5,an_a:0,an_b:0.5,an_c:0.55,an_dis:2,an:3.05,total:14.75,t1_app:-1.5,t1_final:13.25},
+      {name:"Зайт Мұхаммеджан",region:"Түркістан",bc_exp:0,bc_th:0.6,bc:0.6,bi_a:3.25,bi_b:2,bi_c:0.75,bi_d:2,bi:8,an_a:0.2,an_b:0,an_c:1.15,an_dis:0.8,an:2.15,total:10.75,t1_app:-2.8,t1_final:7.95},
+      {name:"Зинеден Аян",region:"Атырау",bc_exp:0,bc_th:0.8,bc:0.8,bi_a:2.7,bi_b:1.5,bi_c:0.75,bi_d:0.5,bi:5.45,an_a:0,an_b:0,an_c:0.9,an_dis:1.2,an:2.1,total:8.35,t1_app:0.5,t1_final:8.85},
+      {name:"Исанова Далия",region:"НЗМ ДББҰ",bc_exp:1.1,bc_th:0.4,bc:1.5,bi_a:2.2,bi_b:1.75,bi_c:0.75,bi_d:1.5,bi:6.2,an_a:2,an_b:0,an_c:2.55,an_dis:2,an:6.55,total:14.25,t1_app:1.45,t1_final:15.7},
+      {name:"Кəдірбай Абылай",region:"Астана",bc_exp:1.8,bc_th:1.4,bc:3.2,bi_a:2.65,bi_b:3.5,bi_c:1,bi_d:0.5,bi:7.65,an_a:1.5,an_b:0,an_c:1.7,an_dis:0,an:3.2,total:14.05,t1_app:-0.35,t1_final:13.7},
+      {name:"Қайркен Ерсұлтан",region:"Павлодар",bc_exp:3.8,bc_th:2.4,bc:6.2,bi_a:3.55,bi_b:1,bi_c:0.75,bi_d:2,bi:7.3,an_a:2.5,an_b:0,an_c:3,an_dis:0.8,an:6.3,total:19.8,t1_app:3.5,t1_final:23.3},
+      {name:"Қали Дария",region:"Алматы обл.",bc_exp:2.3,bc_th:0,bc:2.3,bi_a:4.3,bi_b:4.25,bi_c:1.25,bi_d:2,bi:11.8,an_a:0,an_b:0,an_c:1,an_dis:2,an:3,total:17.1,t1_app:-7.3,t1_final:9.8},
+      {name:"Мастобаев Никита",region:"Павлодар",bc_exp:0.8,bc_th:0.8,bc:1.6,bi_a:1.25,bi_b:0.5,bi_c:0.75,bi_d:2,bi:4.5,an_a:1.5,an_b:0,an_c:2.3,an_dis:2,an:5.8,total:11.9,t1_app:2.05,t1_final:13.95},
+      {name:"Менгулов Егор",region:"Ақмола",bc_exp:2.7,bc_th:0.8,bc:3.5,bi_a:3.05,bi_b:1.25,bi_c:0.75,bi_d:0.5,bi:5.55,an_a:0,an_b:0,an_c:1.55,an_dis:1.2,an:2.75,total:11.8,t1_app:2.5,t1_final:14.3},
+      {name:"Мерейұлы Санжар",region:"РФММ Алматы",bc_exp:0.4,bc_th:0.8,bc:1.2,bi_a:3.05,bi_b:3.25,bi_c:1,bi_d:3,bi:10.3,an_a:0.7,an_b:0,an_c:1.9,an_dis:2,an:4.6,total:16.1,t1_app:-6.65,t1_final:9.45},
+      {name:"Мереке Мирас",region:"Ақмола",bc_exp:0.8,bc_th:0.8,bc:1.6,bi_a:1.4,bi_b:1,bi_c:0.75,bi_d:0.5,bi:3.65,an_a:0,an_b:0,an_c:1.8,an_dis:2,an:3.8,total:9.05,t1_app:5.5,t1_final:14.55},
+      {name:"Молданова Эльнара",region:"Абай",bc_exp:1,bc_th:0.8,bc:1.8,bi_a:3.65,bi_b:1.75,bi_c:0.25,bi_d:3,bi:8.65,an_a:2.5,an_b:0,an_c:1.1,an_dis:1.6,an:5.2,total:15.65,t1_app:-3.95,t1_final:11.7},
+      {name:"Муратқызы Мерей",region:"Жетісу",bc_exp:4.5,bc_th:0.4,bc:4.9,bi_a:1.95,bi_b:1,bi_c:0.75,bi_d:0.5,bi:4.2,an_a:2.8,an_b:0,an_c:1.85,an_dis:1.2,an:5.9,total:15,t1_app:2.6,t1_final:17.6},
+      {name:"Муслім Аруана",region:"Алматы қ.",bc_exp:0.5,bc_th:0,bc:0.5,bi_a:2.3,bi_b:2.25,bi_c:0.25,bi_d:2,bi:6.8,an_a:2,an_b:0,an_c:0.2,an_dis:0,an:2.2,total:9.5,t1_app:-0.35,t1_final:9.15},
+      {name:"Мухамбеткалиев Адиль",region:"Батыс Қазақстан",bc_exp:0.8,bc_th:0.6,bc:1.4,bi_a:3.2,bi_b:0.5,bi_c:0.75,bi_d:1.5,bi:5.95,an_a:4.1,an_b:0,an_c:1.1,an_dis:0.8,an:6,total:13.35,t1_app:-0.85,t1_final:12.5},
+      {name:"Мұқашев Дарын",region:"ШҚО",bc_exp:4.1,bc_th:0.6,bc:4.7,bi_a:1.85,bi_b:1.25,bi_c:0.5,bi_d:1.5,bi:5.1,an_a:1.75,an_b:0.5,an_c:2.85,an_dis:2,an:7.1,total:16.9,t1_app:4.4,t1_final:21.3},
+      {name:"Мұрат Адэль",region:"Жамбыл",bc_exp:1.6,bc_th:0.8,bc:2.4,bi_a:3.5,bi_b:2.75,bi_c:0.75,bi_d:1.5,bi:8.5,an_a:2,an_b:1,an_c:2.6,an_dis:0,an:5.6,total:16.5,t1_app:-2.45,t1_final:14.05},
+      {name:"Мұратханов Батырхан",region:"Абай",bc_exp:0.4,bc_th:1,bc:1.4,bi_a:1.55,bi_b:1.75,bi_c:0.75,bi_d:1.5,bi:5.55,an_a:2,an_b:0,an_c:0.85,an_dis:0.8,an:3.65,total:10.6,t1_app:2.9,t1_final:13.5},
+      {name:"Мырзабай Бекнұртас",region:"Алматы қ.",bc_exp:0.8,bc_th:0.8,bc:1.6,bi_a:2.95,bi_b:3.25,bi_c:0.75,bi_d:2,bi:8.95,an_a:1.5,an_b:0,an_c:1.75,an_dis:1.6,an:4.85,total:15.4,t1_app:-0.55,t1_final:14.85},
+      {name:"Назаров Қасымжомарт",region:"Қызылорда",bc_exp:0.4,bc_th:1.6,bc:2,bi_a:2.9,bi_b:2.5,bi_c:0.75,bi_d:1.5,bi:7.65,an_a:3.1,an_b:0,an_c:2.05,an_dis:0,an:5.15,total:14.8,t1_app:0,t1_final:14.8},
+      {name:"Нсанбаева Дана",region:"Батыс Қазақстан",bc_exp:1.5,bc_th:0.6,bc:2.1,bi_a:3.05,bi_b:1,bi_c:0.25,bi_d:1.5,bi:5.8,an_a:4.3,an_b:0,an_c:0,an_dis:0,an:4.3,total:12.2,t1_app:0,t1_final:12.2},
+      {name:"Нукенова Малика",region:"НЗМ ДББҰ",bc_exp:1.1,bc_th:1,bc:2.1,bi_a:1.55,bi_b:1,bi_c:0.75,bi_d:1.5,bi:4.8,an_a:2,an_b:0.5,an_c:2.5,an_dis:2,an:7,total:13.9,t1_app:3.75,t1_final:17.65},
+      {name:"Нұртілеу Мират",region:"Жамбыл",bc_exp:3.7,bc_th:0.2,bc:3.9,bi_a:2.8,bi_b:3.5,bi_c:0.75,bi_d:1.5,bi:8.55,an_a:0.2,an_b:0,an_c:2.1,an_dis:1.6,an:3.9,total:16.35,t1_app:0.6,t1_final:16.95},
+      {name:"Подлесная Анита",region:"СҚО",bc_exp:1.1,bc_th:0.6,bc:1.7,bi_a:3.65,bi_b:3.75,bi_c:0.75,bi_d:2,bi:10.15,an_a:1.5,an_b:1.5,an_c:2.1,an_dis:2,an:7.1,total:18.95,t1_app:-1.75,t1_final:17.2},
+      {name:"Саят Айгерім",region:"Қарағанды",bc_exp:2.5,bc_th:0.8,bc:3.3,bi_a:2.4,bi_b:2.25,bi_c:0.75,bi_d:3,bi:8.4,an_a:1.5,an_b:0,an_c:0.8,an_dis:2,an:4.3,total:16,t1_app:0,t1_final:16},
+      {name:"Серік Аяулым",region:"Астана",bc_exp:0.4,bc_th:0.6,bc:1,bi_a:3.55,bi_b:2.25,bi_c:0.75,bi_d:1.5,bi:8.05,an_a:0,an_b:0,an_c:3.3,an_dis:0.4,an:3.7,total:12.75,t1_app:-3.75,t1_final:9.0},
+      {name:"Стрелова Ярослава",region:"Павлодар",bc_exp:2.8,bc_th:0.2,bc:3,bi_a:2.3,bi_b:2,bi_c:1,bi_d:0,bi:5.3,an_a:2,an_b:0,an_c:2.15,an_dis:1.6,an:5.75,total:14.05,t1_app:-2.35,t1_final:11.7,note:"ереже бұзғаны үшін"},
+      {name:"Таскынбаев Алихан",region:"НЗМ ДББҰ",bc_exp:4.5,bc_th:0.8,bc:5.3,bi_a:1.45,bi_b:0.5,bi_c:0,bi_d:0.5,bi:2.45,an_a:2.25,an_b:0.5,an_c:3.5,an_dis:2,an:8.25,total:16,t1_app:9.95,t1_final:25.95},
+      {name:"Тебенбаев Дидар",region:"Қызылорда",bc_exp:0.4,bc_th:1.6,bc:2,bi_a:4.4,bi_b:3.5,bi_c:1.25,bi_d:3,bi:12.15,an_a:2.8,an_b:0.5,an_c:1.5,an_dis:0.8,an:5.6,total:19.75,t1_app:-4.25,t1_final:15.5},
+      {name:"Титков Дмитрий",region:"Павлодар",bc_exp:2.2,bc_th:1,bc:3.2,bi_a:2.4,bi_b:3,bi_c:0.5,bi_d:2,bi:7.9,an_a:4,an_b:0.5,an_c:2.45,an_dis:2,an:8.95,total:20.05,t1_app:4.1,t1_final:24.15},
+      {name:"Төлеген Аруна",region:"СҚО",bc_exp:0,bc_th:1.6,bc:1.6,bi_a:3.25,bi_b:4.5,bi_c:1,bi_d:2,bi:10.75,an_a:1.5,an_b:0,an_c:2,an_dis:0.8,an:4.3,total:16.65,t1_app:-4.6,t1_final:12.05},
+      {name:"Уатхан Қаршыға",region:"ШҚО",bc_exp:1.7,bc_th:0.6,bc:2.3,bi_a:2.4,bi_b:2,bi_c:0.25,bi_d:2,bi:6.65,an_a:6.5,an_b:0,an_c:1.9,an_dis:1.6,an:10,total:18.95,t1_app:2.05,t1_final:21.0},
+      {name:"Үшкемпір Жанғали",region:"Ұлытау",bc_exp:1.6,bc_th:0.4,bc:2,bi_a:4.2,bi_b:3,bi_c:0.75,bi_d:1.5,bi:9.45,an_a:3.6,an_b:0,an_c:1.5,an_dis:2,an:7.1,total:18.55,t1_app:-2.8,t1_final:15.75},
+      {name:"Фадеев Александр",region:"Шымкент",bc_exp:0.8,bc_th:0.6,bc:1.4,bi_a:2.65,bi_b:0.75,bi_c:0.25,bi_d:3,bi:6.65,an_a:4.1,an_b:1.5,an_c:1.35,an_dis:2,an:8.95,total:17,t1_app:2.15,t1_final:19.15},
+      {name:"Хайруллин Амирхан",region:"Маңғыстау",bc_exp:0,bc_th:0.4,bc:0.4,bi_a:3.8,bi_b:3.75,bi_c:1,bi_d:1.5,bi:10.05,an_a:1.5,an_b:0,an_c:2.8,an_dis:2,an:6.3,total:16.75,t1_app:-4.65,t1_final:12.1,note:"ереже бұзғаны үшін (-1)"},
+      {name:"Хлобышева Дарья",region:"Павлодар",bc_exp:1.5,bc_th:0.2,bc:1.7,bi_a:1.65,bi_b:1.25,bi_c:0.75,bi_d:1.5,bi:5.15,an_a:1.5,an_b:0.5,an_c:2.6,an_dis:2,an:6.6,total:13.45,t1_app:1.25,t1_final:14.7},
     ],
     tour2: [
-      {name:"Молданова Эльнара",region:"Абай",total2:17.6},{name:"Мұратханов Батырхан",region:"Абай",total2:11.8},
-      {name:"Ахметова Диана",region:"Ақмола",total2:19},{name:"Менгулов Егор",region:"Ақмола",total2:20.6},
-      {name:"Мереке Мирас",region:"Ақмола",total2:16.4},{name:"Бизат Бағлан",region:"Ақтөбе",total2:15.4},
-      {name:"Дүйжанов Арсен",region:"Ақтөбе",total2:18.6},{name:"Ерғалық Тамерлан",region:"Алматы қ.",total2:20.4},
-      {name:"Муслім Аруана",region:"Алматы қ.",total2:16},{name:"Мырзабай Бекнұртас",region:"Алматы қ.",total2:15.2},
-      {name:"Қали Дария",region:"Алматы обл.",total2:16.4},{name:"Жамбыл Жібек",region:"Астана",total2:17.8},
-      {name:"Кəдірбай Абылай",region:"Астана",total2:18.4},{name:"Серік Аяулым",region:"Астана",total2:14.2},
-      {name:"Гайнуллаев Али",region:"Атырау",total2:20.8},{name:"Зинеден Аян",region:"Атырау",total2:17.2},
-      {name:"Мухамбеткалиев Адиль",region:"Батыс Қазақстан",total2:16},{name:"Нсанбаева Дана",region:"Батыс Қазақстан",total2:16.4},
-      {name:"Мұрат Адэль",region:"Жамбыл",total2:22.8},{name:"Нұртілеу Мират",region:"Жамбыл",total2:18.4},
-      {name:"Муратқызы Мерей",region:"Жетісу",total2:18.4},{name:"Жусупбекова Назерке",region:"Қарағанды",total2:15.8},
-      {name:"Саят Айгерім",region:"Қарағанды",total2:14.8},{name:"Беилов Алтынбек",region:"Қостанай",total2:19},
-      {name:"Гмыря Надежда",region:"Қостанай",total2:16.2},{name:"Жансеріков Қайсар",region:"Қызылорда",total2:16.8},
-      {name:"Назаров Қасымжомарт",region:"Қызылорда",total2:18.8},{name:"Тебенбаев Дидар",region:"Қызылорда",total2:15.2},
-      {name:"Хайруллин Амирхан",region:"Маңғыстау",total2:13.6,note:"ереже бұзғаны үшін (-1)"},
-      {name:"Ержанұлы Батыр",region:"НЗМ ДББҰ",total2:23.2},{name:"Желтова Софья",region:"НЗМ ДББҰ",total2:23.6},
-      {name:"Исанова Далия",region:"НЗМ ДББҰ",total2:16.2},{name:"Нукенова Малика",region:"НЗМ ДББҰ",total2:22.6},
-      {name:"Таскынбаев Алихан",region:"НЗМ ДББҰ",total2:17.8},{name:"Қайркен Ерсұлтан",region:"Павлодар",total2:25},
-      {name:"Мастобаев Никита",region:"Павлодар",total2:15},{name:"Стрелова Ярослава",region:"Павлодар",total2:8.8,note:"ереже бұзғаны үшін (-1)"},
-      {name:"Титков Дмитрий",region:"Павлодар",total2:17.4},{name:"Хлобышева Дарья",region:"Павлодар",total2:16.2},
-      {name:"Азизов Тимур",region:"РФММ Алматы",total2:23.6},{name:"Береке Таслима",region:"РФММ Алматы",total2:6.6},
-      {name:"Мерейұлы Санжар",region:"РФММ Алматы",total2:13.2},{name:"Подлесная Анита",region:"СҚО",total2:22},
-      {name:"Төлеген Аруна",region:"СҚО",total2:17.2},{name:"Алкабай Үсен",region:"Түркістан",total2:14.4},
-      {name:"Зайт Мұхаммеджан",region:"Түркістан",total2:20.4},{name:"Буймов Александр",region:"Ұлытау",total2:20.2},
-      {name:"Үшкемпір Жанғали",region:"Ұлытау",total2:17.2},{name:"Мұқашев Дарын",region:"ШҚО",total2:24.4},
-      {name:"Уатхан Қаршыға",region:"ШҚО",total2:17.2},{name:"Бұланбай Нұртай",region:"Шымкент",total2:17.8},
-      {name:"Фадеев Александр",region:"Шымкент",total2:22.8},
+      {name:"Молданова Эльнара",region:"Абай",total2:17.6,t2_app:-0.4,t2_final:17.2},
+      {name:"Мұратханов Батырхан",region:"Абай",total2:11.8,t2_app:0,t2_final:11.8},
+      {name:"Ахметова Диана",region:"Ақмола",total2:19,t2_app:-0.2,t2_final:18.8},
+      {name:"Менгулов Егор",region:"Ақмола",total2:20.6,t2_app:-0.6,t2_final:20.0},
+      {name:"Мереке Мирас",region:"Ақмола",total2:16.4,t2_app:-0.2,t2_final:16.2},
+      {name:"Бизат Бағлан",region:"Ақтөбе",total2:15.4,t2_app:-0.2,t2_final:15.2},
+      {name:"Дүйжанов Арсен",region:"Ақтөбе",total2:18.6,t2_app:-0.6,t2_final:18.0},
+      {name:"Ерғалық Тамерлан",region:"Алматы қ.",total2:20.4,t2_app:1.0,t2_final:21.4},
+      {name:"Муслім Аруана",region:"Алматы қ.",total2:16,t2_app:0,t2_final:16.0},
+      {name:"Мырзабай Бекнұртас",region:"Алматы қ.",total2:15.2,t2_app:-0.8,t2_final:14.4},
+      {name:"Қали Дария",region:"Алматы обл.",total2:16.4,t2_app:-1.4,t2_final:15.0},
+      {name:"Жамбыл Жібек",region:"Астана",total2:17.8,t2_app:-1.2,t2_final:16.6},
+      {name:"Кəдірбай Абылай",region:"Астана",total2:18.4,t2_app:1.0,t2_final:19.4},
+      {name:"Серік Аяулым",region:"Астана",total2:14.2,t2_app:0,t2_final:14.2},
+      {name:"Гайнуллаев Али",region:"Атырау",total2:20.8,t2_app:-0.8,t2_final:20.0},
+      {name:"Зинеден Аян",region:"Атырау",total2:17.2,t2_app:-0.4,t2_final:16.8},
+      {name:"Мухамбеткалиев Адиль",region:"Батыс Қазақстан",total2:16,t2_app:-0.4,t2_final:15.6},
+      {name:"Нсанбаева Дана",region:"Батыс Қазақстан",total2:16.4,t2_app:0.8,t2_final:17.2},
+      {name:"Мұрат Адэль",region:"Жамбыл",total2:22.8,t2_app:-0.4,t2_final:22.4},
+      {name:"Нұртілеу Мират",region:"Жамбыл",total2:18.4,t2_app:-1.2,t2_final:17.2},
+      {name:"Муратқызы Мерей",region:"Жетісу",total2:18.4,t2_app:-0.8,t2_final:17.6},
+      {name:"Жусупбекова Назерке",region:"Қарағанды",total2:15.8,t2_app:1.2,t2_final:17.0},
+      {name:"Саят Айгерім",region:"Қарағанды",total2:14.8,t2_app:0.2,t2_final:15.0},
+      {name:"Беилов Алтынбек",region:"Қостанай",total2:19,t2_app:-1.4,t2_final:17.6},
+      {name:"Гмыря Надежда",region:"Қостанай",total2:16.2,t2_app:-0.8,t2_final:15.4},
+      {name:"Жансеріков Қайсар",region:"Қызылорда",total2:16.8,t2_app:0,t2_final:16.8},
+      {name:"Назаров Қасымжомарт",region:"Қызылорда",total2:18.8,t2_app:-1.0,t2_final:17.8},
+      {name:"Тебенбаев Дидар",region:"Қызылорда",total2:15.2,t2_app:-0.2,t2_final:15.0},
+      {name:"Хайруллин Амирхан",region:"Маңғыстау",total2:14.6,t2_app:0.8,t2_final:15.4,note:"ереже бұзғаны үшін (-1)"},
+      {name:"Ержанұлы Батыр",region:"НЗМ ДББҰ",total2:23.2,t2_app:-1.2,t2_final:22.0},
+      {name:"Желтова Софья",region:"НЗМ ДББҰ",total2:23.6,t2_app:0.2,t2_final:23.8},
+      {name:"Исанова Далия",region:"НЗМ ДББҰ",total2:16.2,t2_app:0,t2_final:16.2},
+      {name:"Нукенова Малика",region:"НЗМ ДББҰ",total2:22.6,t2_app:-1.0,t2_final:21.6},
+      {name:"Таскынбаев Алихан",region:"НЗМ ДББҰ",total2:17.8,t2_app:0.6,t2_final:18.4},
+      {name:"Қайркен Ерсұлтан",region:"Павлодар",total2:25,t2_app:-1.0,t2_final:24.0},
+      {name:"Мастобаев Никита",region:"Павлодар",total2:15,t2_app:-0.4,t2_final:14.6},
+      {name:"Стрелова Ярослава",region:"Павлодар",total2:9.8,t2_app:-0.8,t2_final:9.0,note:"ереже бұзғаны үшін (-1)"},
+      {name:"Титков Дмитрий",region:"Павлодар",total2:17.4,t2_app:0.8,t2_final:18.2},
+      {name:"Хлобышева Дарья",region:"Павлодар",total2:16.2,t2_app:-1.2,t2_final:15.0},
+      {name:"Азизов Тимур",region:"РФММ Алматы",total2:23.6,t2_app:2.6,t2_final:26.2},
+      {name:"Береке Таслима",region:"РФММ Алматы",total2:6.6,t2_app:0.2,t2_final:6.8},
+      {name:"Мерейұлы Санжар",region:"РФММ Алматы",total2:13.2,t2_app:1.0,t2_final:14.2},
+      {name:"Подлесная Анита",region:"СҚО",total2:22,t2_app:-0.2,t2_final:21.8},
+      {name:"Төлеген Аруна",region:"СҚО",total2:17.2,t2_app:-1.0,t2_final:16.2},
+      {name:"Алкабай Үсен",region:"Түркістан",total2:14.4,t2_app:0.2,t2_final:14.6},
+      {name:"Зайт Мұхаммеджан",region:"Түркістан",total2:20.4,t2_app:-1.4,t2_final:19.0},
+      {name:"Буймов Александр",region:"Ұлытау",total2:20.2,t2_app:0,t2_final:20.2},
+      {name:"Үшкемпір Жанғали",region:"Ұлытау",total2:17.2,t2_app:0,t2_final:17.2},
+      {name:"Мұқашев Дарын",region:"ШҚО",total2:24.4,t2_app:-1.2,t2_final:23.2},
+      {name:"Уатхан Қаршыға",region:"ШҚО",total2:17.2,t2_app:-1.2,t2_final:16.0},
+      {name:"Бұланбай Нұртай",region:"Шымкент",total2:17.8,t2_app:-1.0,t2_final:16.8},
+      {name:"Фадеев Александр",region:"Шымкент",total2:22.8,t2_app:-0.6,t2_final:22.2},
     ]
   }
 };
@@ -1231,36 +1263,15 @@ let searchQuery = '';
 
 const I18N = {
   kk: {
-    classLabel: 'СЫНЫП',
-    all: 'БАРЛЫҒЫ',
-    back: 'Артқа',
-    placeholder: 'Аты бойынша іздеу...',
-    region: 'Облыс',
-    fio: 'ФИО',
-    tour1sum: 'І ТУР ЖИЫНЫ',
-    tour2pts: 'ІІ ТУР ҰПАЙ',
-    final: 'ҚОРЫТЫНДЫ',
-    top3: 'ТОП 3',
-    allResults: 'БАРЛЫҚ НƏТИЖЕЛЕР',
-    appeal_msg: 'Апелляция нəтижелері əлі жарияланған жоқ.<br>Нəтижелер шыққаннан кейін мұнда қосылады.',
-    classSuffix: ' СЫНЫП',
-    allSuffix: '9 · 10 · 11 СЫНЫП',
+    classLabel: 'СЫНЫП', all: 'БАРЛЫҒЫ', back: 'Артқа', placeholder: 'Аты бойынша іздеу...', region: 'Облыс', fio: 'ФИО',
+    tour1sum: 'І ТУР ЖИЫНЫ', tour2pts: 'ІІ ТУР ҰПАЙ', final: 'ҚОРЫТЫНДЫ', top3: 'ТОП 3', allResults: 'БАРЛЫҚ НƏТИЖЕЛЕР',
+    classSuffix: ' СЫНЫП', allSuffix: '9 · 10 · 11 СЫНЫП',
+    appealPos: '+', appealNeg: '',
   },
   ru: {
-    classLabel: 'КЛАСС',
-    all: 'ВСЕ',
-    back: 'Назад',
-    placeholder: 'Поиск по имени...',
-    region: 'Регион',
-    fio: 'ФИО',
-    tour1sum: 'СУММА І ТУР',
-    tour2pts: 'БАЛЛЫ ІІ ТУР',
-    final: 'ИТОГО',
-    top3: 'ТОП 3',
-    allResults: 'ВСЕ РЕЗУЛЬТАТЫ',
-    appeal_msg: 'Результаты апелляции ещё не опубликованы.<br>Они появятся здесь после объявления.',
-    classSuffix: ' КЛАСС',
-    allSuffix: '9 · 10 · 11 КЛАСС',
+    classLabel: 'КЛАСС', all: 'ВСЕ', back: 'Назад', placeholder: 'Поиск по имени...', region: 'Регион', fio: 'ФИО',
+    tour1sum: 'СУММА І ТУР', tour2pts: 'БАЛЛЫ ІІ ТУР', final: 'ИТОГО', top3: 'ТОП 3', allResults: 'ВСЕ РЕЗУЛЬТАТЫ',
+    classSuffix: ' КЛАСС', allSuffix: '9 · 10 · 11 КЛАСС',
   }
 };
 
@@ -1279,21 +1290,21 @@ function showResults(cls) {
   document.getElementById('home').style.display = 'none';
   document.getElementById('results').style.display = 'block';
   const t = I18N[currentLang];
-  document.getElementById('headerClass').textContent = cls === 'all' ? t.allSuffix : cls + t.classSuffix;
+  document.getElementById('headerClass').textContent = cls==='all' ? t.allSuffix : cls+t.classSuffix;
   document.getElementById('searchInput').placeholder = t.placeholder;
   switchTab('tour1');
 }
 
 function switchTab(tab) {
   currentTab = tab;
-  const tabs = ['tour1','tour2','appeal','final'];
-  tabs.forEach(t => {
-    document.getElementById('tab-btn-' + t)?.classList.toggle('active', t === tab);
-    document.getElementById('tab-' + t).style.display = t === tab ? 'block' : 'none';
+  ['tour1','tour2','appeal','final'].forEach(t => {
+    document.getElementById('tab-btn-'+t)?.classList.toggle('active', t===tab);
+    document.getElementById('tab-'+t).style.display = t===tab ? 'block' : 'none';
   });
-  if (tab === 'tour1') renderTour1();
-  if (tab === 'tour2') renderTour2();
-  if (tab === 'final') renderFinal();
+  if (tab==='tour1') renderTour1();
+  if (tab==='tour2') renderTour2();
+  if (tab==='appeal') renderAppeal();
+  if (tab==='final') renderFinal();
 }
 
 function switchSubtab(sub) {
@@ -1302,40 +1313,44 @@ function switchSubtab(sub) {
     b.classList.toggle('active', b.getAttribute('onclick').includes(sub));
   });
   ['all-t1','biochem','bioinfo','anatomy'].forEach(s => {
-    const el = document.getElementById('subtab-' + s);
-    if (el) el.style.display = s === sub ? 'block' : 'none';
+    const el = document.getElementById('subtab-'+s);
+    if (el) el.style.display = s===sub ? 'block' : 'none';
   });
   renderTour1();
 }
 
 function filterTable() {
   searchQuery = document.getElementById('searchInput').value.toLowerCase();
-  if (currentTab === 'tour1') renderTour1();
-  if (currentTab === 'tour2') renderTour2();
-  if (currentTab === 'final') renderFinal();
+  if (currentTab==='tour1') renderTour1();
+  if (currentTab==='tour2') renderTour2();
+  if (currentTab==='appeal') renderAppeal();
+  if (currentTab==='final') renderFinal();
 }
 
 // ============================================================
 // DATA HELPERS
 // ============================================================
-function getClasses() {
-  return currentClass === 'all' ? [9, 10, 11] : [currentClass];
-}
-function getAllStudentsTour1() {
-  return getClasses().flatMap(c => DATA[c].tour1.map(s => ({...s, cls: c})));
-}
-function getAllStudentsTour2() {
-  return getClasses().flatMap(c => DATA[c].tour2.map(s => ({...s, cls: c})));
-}
+function getClasses() { return currentClass==='all' ? [9,10,11] : [currentClass]; }
+function getAllStudentsTour1() { return getClasses().flatMap(c => DATA[c].tour1.map(s => ({...s,cls:c}))); }
+function getAllStudentsTour2() { return getClasses().flatMap(c => DATA[c].tour2.map(s => ({...s,cls:c}))); }
 function fmt(n) {
-  if (n === undefined || n === null) return '—';
-  if (n === 0) return '0';
+  if (n===undefined||n===null) return '—';
+  if (n===0) return '0';
   return parseFloat(n.toFixed(2));
 }
+function fmtAppeal(n) {
+  if (n===undefined||n===null||n===0) return '0';
+  const v = parseFloat(n.toFixed(2));
+  return (v>0 ? '+' : '') + v;
+}
+function appealClass(n) {
+  if (!n||n===0) return 'score-appeal-zero';
+  return n>0 ? 'score-appeal-pos' : 'score-appeal-neg';
+}
 function rankClass(i) {
-  if (i === 0) return 'rank-1';
-  if (i === 1) return 'rank-2';
-  if (i === 2) return 'rank-3';
+  if (i===0) return 'rank-1';
+  if (i===1) return 'rank-2';
+  if (i===2) return 'rank-3';
   return '';
 }
 
@@ -1345,13 +1360,12 @@ function rankClass(i) {
 function renderTour1() {
   const t = I18N[currentLang];
   let students = getAllStudentsTour1()
-    .filter(s => s.name.toLowerCase().includes(searchQuery) || s.region.toLowerCase().includes(searchQuery))
-    .filter(s => s.total > 0 || s.bc > 0 || s.bi > 0 || s.an > 0);
+    .filter(s => s.name.toLowerCase().includes(searchQuery) || s.region.toLowerCase().includes(searchQuery));
 
-  const clsCls = currentClass === 'all';
+  const clsCls = currentClass==='all';
 
-  if (currentSubtab === 'all-t1') {
-    students.sort((a,b) => b.total - a.total);
+  if (currentSubtab==='all-t1') {
+    students.sort((a,b) => (b.t1_final||b.total)-(a.t1_final||a.total));
     document.getElementById('tbody-tour1-all').innerHTML = students.map((s,i) => `
       <tr>
         <td class="rank-cell ${rankClass(i)}">${i+1}</td>
@@ -1364,12 +1378,14 @@ function renderTour1() {
         <td class="right"><span class="score-badge">${fmt(s.bc)}</span></td>
         <td class="right"><span class="score-badge">${fmt(s.bi)}</span></td>
         <td class="right"><span class="score-badge">${fmt(s.an)}</span></td>
-        <td class="right"><span class="score-badge score-total">${fmt(s.total)}</span></td>
+        <td class="right"><span class="score-badge">${fmt(s.total)}</span></td>
+        <td class="right"><span class="score-appeal ${appealClass(s.t1_app)}">${fmtAppeal(s.t1_app)}</span></td>
+        <td class="right"><span class="score-badge score-total">${fmt(s.t1_final)}</span></td>
       </tr>`).join('');
   }
 
-  if (currentSubtab === 'biochem') {
-    students.sort((a,b) => b.bc - a.bc);
+  if (currentSubtab==='biochem') {
+    students.sort((a,b) => b.bc-a.bc);
     document.getElementById('tbody-tour1-biochem').innerHTML = students.map((s,i) => `
       <tr>
         <td class="rank-cell ${rankClass(i)}">${i+1}</td>
@@ -1381,8 +1397,8 @@ function renderTour1() {
       </tr>`).join('');
   }
 
-  if (currentSubtab === 'bioinfo') {
-    students.sort((a,b) => b.bi - a.bi);
+  if (currentSubtab==='bioinfo') {
+    students.sort((a,b) => b.bi-a.bi);
     document.getElementById('tbody-tour1-bioinfo').innerHTML = students.map((s,i) => `
       <tr>
         <td class="rank-cell ${rankClass(i)}">${i+1}</td>
@@ -1396,8 +1412,8 @@ function renderTour1() {
       </tr>`).join('');
   }
 
-  if (currentSubtab === 'anatomy') {
-    students.sort((a,b) => b.an - a.an);
+  if (currentSubtab==='anatomy') {
+    students.sort((a,b) => b.an-a.an);
     document.getElementById('tbody-tour1-anatomy').innerHTML = students.map((s,i) => `
       <tr>
         <td class="rank-cell ${rankClass(i)}">${i+1}</td>
@@ -1419,18 +1435,67 @@ function renderTour2() {
   const t = I18N[currentLang];
   const students = getAllStudentsTour2()
     .filter(s => s.name.toLowerCase().includes(searchQuery) || s.region.toLowerCase().includes(searchQuery))
-    .sort((a,b) => b.total2 - a.total2);
+    .sort((a,b) => (b.t2_final||b.total2)-(a.t2_final||a.total2));
 
   document.getElementById('tbody-tour2').innerHTML = students.map((s,i) => `
     <tr>
       <td class="rank-cell ${rankClass(i)}">${i+1}</td>
       <td class="name-cell">
         ${s.name}
-        ${currentClass === 'all' ? `<div class="subtable-detail">${s.cls} ${t.classLabel}</div>` : ''}
+        ${currentClass==='all' ? `<div class="subtable-detail">${s.cls} ${t.classLabel}</div>` : ''}
         ${s.note ? `<div class="note-cell">⚠ ${s.note}</div>` : ''}
       </td>
       <td><span class="chip-region">${s.region}</span></td>
-      <td class="right"><span class="score-badge score-total">${fmt(s.total2)}</span></td>
+      <td class="right"><span class="score-badge">${fmt(s.total2)}</span></td>
+      <td class="right"><span class="score-appeal ${appealClass(s.t2_app)}">${fmtAppeal(s.t2_app)}</span></td>
+      <td class="right"><span class="score-badge score-total">${fmt(s.t2_final)}</span></td>
+    </tr>`).join('');
+}
+
+// ============================================================
+// RENDER APPEAL
+// ============================================================
+function renderAppeal() {
+  const t = I18N[currentLang];
+  const tour1Map = {};
+  getAllStudentsTour1().forEach(s => { tour1Map[s.name] = s; });
+  const tour2Map = {};
+  getAllStudentsTour2().forEach(s => { tour2Map[s.name] = s; });
+
+  const names = new Set([...Object.keys(tour1Map), ...Object.keys(tour2Map)]);
+  const combined = [...names].map(name => {
+    const s1 = tour1Map[name] || {};
+    const s2 = tour2Map[name] || {};
+    const t1app = s1.t1_app || 0;
+    const t2app = s2.t2_app || 0;
+    return {
+      name, region: s1.region||s2.region, cls: s1.cls||s2.cls,
+      t1_before: s1.total||0, t1_app: t1app, t1_after: s1.t1_final||(s1.total+t1app)||0,
+      t2_before: s2.total2||0, t2_app: t2app, t2_after: s2.t2_final||(s2.total2+t2app)||0,
+      total_change: t1app + t2app,
+      note: s1.note||s2.note
+    };
+  })
+  .filter(s => (s.t1_app!==0||s.t2_app!==0))
+  .filter(s => s.name.toLowerCase().includes(searchQuery)||(s.region||'').toLowerCase().includes(searchQuery))
+  .sort((a,b) => Math.abs(b.total_change)-Math.abs(a.total_change));
+
+  document.getElementById('tbody-appeal').innerHTML = combined.map((s,i) => `
+    <tr>
+      <td class="rank-cell">${i+1}</td>
+      <td class="name-cell">
+        ${s.name}
+        ${currentClass==='all' ? `<div class="subtable-detail">${s.cls} ${t.classLabel}</div>` : ''}
+        ${s.note ? `<div class="note-cell">⚠ ${s.note}</div>` : ''}
+      </td>
+      <td><span class="chip-region">${s.region}</span></td>
+      <td class="right"><span class="score-badge">${fmt(s.t1_before)}</span></td>
+      <td class="right"><span class="score-appeal ${appealClass(s.t1_app)}">${fmtAppeal(s.t1_app)}</span></td>
+      <td class="right"><span class="score-badge">${fmt(s.t1_after)}</span></td>
+      <td class="right"><span class="score-badge">${fmt(s.t2_before)}</span></td>
+      <td class="right"><span class="score-appeal ${appealClass(s.t2_app)}">${fmtAppeal(s.t2_app)}</span></td>
+      <td class="right"><span class="score-badge">${fmt(s.t2_after)}</span></td>
+      <td class="right"><span class="score-appeal ${appealClass(s.total_change)}" style="font-size:17px;padding:4px 12px">${fmtAppeal(s.total_change)}</span></td>
     </tr>`).join('');
 }
 
@@ -1446,20 +1511,18 @@ function renderFinal() {
 
   const names = new Set([...Object.keys(tour1Map), ...Object.keys(tour2Map)]);
   const combined = [...names].map(name => {
-    const s1 = tour1Map[name] || {};
-    const s2 = tour2Map[name] || {};
+    const s1 = tour1Map[name]||{};
+    const s2 = tour2Map[name]||{};
+    const t1f = s1.t1_final != null ? s1.t1_final : (s1.total||0);
+    const t2f = s2.t2_final != null ? s2.t2_final : (s2.total2||0);
     return {
-      name,
-      region: s1.region || s2.region,
-      cls: s1.cls || s2.cls,
-      t1: s1.total || 0,
-      t2: s2.total2 || 0,
-      final: (s1.total || 0) + (s2.total2 || 0),
-      note: s1.note || s2.note
+      name, region: s1.region||s2.region, cls: s1.cls||s2.cls,
+      t1: t1f, t2: t2f, final: t1f + t2f,
+      note: s1.note||s2.note
     };
   })
-  .filter(s => s.name.toLowerCase().includes(searchQuery) || (s.region || '').toLowerCase().includes(searchQuery))
-  .sort((a,b) => b.final - a.final);
+  .filter(s => s.name.toLowerCase().includes(searchQuery)||(s.region||'').toLowerCase().includes(searchQuery))
+  .sort((a,b) => b.final-a.final);
 
   const medals = ['🥇','🥈','🥉'];
   document.getElementById('top3-cards').innerHTML = combined.slice(0,3).map((s,i) => `
@@ -1483,12 +1546,10 @@ function renderFinal() {
       <td><span class="chip-region">${s.region}</span></td>
       <td class="right"><span class="score-badge">${fmt(s.t1)}</span></td>
       <td class="right"><span class="score-badge">${fmt(s.t2)}</span></td>
-      <td class="right"><span class="score-na">—</span></td>
       <td class="right"><span class="score-badge ${i<3?'score-top':'score-total'}">${fmt(s.final)}</span></td>
     </tr>`).join('');
 }
 
-// Init search placeholder
 document.getElementById('searchInput').placeholder = I18N[currentLang].placeholder;
 </script>
 </body>
