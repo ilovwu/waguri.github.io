@@ -83,7 +83,7 @@ body {
 /* ========== LANG TOGGLE ========== */
 .lang-toggle {
   position: fixed;
-  top: 16px;
+  top: 20px;
   right: 24px;
   z-index: 1000;
   display: flex;
@@ -312,6 +312,7 @@ body {
   height: 62px;
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: 16px;
 }
 
@@ -349,11 +350,7 @@ body {
   color: var(--accent);
 }
 
-.search-box {
-  position: relative;
-  flex: 1;
-}
-
+.search-box { position: relative; }
 .search-input {
   background: var(--bg2);
   border: 1px solid var(--border);
@@ -362,7 +359,7 @@ body {
   font-size: 11px;
   padding: 8px 14px 8px 34px;
   border-radius: 4px;
-  width: 100%;
+  width: 200px;
   outline: none;
   transition: border-color 0.2s;
 }
@@ -658,25 +655,9 @@ tbody tr:nth-child(10) { animation-delay: 0.30s; }
 <div class="bg-glow-bottom"></div>
 
 <!-- Language toggle -->
-<!-- Язык — фиксированный в углу -->
 <div class="lang-toggle">
   <button class="lang-btn active" id="btn-kk" onclick="setLang('kk')">ҚАЗ</button>
   <button class="lang-btn" id="btn-ru" onclick="setLang('ru')">РУС</button>
-</div>
-
-<!-- Хедер результатов — только назад + поиск -->
-<div class="header">
-  <div class="header-left">
-    <button class="back-btn" onclick="showHome()">← <span data-kk="Артқа" data-ru="Назад">Артқа</span></button>
-    <div>
-      <span class="header-title" data-kk="БИОЛОГИЯ · " data-ru="БИОЛОГИЯ · ">БИОЛОГИЯ · </span>
-      <span class="header-class-badge" id="headerClass"></span>
-    </div>
-  </div>
-  <div class="search-box">
-    <span class="search-icon">🔍</span>
-    <input class="search-input" type="text" id="searchInput" oninput="filterTable()">
-  </div>
 </div>
 
 <!-- ===== HOME PAGE ===== -->
@@ -737,11 +718,11 @@ tbody tr:nth-child(10) { animation-delay: 0.30s; }
         <span class="header-class-badge" id="headerClass"></span>
       </div>
     </div>
-    
     <div class="search-box">
       <span class="search-icon">🔍</span>
       <input class="search-input" type="text" id="searchInput" oninput="filterTable()">
     </div>
+  </div>
 
   <div class="results-content">
     <div class="section-tabs">
@@ -1509,153 +1490,6 @@ function renderFinal() {
 
 // Init search placeholder
 document.getElementById('searchInput').placeholder = I18N[currentLang].placeholder;
-</script>
-  <!-- ===== RICKROLL BUTTON ===== -->
-<div id="secret-btn" onclick="triggerRickroll()">
-  <span data-kk="🔴 Баспа" data-ru="🔴 Не жми">🔴 Баспа</span>
-</div>
-
-<!-- RICKROLL MODAL -->
-<div id="rickroll-overlay" onclick="closeRickroll()">
-  <div id="rickroll-box" onclick="event.stopPropagation()">
-    <button id="rickroll-close" onclick="closeRickroll()">✕</button>
-    <p id="rickroll-text">Айтқан едім... 😈</p>
-    <iframe id= "rickroll-frame"
-      src=""
-      width="100%" height="100%"
-      allow="autoplay; encrypted-media"
-      allowfullscreen frameborder="0">
-    </iframe>
-  </div>
-</div>
-
-<style>
-#secret-btn {
-  position: fixed;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
-  writing-mode: vertical-rl;
-  text-orientation: mixed;
-  background: linear-gradient(180deg, #ff4444, #cc0000);
-  color: white;
-  font-family: 'Montserrat', sans-serif;
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 2px;
-  padding: 18px 10px;
-  border-radius: 8px 0 0 8px;
-  cursor: pointer;
-  z-index: 9999;
-  box-shadow: -4px 0 20px rgba(255,68,68,0.5);
-  user-select: none;
-  animation: pulse-btn 2s infinite;
-  transition: padding 0.3s;
-}
-#secret-btn:hover {
-  padding: 22px 12px;
-  box-shadow: -6px 0 30px rgba(255,68,68,0.8);
-}
-}
-#secret-btn:hover {
-  right: -60px;
-  box-shadow: -6px 0 30px rgba(255,68,68,0.7);
-}
-@keyframes pulse-btn {
-  0%, 100% { box-shadow: -4px 0 20px rgba(255,68,68,0.4); }
-  50%       { box-shadow: -4px 0 32px rgba(255,68,68,0.8); }
-}
-
-#rickroll-overlay {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.85);
-  z-index: 99999;
-  align-items: center;
-  justify-content: center;
-  backdrop-filter: blur(6px);
-  animation: fadeIn 0.3s ease;
-}
-#rickroll-overlay.active { display: flex; }
-
-#rickroll-box {
-  position: relative;
-  width: min(700px, 92vw);
-  height: min(430px, 55vw);
-  background: #000;
-  border-radius: 12px;
-  overflow: hidden;
-  border: 2px solid #ff4444;
-  box-shadow: 0 0 60px rgba(255,68,68,0.5);
-  animation: zoomIn 0.3s ease;
-}
-@keyframes zoomIn {
-  from { transform: scale(0.7); opacity: 0; }
-  to   { transform: scale(1);   opacity: 1; }
-}
-
-#rickroll-text {
-  position: absolute;
-  top: 10px; left: 50%;
-  transform: translateX(-50%);
-  color: #ff4444;
-  font-family: 'Montserrat', sans-serif;
-  font-size: 13px;
-  font-weight: 700;
-  letter-spacing: 2px;
-  z-index: 2;
-  background: rgba(0,0,0,0.7);
-  padding: 4px 14px;
-  border-radius: 20px;
-  white-space: nowrap;
-}
-
-#rickroll-frame {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-}
-
-#rickroll-close {
-  position: absolute;
-  top: 8px; right: 10px;
-  z-index: 3;
-  background: rgba(255,68,68,0.8);
-  border: none;
-  color: white;
-  font-size: 16px;
-  width: 30px; height: 30px;
-  border-radius: 50%;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: background 0.2s;
-}
-#rickroll-close:hover { background: #ff4444; }
-</style>
-
-<script>
-function triggerRickroll() {
-  const overlay = document.getElementById('rickroll-overlay');
-  // autoplay=1 — автозапуск при открытии
-  document.getElementById('rickroll-frame').src =
-    'https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1&rel=0';
-  overlay.classList.add('active');
-}
-
-function closeRickroll() {
-  document.getElementById('rickroll-overlay').classList.remove('active');
-  // Останавливаем видео убирая src
-  document.getElementById('rickroll-frame').src = '';
-}
-
-// Закрытие по Escape
-document.addEventListener('keydown', e => {
-  if (e.key === 'Escape') closeRickroll();
-});
 </script>
 </body>
 </html>
